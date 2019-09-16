@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			window.onload = () => {
+				const fragment = new URLSearchParams(window.location.search);
+console.log(fragment.get("token"));
+				if (fragment.has("token")) {
+					const accessToken = fragment.get("token");
+					const tokenType = "Bearer";
+
+					fetch('https://discordapp.com/api/users/@me', {
+						headers: {
+							authorization: `${tokenType} ${accessToken}`
+						}
+					})
+						.then(res => res.json())
+						.then(response => {
+							const { username, discriminator } = response;
+							console.log(username);
+						})
+						.catch(console.error);
+
+				}
+			}
+		</script>
+
+		<main id="game"></main>
+		<script src="/vendor/phaser.js"></script>
+		<script src="/main.js"></script>
+	</body>
+</html>

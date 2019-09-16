@@ -15,5 +15,5 @@ app.get('/', (req, res) => {
 	res.redirect("/discord/login");
 });
 
-app.listen(8000, () => {
+app.listen(80, () => {
 });

@@ -6,7 +6,7 @@ const { catchAsync } = require('./utils');
 
 const CLIENT_ID = "613352027820523520";
 const CLIENT_SECRET = "QDd2AWl8BXQeKZaa2zYPgvyC1feyS2zG";
-const redirect = encodeURIComponent('http://localhost:8000/discord/callback');
+const redirect = encodeURIComponent('http://lav.dev.yoctu.ovh/discord/callback');
 
 router.get('/login', (req, res) => {
   res.redirect(`https://discordapp.com/api/oauth2/authorize?client_id=${CLIENT_ID}&scope=identify&response_type=code&redirect_uri=${redirect}`);

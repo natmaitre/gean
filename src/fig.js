@@ -19,7 +19,7 @@ window.onload = function () {
 
 	objects.loadEnemyTextures();
 
-	var gameOverTexture = new THREE.TextureLoader().load('gfx/gameOver.png');
+	var gameOverTexture = new THREE.TextureLoader().load('gfx/startgame.png');
 	var gameOverMaterial = new THREE.SpriteMaterial({
 		map: gameOverTexture, color: 0xffffff
 	});

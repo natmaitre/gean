@@ -11,6 +11,8 @@ window.onload = function () {
 		antialias: false
 	});
 	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.shadowMapEnabled = true;
+    renderer.shadowMapSoft = true;
 	document.body.appendChild(renderer.domElement);
 
 	var crateTexture = new THREE.TextureLoader().load('gfx/crosshairs.gif');
@@ -38,14 +40,37 @@ window.onload = function () {
 	var score = 0;
 	var difficulty = 1;
 
+	//var light = new THREE.HemisphereLight(0xFFFFFF, 0x999999, 1);
+	var light = new THREE.SpotLight( 0xffffff );
+	light.position.set(0, 1000, 3000);
+	light.castShadow = true; 
+	light.shadow.mapSize.width = 2048;
+	light.shadow.mapSize.height = 2048;	
+	light.shadow.camera.near = 0.5;
+	light.shadow.camera.far = 100;
+	scene.add(light);
+
+	var dirLight = new THREE.DirectionalLight(0xffffff, 1);
+	dirLight.color.setHSL(0.1, 1, 0.95);
+	dirLight.position.set(300, 1000, -500);
+	dirLight.position.multiplyScalar(50);
+	dirLight.castShadow = true;
+	dirLight.shadow.mapSize.width = 2048;
+	dirLight.shadow.mapSize.height = 2048;
+	dirLight.shadow.camera.left = -50;
+	dirLight.shadow.camera.right = 50;
+	dirLight.shadow.camera.top = 50;
+	dirLight.shadow.camera.bottom = -50;
+	dirLight.shadow.camera.far = 3500;
+	dirLight.shadow.bias = -0.0001;
+	scene.add(dirLight);
+
 	var floorTexture = new THREE.TextureLoader().load('gfx/checkeredFloorBrown.jpg');
-	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set(20, 20);
-	var floorMaterial = new THREE.MeshBasicMaterial({
-		map: floorTexture,
+	var floorMaterial = new THREE.MeshPhongMaterial({
+		color: 0x6C6C6C,
 		side: THREE.DoubleSide
-	});
-	var floorGeometry = new THREE.PlaneGeometry(5000, 10000, 10, 10);
+    });
+	var floorGeometry = new THREE.PlaneBufferGeometry(5000, 10000, 10, 10);
 	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
 	var floorHalfHeight = floor.geometry.parameters.height / 2;
 	var floorHalfWidth = floor.geometry.parameters.width / 2;
@@ -74,31 +99,6 @@ window.onload = function () {
 	cubeF.position.set(2000, 0, 0);
 	scene.add(cubeF);
 
-	var light = new THREE.HemisphereLight(0xFFFFFF, 0x999999, 1);
-	light.position.set(0, 1000, -5000);
-	scene.add(light);
-
-	dirLight = new THREE.DirectionalLight(0xffffff, 1);
-	dirLight.color.setHSL(0.1, 1, 0.95);
-	dirLight.position.set(300, 100, -500);
-	dirLight.position.multiplyScalar(50);
-	scene.add(dirLight);
-
-	dirLight.castShadow = true;
-
-	dirLight.shadow.mapSize.width = 2048;
-	dirLight.shadow.mapSize.height = 2048;
-
-	var d = 50;
-
-	dirLight.shadow.camera.left = -d;
-	dirLight.shadow.camera.right = d;
-	dirLight.shadow.camera.top = d;
-	dirLight.shadow.camera.bottom = -d;
-
-	dirLight.shadow.camera.far = 3500;
-	dirLight.shadow.bias = -0.0001;
-
 	var imagePrefix = "gfx/skybox-";
 	var directions = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
 	var imageSuffix = ".jpg";
@@ -125,6 +125,8 @@ window.onload = function () {
 			spaceship.rotation.y += Math.PI;
 			scene.add(spaceship);
 			spaceship.position.z = -100;
+			spaceship.receiveShadow = true;
+			spaceship.castShadow = true;
 			particles.init(scene, camera, spaceship);
 		});
 	}

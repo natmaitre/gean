@@ -1,74 +1,28 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>ThreeJS</title>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8">
+	<title>Harrier</title>
+	<link rel="icon" type="image/png" sizes="16x16"
+		href="https://www.yoctu.com/wp-content/themes/yoctu/images/favicon/favicon-16x16.png">
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<style>
 
-<style>
-body {
-	background:#000;
-	overflow:hidden;
-	padding:0;
-	margin:0;
-	}
-	
-#gui {
-	position:absolute;
-	top:30px;
-	left:30px;
-	color:#FFF;
-	font-family: 'Droid Sans', sans-serif;
-	font-size:16px;
-	font-weight:700;
-	}
-	
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
-<script src='https://cdn.jsdelivr.net/gh/mrdoob/Three.js@master/examples/js/loaders/GLTFLoader.js'></script>
-<script src="src/functions.js"></script>
-<script src="src/objects.js"></script>
-<script src="src/obstacles.js"></script>
-<script src="src/particles.js"></script>
-<script src="src/player.js"></script>
-<script src="src/controls.js"></script>
-<script src="src/fig.js"></script>
-
-<!-- Custom shaders for particle effects -->
-<script type="x-shader/x-vertex" id="vertexshader">
-uniform float time;
-attribute vec3 customColor;
-varying vec3 vColor;
-void main() 
-{
-	vColor = customColor; // set color associated to vertex; use later in fragment shader.
-
-	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-
-	// option (1): draw particles at constant size on screen
-	// gl_PointSize = size;
-    // option (2): scale particles as objects in 3D space
-	gl_PointSize = 40.0 * ( 300.0 / length( mvPosition.xyz ) );
-	gl_Position = projectionMatrix * mvPosition;
-}
-</script>
-
-<script type="x-shader/x-fragment" id="fragmentshader">
-uniform sampler2D texture;
-varying vec3 vColor; // colors associated to vertices, assigned by vertex shader
-void main() 
-{
-	// calculates a color for the particle
-	gl_FragColor = vec4( vColor, 1.0 );
-	// sets a white particle texture to desired color
-	gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
-}
-</script>
-<!-- end of custom shaders -->
-
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+	<script src="src/functions.js"></script>
+	<script src="src/objects.js"></script>
+	<script src="src/obstacles.js"></script>
+	<script src="src/particles.js"></script>
+	<script src="src/player.js"></script>
+	<script src="src/controls.js"></script>
+	<script src="src/fig.js"></script>
 </head>
 
 <body>
-    <div id="gui">SCORE</div>
+	<div id="gui"></div>
 </body>
+
 </html>

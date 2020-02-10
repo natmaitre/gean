@@ -18,7 +18,7 @@ var controls = function (camera, playerMesh) {
 	if (Key.isDown(Key.LEFT)) {
 		player.turnLeft();
 	}
-	
+
 	if (Key.isDown(Key.RIGHT)) {
 		player.turnRight();
 	}
@@ -32,13 +32,13 @@ var controls = function (camera, playerMesh) {
 	}
 
 	player.update();
-	
+
 	playerMesh.position.set(player.x, player.y, player.z)
 	playerMesh.rotation.z = player.rotation;
-	
-	camera.position.set(player.x/1.1, player.y/1.3 + cameraOffsetY, player.z + cameraOffsetZ)
+
+	camera.position.set(player.x / 1.1, player.y / 1.3 + cameraOffsetY, player.z + cameraOffsetZ)
 	camera.rotation.z = player.flipRotation;
-	
+
 	if (Key.isDown(Key.ENTER)) {
 		camera.rotation.y = Math.PI;
 	} else {
@@ -47,15 +47,15 @@ var controls = function (camera, playerMesh) {
 
 	if (navigator.getGamepads()) {
 		var pads = navigator.getGamepads();
-		var pad = pads[0]; 
+		var pad = pads[0];
 		if (pad !== null) {
-			if ( pad.buttons[12].pressed || (pad.axes[1] < -0.5))
+			if (pad.buttons[12].pressed || (pad.axes[1] < -0.5))
 				player.moveUp();
-			if ( pad.buttons[13].pressed || (pad.axes[1] > 0.5))
+			if (pad.buttons[13].pressed || (pad.axes[1] > 0.5))
 				player.moveDown();
-			if ( pad.buttons[14].pressed || (pad.axes[0] < -0.5))
+			if (pad.buttons[14].pressed || (pad.axes[0] < -0.5))
 				player.turnLeft();
-			if ( pad.buttons[15].pressed || (pad.axes[0] > 0.5))
+			if (pad.buttons[15].pressed || (pad.axes[0] > 0.5))
 				player.turnRight();
 		}
 	}

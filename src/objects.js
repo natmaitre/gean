@@ -1,33 +1,23 @@
 var objects = (function () {
-	
 	var gems = [];
-	
 	var bluegemMaterial;
 	var bluegemGeometry;
-
 	var redgemMaterial;
 	var redgemGeometry;
-
 	var greengemMaterial;
 	var greengemGeometry;
-
 	var whitegemMaterial;
 	var whitegemGeometry;
-	
 	var enemyTexture;
 	var enemyMaterial;
-	
 	var enemyBulletTexture;
 	
 	function loadGems() {
-		//var jsonLoader = new THREE.JSONLoader();
 		var jsonLoader = new THREE.ObjectLoader();
-		jsonLoader.load("https://threejs.org/examples/models/json/teapot-claraio.json", addBlueGem);
-		/*jsonLoader.load( "models/bluegem.js", addBlueGem );
-		jsonLoader.load( "models/greengem.js", addGreenGem);
-		jsonLoader.load( "models/redgem.js", addRedGem);
-		jsonLoader.load( "models/whitegem.js", addWhiteGem);*/
-		
+		jsonLoader.load( "models/gem.json", addBlueGem);
+		jsonLoader.load( "models/gem.json", addGreenGem);
+		jsonLoader.load( "models/gem.json", addRedGem);
+		jsonLoader.load( "models/gem.json", addWhiteGem);
 	}
 	 
 	function loadEnemyTextures() {
@@ -35,46 +25,32 @@ var objects = (function () {
 		enemyBulletTexture = new THREE.TextureLoader().load('gfx/bullet.png');
 	}
 	
-	function addBlueGem(geometry, materials) {
-		bluegemMaterial = new THREE.MeshFaceMaterial( materials );
-		bluegemGeometry = geometry;
-		gems["blue"] = new THREE.Mesh( bluegemGeometry, bluegemMaterial );
-		gems["blue"].scale.set(100,100,100);
+	function addBlueGem(obj) {
+		gems["blue"] = obj;
+		gems["blue"].scale.set(100, 100, 100);
 		gems["blue"].value = 100;
 	}
 
-	function addGreenGem(geometry, materials) {
-		greengemMaterial = new THREE.MeshFaceMaterial( materials );
-		greengemGeometry = geometry;
-		gems["green"] = new THREE.Mesh( greengemGeometry, greengemMaterial );
-		gems["green"].scale.set(100,100,100);
+	function addGreenGem(obj) {
+		gems["green"] = obj;
+		gems["green"].scale.set(100, 100, 100);
 		gems["green"].value = 250;
 	}
 
-
-	function addRedGem(geometry, materials) {
-		redgemMaterial = new THREE.MeshFaceMaterial( materials );
-		redgemGeometry = geometry;
-		gems["red"] = new THREE.Mesh( redgemGeometry, redgemMaterial );
-		gems["red"].scale.set(100,100,100);
+	function addRedGem(obj) {
+		gems["red"] = obj;
+		gems["red"].scale.set(100, 100, 100);
 		gems["red"].value = 500;
-		
 	}
 
-	function addWhiteGem(geometry, materials) {
-		whitegemMaterial = new THREE.MeshFaceMaterial( materials );
-		whitegemGeometry = geometry;
-		gems["white"] = new THREE.Mesh( whitegemGeometry, whitegemMaterial );
-		gems["white"].scale.set(100,100,100);
-		gems["white"].value = 500;
-		
+	function addWhiteGem(obj) {
+		gems["white"] = obj;
+		gems["white"].scale.set(100, 100, 100);
+		gems["white"].value = 1000;
 	}
 	
 	function makeGem(color) {
-		var gem = gems[color];
-		return gem;
-		
-		
+		return gems[color];
 	}
 	
 	function makeEnemy() {
@@ -83,9 +59,7 @@ var objects = (function () {
 		enemy.vx = 0;
 		enemy.vy = 0;
 		enemy.vz = 0;
-		
 		return enemy;
-		
 	}
 	
 	function makeEnemyBullet() {
@@ -94,39 +68,26 @@ var objects = (function () {
 		enemy.vx = 0;
 		enemy.vy = 0;
 		enemy.vz = 0;
-		
 		return enemy;
 	}
 	
-	// Cube idea
 	function makeCube(dimensions) {
 		var cube;
-		// Create an array of materials to be used in a cube, one for each side
 		var cubeMaterialArray = [];
-		// order to add materials: x+,x-,y+,y-,z+,z-
-		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0xe0d8c6 } ) );
 		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
-		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0xe0d8c6 } ) );
 		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
-		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0xd7cbb0 } ) );
 		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
-		//var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
-		// Cube parameters: width (x), height (y), depth (z),
-		//        (optional) segments along x, segments along y, segments along z
+		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
+		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
+		cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x837f75 } ) );
 		var cubeGeometry = new THREE.CubeGeometry( dimensions.x, dimensions.y, dimensions.z, 1, 1, 1 );
-		// using THREE.MeshFaceMaterial() in the constructor below
-		//   causes the mesh to use the materials stored in the geometry
 		cube = new THREE.Mesh( cubeGeometry, cubeMaterialArray );
 		cube.geometry.computeBoundingBox();
-		
-		cube.geometry.dynamic=false;
+		cube.geometry.dynamic = false;
 		return cube;
 	};
 	
-	
-	
 	function makeBullet() {
-	
 		var bulletMaterial = new THREE.MeshBasicMaterial({color:0x00d4dc});
 		var bulletGeometry = new THREE.CubeGeometry(5,5,50,1,1,1);
 		var bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
@@ -149,5 +110,3 @@ var objects = (function () {
 	};
 
 })()
-
-

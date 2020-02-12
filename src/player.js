@@ -16,7 +16,7 @@ var player = {
 	leftBound: -1300,
 	rightBound: 1300,
 	flipSpeed:3,
-	flipRollSpeed:0.17453292519943295769236907684886,
+	flipRollSpeed:0.03,
 	flipCharge:0,
 	flipRotation:0,
 	boostSpeed:5,
@@ -42,11 +42,11 @@ var player = {
 	boosting:false,
 	braking:false,
 	flipping:false,
+	unflipping:false,
 	flipDirection:"",
 	lastFlipDirection:"",
 	inverted:false,
 	dead:false,
-	
 	
 	init : function() {
 		this.x = 30;
@@ -71,7 +71,6 @@ var player = {
 		this.difficulty++;
 		this.vz += 3;
 		if (this.vz > this.maxSpeed) this.vz = this.maxSpeed;
-		
 		if(this.difficulty <= 9) {
 			var up = 0.1;
 			var maxUp = 0.3;
@@ -84,7 +83,6 @@ var player = {
 		}
 	},
 	
-	
 	turnLeft : function() {
 		this.vx -= this.turnSpeed;
 		if (this.vx < -this.maxTurnSpeed*2) this.vx = -this.maxTurnSpeed*2;
@@ -94,6 +92,7 @@ var player = {
 		this.vx += this.turnSpeed;
 		if (this.vx > this.maxTurnSpeed*2) this.vx = this.maxTurnSpeed*2;
 	},
+
 	moveUp:function () {
 		this.vy += this.liftSpeed;
 		if (this.vy > this.maxLiftSpeed) this.vy = this.maxLiftSpeed;
@@ -130,73 +129,31 @@ var player = {
 			this.braking = false;
 			this.vz = this.speed;
 		}
-		
 	},
 	
 	applyDrift : function() {
 		this.vx *= this.drift;
 		if (Math.abs(this.vx) < .01) this.vx = 0;
-		
 		this.vy *= this.drift;
 		if (Math.abs(this.vy) < .01) this.vy = 0;
 	},
 	
+	applyFlat : function() {
+		if (this.rotation < Math.PI/2) this.rotation += this.flipRollSpeed;
+		else this.rotation = Math.PI/2;
+		this.flipping = true;
+	},
+
+	removeFlat : function() {
+		if (this.flipping) return
+		if (this.rotation > 0) this.rotation -= this.flipRollSpeed;
+		else this.rotation = 0;
+	},
+
 	applyRoll : function() {
-		if (this.flipping) {
-			if (this.flipDirection == "left") {
-				if(!this.inverted) {
-					
-					if (this.flipRotation < Math.PI*2 && this.flipRotation >= Math.PI) {
-						this.flipRotation += this.flipRollSpeed;
-						if (this.flipRotation > Math.PI*2) this.flipRotation = 0;
-					} 
-					
-				} else {
-					if (this.flipRotation < Math.PI) {
-						this.flipRotation += this.flipRollSpeed;
-						if (this.flipRotation > Math.PI) this.flipRotation = Math.PI;
-					} 
-				}
-			}	
-			else if (this.flipDirection == "right") {
-				
-				if(!this.inverted) {
-					
-					if (this.flipRotation > -Math.PI*2 && this.flipRotation <= -Math.PI) {
-						this.flipRotation -= this.flipRollSpeed;
-						if (this.flipRotation <= -Math.PI*2) this.flipRotation = 0;
-					} 
-					
-				} else {
-					if (this.flipRotation > -Math.PI) {
-						this.flipRotation -= this.flipRollSpeed;
-						if (this.flipRotation < -Math.PI) this.flipRotation = -Math.PI;
-					} 
-				}
-			}
-			/*
-			if (this.flipRotation < Math.PI) {
-				this.flipRotation += this.flipRollSpeed;
-				if (this.flipRotation > Math.PI) this.flipRotation = Math.PI;
-			} 
-			/*else if (this.flipDirection == "left" && this.rotation != -Math.PI) {
-				this.rotation -= 0.2;
-				if (this.rotation < -Math.PI) this.rotation = -Math.PI;
-			}*/
-		} 
 		var turnAngle = this.vx * 0.03;
-		if (this.inverted) turnAngle *= -1;
-		
+		if (this.inverted) turnAngle *= -1;	
 		this.rotation = turnAngle + this.flipRotation;
-		//if (this.rotation < -this.maxRotation) this.rotation = -this.maxRotation;
-		//else if (this.rotation > this.maxRotation) this.rotation = this.maxRotation;
-	
-		
-		/*
-		if (this.inverted && ! this.flipping) {
-			this.rotation += Math.PI;
-		}*/
-		
 	},
 	
 	flip : function(direction) {
@@ -218,13 +175,7 @@ var player = {
 			}
 			return true;
 		}
-		else return false;
-		/*
-		if (this.vx > 0 ) {
-			this.vx = this.flipSpeed * 2;
-		}
-		*/
-		
+		else return false;	
 	},
 	
 	stopFlipping:function () {
@@ -243,16 +194,6 @@ var player = {
 		else if (this.y < this.minAltitude) this.y = this.minAltitude;
 		if (this.x > this.rightBound) this.x = this.rightBound;
 		else if (this.x < this.leftBound) this.x = this.leftBound;
-		if(this.flipping) {
-			//this.rotation += this.flipRollSpeed;
-			if ( (this.vy < 0 && this.y < -this.startingAltitude) || (this.vy > 0 && this.y > this.startingAltitude)) {
-				this.stopFlipping();
-			}
-		} else {
-			if (this.flipCharge < 100) {
-				this.flipCharge ++;
-			}
-		}
 		this.z -= this.vz;
 	},
 

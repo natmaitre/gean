@@ -65,7 +65,6 @@ window.onload = function () {
 	dirLight.shadow.bias = -0.0001;
 	scene.add(dirLight);
 
-	var floorTexture = new THREE.TextureLoader().load('gfx/checkeredFloorBrown.jpg');
 	var floorMaterial = new THREE.MeshPhongMaterial({
 		color: 0x6C6C6C,
 		side: THREE.DoubleSide
@@ -107,7 +106,8 @@ window.onload = function () {
 	var materialArray = [];
 	for (var i = 0; i < 6; i++) {
 		materialArray.push(new THREE.MeshBasicMaterial({
-			map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
+			//map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
+			color: 0x6C6CAA,
 			side: THREE.BackSide
 		}));
 
@@ -157,11 +157,9 @@ window.onload = function () {
 
 	function onKeyUp(event) {
 		Key.onKeyup(event);
-		if (event.keyCode == Key.SPACE) {
-			shoot();
-		}
-		if (event.keyCode == 187) {
-			increaseDifficulty();
+		if (difficultyTimer > 0) {
+			if (event.keyCode == Key.SPACE) shoot();
+			if (event.keyCode == 187) increaseDifficulty();
 		}
 	}
 
@@ -271,7 +269,7 @@ window.onload = function () {
 	}
 
 	function checkStartButton() {
-		if (Key.isDown(Key.SPACE)) {
+		if (Key.isDown(Key.ENTER)) {
 			startGame();
 		}
 		if (navigator.getGamepads()) {

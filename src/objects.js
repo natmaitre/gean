@@ -86,6 +86,13 @@ var objects = (function () {
 		cube.geometry.dynamic = false;
 		return cube;
 	};
+
+	function makeBigBullet() {
+		var bulletMaterial = new THREE.MeshBasicMaterial({color:0x00ff33});
+		var bulletGeometry = new THREE.CubeGeometry(20,20,150,1,1,1);
+		var bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
+		return bullet;
+	};
 	
 	function makeBullet() {
 		var bulletMaterial = new THREE.MeshBasicMaterial({color:0x00d4dc});
@@ -102,6 +109,7 @@ var objects = (function () {
 		makeShip: makeShip,
 		makeCube: makeCube,
 		makeBullet: makeBullet,
+		makeBigBullet,
 		loadGems : loadGems,
 		makeGem : makeGem,
 		loadEnemyTextures : loadEnemyTextures,

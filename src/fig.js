@@ -1,9 +1,10 @@
 window.onload = function () {
 
 	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+	var camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, 6000);
 	var spaceship;
 	var crosshair;
+	var bigbullet = null;
 	var crosshairVisible = false;
 	var crosshairPositions = [];
 
@@ -65,6 +66,15 @@ window.onload = function () {
 	dirLight.shadow.bias = -0.0001;
 	scene.add(dirLight);
 
+	var sssMaterial = new THREE.MeshPhongMaterial({
+		color: 0x555555,
+		side: THREE.DoubleSide
+    });
+	var sssGeometry = new THREE.PlaneGeometry(35, 70, 10,10);
+	var sss = new THREE.Mesh(sssGeometry, sssMaterial);
+	sss.position.y = -20;
+	sss.rotation.x = 1.5;
+
 	var floorMaterial = new THREE.MeshPhongMaterial({
 		color: 0x6C6C6C,
 		side: THREE.DoubleSide
@@ -77,6 +87,17 @@ window.onload = function () {
 	floor.rotation.x = Math.PI / 2;
 	floor.receiveShadow = true;
 	scene.add(floor);
+
+	var skyMaterial = new THREE.MeshPhongMaterial({
+		color: 0x000000,
+    });
+	var skyGeometry = new THREE.PlaneBufferGeometry(7000, 10000, 10, 10);
+	var sky = new THREE.Mesh(skyGeometry, skyMaterial);
+	var skyHalfHeight = sky.geometry.parameters.height / 2;
+	var fskyHalfWidth = sky.geometry.parameters.width / 2;
+	sky.position.y = 1000;
+	sky.rotation.x = Math.PI / 2;
+	scene.add(sky);
 
 	var leftBound = -floorHalfWidth + 1000;
 	var rightBound = floorHalfWidth - 1000;
@@ -98,19 +119,14 @@ window.onload = function () {
 	cubeF.position.set(2000, 0, 0);
 	scene.add(cubeF);
 
-	var imagePrefix = "gfx/skybox-";
-	var directions = ["xpos", "xneg", "ypos", "yneg", "zpos", "zneg"];
-	var imageSuffix = ".jpg";
 	var skyGeometry = new THREE.CubeGeometry(7000, 7000, 7000);
 
 	var materialArray = [];
 	for (var i = 0; i < 6; i++) {
 		materialArray.push(new THREE.MeshBasicMaterial({
-			//map: new THREE.TextureLoader().load(imagePrefix + directions[i] + imageSuffix),
-			color: 0x6C6CAA,
+			color: 0x000000,
 			side: THREE.BackSide
 		}));
-
 	}
 	var skybox = new THREE.Mesh(skyGeometry, materialArray);
 	scene.add(skybox);
@@ -124,7 +140,7 @@ window.onload = function () {
 			spaceship.scale.set(10, 10, 10);
 			spaceship.rotation.y += Math.PI;
 			scene.add(spaceship);
-			spaceship.position.z = -100;
+			scene.add(sss);
 			spaceship.receiveShadow = true;
 			spaceship.castShadow = true;
 			particles.init(scene, camera, spaceship);
@@ -158,6 +174,7 @@ window.onload = function () {
 	function onKeyUp(event) {
 		Key.onKeyup(event);
 		if (difficultyTimer > 0) {
+			if (event.keyCode == Key.CTRL) bigshoot();
 			if (event.keyCode == Key.SPACE) shoot();
 			if (event.keyCode == 187) increaseDifficulty();
 		}
@@ -204,6 +221,13 @@ window.onload = function () {
 		scene.remove(crosshair);
 	}
 
+	function moveShadow() {
+		if (!spaceship) return;
+		var savedPosition = spaceship.position.clone();
+		sss.position.x = savedPosition.x;
+		sss.position.z = savedPosition.z - 200;
+	}
+
 	function moveCrosshair() {
 		if (!spaceship) return;
 		var maxHistory = 1;
@@ -211,7 +235,6 @@ window.onload = function () {
 		var savedPosition = spaceship.position.clone();
 		crosshairPositions.push(savedPosition);
 		if (crosshairPositions.length > maxHistory) {
-			//crosshairPositions.length = maxHistory;
 			newp = crosshairPositions.shift();
 		} else {
 			newp = crosshairPositions[0];
@@ -244,28 +267,24 @@ window.onload = function () {
 
 	}
 
-	function shoot() {
-		if (usedBullets.length > 0) {
-			var bullet = usedBullets.pop();
-		} else {
-			var bullet = objects.makeBullet();
-		}
+	function bigshoot() {
+		if (bigbullet !== null) return;
+		bigbullet = objects.makeBigBullet();
+		bigbullet.position.set(player.x, player.y, player.z);
+		scene.add(bigbullet);
+	}
 
+	function shoot() {
+		if (usedBullets.length > 0) var bullet = usedBullets.pop();
+		else var bullet = objects.makeBullet();
 		bullet.position.set(player.x - 25, player.y, player.z - 25);
 		scene.add(bullet);
 		bullets.push(bullet);
-
-		if (usedBullets.length > 0)
-			var bullet2 = usedBullets.pop();
-		else {
-			var bullet2 = objects.makeBullet();
-		}
-
-		var bullet2 = objects.makeBullet();
+		if (usedBullets.length > 0) var bullet2 = usedBullets.pop();
+		else var bullet2 = objects.makeBullet();
 		bullet2.position.set(player.x + 25, player.y, player.z - 25);
 		scene.add(bullet2);
 		bullets.push(bullet2);
-
 	}
 
 	function checkStartButton() {
@@ -290,6 +309,7 @@ window.onload = function () {
 		skybox.position.x = camera.position.x;
 
 		moveCrosshair();
+		moveShadow();
 
 		if (obstacles.isStarted()) {
 			difficultyTimer++;
@@ -312,6 +332,13 @@ window.onload = function () {
 					usedBullets.push(thisBullet);
 				}
 			}
+			if (bigbullet !== null) {
+				bigbullet.position.z -= player.speed * 2;
+				if (Math.abs(bigbullet.position.z - player.z) > 3000) {
+					scene.remove(bigbullet);
+					bigbullet = null;
+				}
+			}
 			controls(camera, spaceship);
 		} else {
 			checkStartButton();
@@ -325,6 +352,7 @@ window.onload = function () {
 		}
 		if (floor.position.z - 1000 > camera.position.z) {
 			floor.position.z -= floorHalfHeight;
+			sky.position.z -= skyHalfHeight;
 			cubeL = objects.makeCube({
 				x: 500,
 				y: 2000,

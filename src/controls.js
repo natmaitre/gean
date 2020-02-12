@@ -24,7 +24,7 @@ var controls = function (camera, playerMesh) {
 	playerMesh.position.set(player.x, player.y, player.z)
 	playerMesh.rotation.z = player.rotation;
 
-	camera.position.set(player.x / 1.1, player.y / 1.3 + cameraOffsetY, player.z + cameraOffsetZ)
+	camera.position.set(player.x / 1.1, player.y / 1.2 + cameraOffsetY, player.z + cameraOffsetZ)
 	camera.rotation.z = player.flipRotation;
 
 	if (navigator.getGamepads()) {

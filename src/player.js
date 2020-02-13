@@ -11,7 +11,7 @@ var player = {
 	difficulty:1,
 	
 	startingAltitude:55,
-	maxAltitude:575,
+	maxAltitude: 700,
 	minAltitude:130,
 	leftBound: -1500,
 	rightBound: 1500,
@@ -203,6 +203,9 @@ var player = {
 		this.boostSpeed = 0;
 		this.vx = this.vy = 0;
 		//this.turnSpeed = 0;
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
 		this.dead = true;
 	}
 }

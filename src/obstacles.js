@@ -162,11 +162,11 @@ var obstacles = (function () {
 			}
 		}*/
 
-		if (difficulty >= 3) {
+		if (difficulty >= 1) {
 			enemyCounter++;
 			if (enemyCounter > enemyThreshold && enemies.length < maxEnemies) {
 				enemyCounter = 0;
-				var enemy;
+				var enemy;				
 				if (oldEnemies.length > 0)
 					enemy = oldEnemies.pop();
 				else
@@ -330,9 +330,9 @@ var obstacles = (function () {
 			cube = oldCubes.pop();
 		} else {
 			cube = objects.makeCube({
-				x: getRandomInt(175, 1000),
-				y: 2000,
-				z: getRandomInt(120, 400)
+				x: 300,
+				y: 300,
+				z: 150
 			});
 		}
 		var vLimit = difficulty;
@@ -350,7 +350,7 @@ var obstacles = (function () {
 		cube.vy = getRandomInt(-vLimit, vLimit);
 
 		var newX = getRandomInt(leftBound - 500, rightBound + 500);
-		var newY = 0
+		var newY = getRandomInt(0, 2000);
 		var newZ = -5500 + camera.position.z
 		cube.position.set(newX, newY, newZ);
 

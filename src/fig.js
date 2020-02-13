@@ -66,28 +66,6 @@ window.onload = function () {
 	dirLight.shadow.bias = -0.0001;
 	scene.add(dirLight);
 
-	var sssMaterial = new THREE.MeshPhongMaterial({
-		color: 0x555555,
-		side: THREE.DoubleSide
-    });
-	var sssGeometry = new THREE.PlaneGeometry(35, 70, 10,10);
-	var sss = new THREE.Mesh(sssGeometry, sssMaterial);
-	sss.position.y = -20;
-	sss.rotation.x = 1.5;
-
-	var floorMaterial = new THREE.MeshPhongMaterial({
-		color: 0x6C6C6C,
-		side: THREE.DoubleSide
-    });
-	var floorGeometry = new THREE.PlaneBufferGeometry(5000, 10000, 10, 10);
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	var floorHalfHeight = floor.geometry.parameters.height / 2;
-	var floorHalfWidth = floor.geometry.parameters.width / 2;
-	floor.position.y = -200;
-	floor.rotation.x = Math.PI / 2;
-	floor.receiveShadow = true;
-	scene.add(floor);
-
 	var skyMaterial = new THREE.MeshPhongMaterial({
 		color: 0x000000,
     });
@@ -99,37 +77,10 @@ window.onload = function () {
 	sky.rotation.x = Math.PI / 2;
 	scene.add(sky);
 
-	var leftBound = -floorHalfWidth + 1000;
-	var rightBound = floorHalfWidth - 1000;
+	var leftBound = -3000;
+	var rightBound = 3000;
 
 	obstacles.init(scene, camera, leftBound, rightBound, player);
-
-	var cubeL = objects.makeCube({
-		x: 500,
-		y: 2000,
-		z: 10000
-	});
-	cubeL.position.set(-2000, 0, 0);
-	scene.add(cubeL);
-	var cubeF = objects.makeCube({
-		x: 500,
-		y: 2000,
-		z: 10000
-	});
-	cubeF.position.set(2000, 0, 0);
-	scene.add(cubeF);
-
-	var skyGeometry = new THREE.CubeGeometry(7000, 7000, 7000);
-
-	var materialArray = [];
-	for (var i = 0; i < 6; i++) {
-		materialArray.push(new THREE.MeshBasicMaterial({
-			color: 0x000000,
-			side: THREE.BackSide
-		}));
-	}
-	var skybox = new THREE.Mesh(skyGeometry, materialArray);
-	scene.add(skybox);
 
 	var guiDiv = document.getElementById("gui");
 
@@ -140,21 +91,10 @@ window.onload = function () {
 			spaceship.scale.set(10, 10, 10);
 			spaceship.rotation.y += Math.PI;
 			scene.add(spaceship);
-			scene.add(sss);
 			spaceship.receiveShadow = true;
 			spaceship.castShadow = true;
 			particles.init(scene, camera, spaceship);
 		});
-	}
-
-	function addGemToScene(geometry, materials) {
-		var material = new THREE.MeshFaceMaterial(materials);
-		bluegem = new THREE.Mesh(geometry, material);
-		bluegem.scale.set(50, 50, 50);
-		bluegem.rotation.y += Math.PI;
-		scene.add(bluegem);
-		bluegem.position.z = -1500;
-		bluegem.position.y += 100;
 	}
 
 	var ambientLight = new THREE.AmbientLight(0x111111);
@@ -219,13 +159,6 @@ window.onload = function () {
 	function removeCrosshair() {
 		crosshairVisible = false;
 		scene.remove(crosshair);
-	}
-
-	function moveShadow() {
-		if (!spaceship) return;
-		var savedPosition = spaceship.position.clone();
-		sss.position.x = savedPosition.x;
-		sss.position.z = savedPosition.z - 200;
 	}
 
 	function moveCrosshair() {
@@ -302,15 +235,7 @@ window.onload = function () {
 
 	function render() {
 		renderer.render(scene, camera);
-		//light.position.z = player.z;
-		//light.position.x = player.x;
-		skybox.position.z = camera.position.z;
-		skybox.position.y = camera.position.y;
-		skybox.position.x = camera.position.x;
-
 		moveCrosshair();
-		moveShadow();
-
 		if (obstacles.isStarted()) {
 			difficultyTimer++;
 			if (difficultyTimer > difficultyThreshold) {
@@ -350,30 +275,10 @@ window.onload = function () {
 				if (pad.buttons[7].pressed) joystickShoot();
 			}
 		}
-		if (floor.position.z - 1000 > camera.position.z) {
-			floor.position.z -= floorHalfHeight;
-			sky.position.z -= skyHalfHeight;
-			cubeL = objects.makeCube({
-				x: 500,
-				y: 2000,
-				z: 10000
-			});
-			cubeL.position.set(-2000, 0, camera.position.z-5000);
-			scene.add(cubeL);
-			cubeF = objects.makeCube({
-				x: 500,
-				y: 2000,
-				z: 10000
-			});
-			cubeF.position.set(2000, 0, camera.position.z-5000);
-			scene.add(cubeF);
-		}
 		var hitGem = obstacles.collideGems(spaceship);
-
 		if (hitGem != null) score += hitGem.value * difficulty;
 
 		if (obstacles.collideCubes(spaceship) != null || obstacles.collideEnemyBullets(spaceship)) collision();
-
 		if (obstacles.collidePlayerBullets(bullets)) score += 50;
 
 		obstacles.tick();

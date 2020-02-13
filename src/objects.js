@@ -54,8 +54,9 @@ var objects = (function () {
 	}
 	
 	function makeEnemy() {
-		var enemyMaterial = new THREE.SpriteMaterial( { map: enemyTexture, useScreenCoordinates: false, color: 0x000000 } );
-		var enemy = new THREE.Sprite (enemyMaterial);
+		/*var enemyMaterial = new THREE.SpriteMaterial( { map: enemyTexture, useScreenCoordinates: false, color: 0x000000 } );
+		var enemy = new THREE.Sprite (enemyMaterial);*/
+		var enemy = enemyObj.clone();
 		enemy.vx = 0;
 		enemy.vy = 0;
 		enemy.vz = 0;
@@ -101,12 +102,13 @@ var objects = (function () {
 		return bullet;
 	};
 
-	function makeShip() {
-		return makeCube({x: 20, y: 10, z: 30});
-	};
+	var jsonLoader = new THREE.ObjectLoader();
+		jsonLoader.load("models/enemy.json", function (obj) {
+			enemyObj = obj;
+			//enemyObj.scale.set(2, 2, 2);
+		});
 
 	return {
-		makeShip: makeShip,
 		makeCube: makeCube,
 		makeBullet: makeBullet,
 		makeBigBullet,

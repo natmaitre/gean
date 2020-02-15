@@ -105,7 +105,7 @@ var objects = (function () {
 	var jsonLoader = new THREE.ObjectLoader();
 		jsonLoader.load("models/enemy.json", function (obj) {
 			enemyObj = obj;
-			//enemyObj.scale.set(2, 2, 2);
+			enemyObj.scale.set(20, 20, 1);
 		});
 
 	return {

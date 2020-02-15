@@ -172,17 +172,10 @@ var obstacles = (function () {
 				else
 					var enemy = objects.makeEnemy();
 
-				var rand = getRandomInt(0, 1);
-				if (rand == 0) {
-					enemy.position.set(leftBound * 2, 500, player.z - 2000);
-					enemy.vx = getRandomInt(120, 200);
-					enemy.vy = -5;
-				} else {
-					enemy.position.set(rightBound * 2, 500, player.z - 2000);
-					enemy.vx = -getRandomInt(120, 200);
-					enemy.vy = -5;
-				}
-				enemy.scale.set(256, 256, 1);
+				enemy.position.set(player.x, player.y, player.z - 3000);
+				enemy.vx = 0;
+				enemy.vy = 5;
+
 				enemy.vz = -player.vz;
 				enemy.firing = false;
 				enemy.doneFiring = false;
@@ -190,7 +183,6 @@ var obstacles = (function () {
 				enemy.fireCounter = 0;
 				enemies.push(enemy);
 				scene.add(enemy);
-
 			}
 
 			for (var i = 0; i < enemies.length; i++) {

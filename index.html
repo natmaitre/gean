@@ -1,28 +1,24 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<title>Gean</title>
 	<meta charset="utf-8">
-	<title>Harrier</title>
-	<link rel="icon" type="image/png" sizes="16x16"
-		href="https://www.yoctu.com/wp-content/themes/yoctu/images/favicon/favicon-16x16.png">
-	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<style>
-
-	</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
-	<script src="src/functions.js"></script>
-	<script src="src/objects.js"></script>
-	<script src="src/obstacles.js"></script>
-	<script src="src/particles.js"></script>
-	<script src="src/player.js"></script>
-	<script src="src/controls.js"></script>
-	<script src="src/fig.js"></script>
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="shortcut icon" href="/img/favicon.png" />
+	<link type="text/css" rel="stylesheet" href="/css/main.css">
 </head>
-
 <body>
-	<div id="gui"></div>
+	<div id="blocker">
+		<div id="instructions">
+			<span style="font-size:36px">Click to play</span>
+			<br /><br />
+			Move: WASD<br />
+			Jump: SPACE<br />
+			Look: MOUSE
+		</div>
+	</div>
+
+	<script type="module" src="/js/game.js"></script>
 </body>
 
 </html>

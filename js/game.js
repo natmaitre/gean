@@ -32,7 +32,7 @@ function init() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xbfd1e5 );
-    scene.fog = new THREE.Fog(0xffffff, 0, 750);
+    scene.fog = new THREE.Fog(0xcccccc);
 
     var light = new THREE.HemisphereLight(0xeeeeff, 0x777788, 0.75);
     light.position.set(0.5, 1, 0.75);
@@ -42,6 +42,7 @@ function init() {
 
     var blocker = document.getElementById('blocker');
     var instructions = document.getElementById('instructions');
+    var crosshair = document.getElementById('crosshair');
 
     instructions.addEventListener('click', function () {
         controls.lock();
@@ -50,11 +51,13 @@ function init() {
     controls.addEventListener('lock', function () {
         instructions.style.display = 'none';
         blocker.style.display = 'none';
+        crosshair.style.display = 'block';
     });
 
     controls.addEventListener('unlock', function () {
         blocker.style.display = 'block';
         instructions.style.display = '';
+        crosshair.style.display = 'none';
     });
 
     scene.add(controls.getObject());
@@ -62,19 +65,15 @@ function init() {
     var onKeyDown = function (event) {
         switch (event.keyCode) {
             case 38: // up
-            case 87: // w
                 moveForward = true;
                 break;
             case 37: // left
-            case 65: // a
                 moveLeft = true;
                 break;
             case 40: // down
-            case 83: // s
                 moveBackward = true;
                 break;
             case 39: // right
-            case 68: // d
                 moveRight = true;
                 break;
             case 32: // space
@@ -87,20 +86,18 @@ function init() {
     var onKeyUp = function (event) {
         switch (event.keyCode) {
             case 38: // up
-            case 87: // w
                 moveForward = false;
                 break;
             case 37: // left
-            case 65: // a
                 moveLeft = false;
+                console.log(objects[0].position)
                 break;
             case 40: // down
-            case 83: // s
                 moveBackward = false;
                 break;
             case 39: // right
-            case 68: // d
                 moveRight = false;
+                console.log(camera.position)
                 break;
         }
     };
@@ -108,7 +105,7 @@ function init() {
     document.addEventListener('keydown', onKeyDown, false);
     document.addEventListener('keyup', onKeyUp, false);
 
-    raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
+    raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(-1, -1, -1), 0, 10);
 
     var floorGeometry = new THREE.PlaneBufferGeometry(2000, 2000, 100, 100);
     floorGeometry.rotateX(-Math.PI / 2);
@@ -122,7 +119,7 @@ function init() {
 
     var boxGeometry = new THREE.BoxBufferGeometry(10, 10, 10);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 2; i++) {
         var boxMaterial = new THREE.MeshPhongMaterial({
             color: "green"
         });
@@ -170,6 +167,10 @@ function animate() {
                 moveRight = true;
             else moveRight = false;
 
+            if (pad.buttons[1].pressed) {
+                console.log(controls.getObject().position)
+            }
+
             if (pad.buttons[7].pressed) {
                 if (canJump === true) velocity.y += 250;
                 canJump = false;
@@ -195,10 +196,6 @@ function animate() {
 
     requestAnimationFrame(animate);
     if (controls.isLocked === true) {
-        raycaster.ray.origin.copy(controls.getObject().position);
-        raycaster.ray.origin.y -= 10;
-        var intersections = raycaster.intersectObjects(objects);
-        var onObject = intersections.length > 0;
         var time = performance.now();
         var delta = (time - prevTime) / 1000;
         velocity.x -= velocity.x * 10.0 * delta;
@@ -206,16 +203,26 @@ function animate() {
         velocity.y -= 9.8 * 100.0 * delta;
         direction.z = Number(moveForward) - Number(moveBackward);
         direction.x = Number(moveRight) - Number(moveLeft);
-        direction.normalize();
 
         if (moveForward || moveBackward) velocity.z -= direction.z * 400.0 * delta;
         if (moveLeft || moveRight) velocity.x -= direction.x * 400.0 * delta;
 
-        if (onObject === true) {
+        /*if (onObject === true) {
+            console.log("hit");
             velocity.y = Math.max(0, velocity.y);
             canJump = true;
-        }
+        }*/
 
+        var onObject = false;
+        for (let i = 0; i < objects.length; i++) {
+            if ((objects[i].position.x + 5 <= camera.position.x) &&
+                (objects[i].position.x - 5 >= camera.position.x) &&
+                (objects[i].position.z + 5 <= camera.position.z) &&
+                (objects[i].position.z - 5 >= camera.position.z)) {
+                    console.log("Hit");
+                    onObject = true;
+                }
+        }
         controls.moveRight(-velocity.x * delta);
         controls.moveForward(-velocity.z * delta);
         controls.getObject().position.y += (velocity.y * delta);

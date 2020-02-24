@@ -1,24 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 	<title>Gean</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="shortcut icon" href="/img/favicon.png" />
-	<link type="text/css" rel="stylesheet" href="/css/main.css">
+	<link rel=stylesheet href="css/base.css" />
 </head>
 <body>
-	<div id="blocker">
-		<div id="instructions">
-			<span style="font-size:36px">Click to play</span>
-			<br /><br />
-			Move: WASD<br />
-			Jump: SPACE<br />
-			Look: MOUSE
-		</div>
-	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
+	<script src="js/Keyboard.js"></script>
+	<audio loop="loop" autoplay="autoplay">
+		<source src="audio/deep-solar-wind.ogg" />
+		<source src="audio/deep-solar-wind.mp3" />
+	</audio>
+	<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
 	<img id="crosshair" class="crosshair" src="/img/crosshair.gif" />
-	<script type="module" src="/js/game.js"></script>
+	<script src="js/Map.js"></script>
+	<script src="js/Game.js"></script>
 </body>
-
 </html>

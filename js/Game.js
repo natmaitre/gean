@@ -32,6 +32,8 @@ function init() {
     var light = new THREE.DirectionalLight(0xffffff);
     light.position.set(0, 250, 0);
     scene.add(light);
+    var ambientLight = new THREE.AmbientLight(0xaaaaaa);
+    scene.add(ambientLight);
 
     /*var skyGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
     var skyMaterial = new THREE.MeshPhongMaterial({
@@ -45,7 +47,6 @@ function init() {
     camera.position.set(0, 35, 10);
     person.position.set(-600, 100, 500);
     person.rotation.y = -Math.PI / 2.0;
-
     boundingG = new THREE.CubeGeometry(40, 80, 40);
     boundingG.computeBoundingSphere();
     boundingM = new THREE.MeshBasicMaterial({
@@ -56,52 +57,10 @@ function init() {
     bounding = new THREE.Mesh(boundingG, boundingM);
     bounding.visible = false;
     person.add(bounding);
-
     person.velocity = new THREE.Vector3(0, 0, 0);
-
     scene.add(person);
 
-    this.cubeG = [];
-    for (let i = 1; i < 4; i++) {
-        cubeG[i] = new THREE.CubeGeometry(50, 50, 50);
-    }
-    for (let i = 4; i < 10; i++) {
-        cubeG[i] = new THREE.CubeGeometry(50, 50);
-    }
-
-    var cubeM = [];
-    var cubeC = ["green","green","lightgreen","blue","red","green","green","green","green","green","green"];
-    for (let i = 1; i < 11; i++) {
-        cubeM[i] = new THREE.MeshPhongMaterial({
-            color: cubeC[i]
-        });
-    }
- 
-    var mergedGeo = [];
-    for (var i = 0; i < 10; i++)
-        mergedGeo[i] = new THREE.Geometry();
-
-    for (var y = 0; y < cubeMap.length; y++)
-        for (var x = 0; x < cubeMap[0].length; x++)
-            for (var z = 0; z < cubeMap[0][0].length; z++) {
-                var style = cubeMap[y][x][z];
-                if (style == 0) continue;
-                var cube = new THREE.Mesh(cubeG[style]);
-                cube.position.set(50 * (cubeMap[0].length - x), 50 * y, 50 * z);
-                if (style == 4 || style == 7)
-                    cube.rotation.set(0, -Math.PI / 2, 0);
-                if (style == 6 || style == 9)
-                    cube.rotation.set(-Math.PI / 2, 0, 0);
-                cube.updateMatrix();
-                mergedGeo[style].merge(cube.geometry, cube.matrix);
-
-            }
-
-    for (var i = 1; i < 10; i++) {
-        var mesh = new THREE.Mesh(mergedGeo[i], cubeM[i]);
-        scene.add(mesh);
-        walls.push(mesh);
-    }
+    initBlocks (scene, walls);
 
     var floorGeometry = new THREE.PlaneBufferGeometry(5000, 5000, 100, 100);
     floorGeometry.rotateX(-Math.PI / 2);
@@ -112,9 +71,6 @@ function init() {
     floor.position.set(0, -50, 0);
     walls.push(floor);
     scene.add(floor);
-
-    var ambientLight = new THREE.AmbientLight(0xaaaaaa);
-    scene.add(ambientLight);
 
     this.mouseLook = {
         x: 0,
@@ -191,7 +147,7 @@ function update() {
             if (Math.abs(pad.axes[3]) > 0.15)
                 camera.rotateX(-rotateAngle * pad.axes[3]);
             if (pad.buttons[7].pressed && (person.velocity.y == 0))
-                person.velocity = new THREE.Vector3(0, 6, 0);
+                person.velocity = new THREE.Vector3(0, 12, 0);
         }
     }
 
@@ -244,7 +200,7 @@ function update() {
     }
 
     if (keyboard.pressed("space") && (person.velocity.y == 0))
-        person.velocity = new THREE.Vector3(0, 10, 0);
+        person.velocity = new THREE.Vector3(0, 12, 0);
 
     person.velocity.add(gravity.clone().multiplyScalar(delta));
     person.translateY(person.velocity.y);

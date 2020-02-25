@@ -29,11 +29,7 @@ function init() {
     container = document.getElementById('ThreeJS');
     container.appendChild(renderer.domElement);
 
-    var light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(0, 250, 0);
-    scene.add(light);
-    var ambientLight = new THREE.AmbientLight(0xaaaaaa);
-    scene.add(ambientLight);
+    initLight(scene);
 
     /*var skyGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
     var skyMaterial = new THREE.MeshPhongMaterial({
@@ -62,57 +58,14 @@ function init() {
 
     initBlocks (scene, walls);
 
-    var floorGeometry = new THREE.PlaneBufferGeometry(5000, 5000, 100, 100);
-    floorGeometry.rotateX(-Math.PI / 2);
-    var floorTexture = new THREE.TextureLoader().load("textures/minecraft/textures/block/green_wool.png");
-    floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.set(100, 100);
-    var floorMaterial = new THREE.MeshBasicMaterial({
-        map: floorTexture,
-        side: THREE.DoubleSide
-    });
-    var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-    floor.position.set(0, -50, 0);
-    walls.push(floor);
-    scene.add(floor);
+    initFloor(scene, walls);
 
     this.mouseLook = {
         x: 0,
         y: 0
     };
-    document.addEventListener('click', function (event) {
-        var havePointerLock = 'pointerLockElement' in document ||
-            'mozPointerLockElement' in document ||
-            'webkitPointerLockElement' in document;
-        if (!havePointerLock) return;
-        var element = document.body;
-        element.requestPointerLock = element.requestPointerLock ||
-            element.mozRequestPointerLock ||
-            element.webkitRequestPointerLock;
-        element.requestPointerLock();
-
-        document.addEventListener('pointerlockchange', pointerLockChange, false);
-        document.addEventListener('mozpointerlockchange', pointerLockChange, false);
-        document.addEventListener('webkitpointerlockchange', pointerLockChange, false);
-    }, false);
-}
-
-function moveCallback(e) {
-    var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
-    var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
-    mouseLook.x += movementX;
-    mouseLook.y += movementY;
-}
-
-function pointerLockChange(event) {
-    var element = document.body;
-    if (document.pointerLockElement === element ||
-        document.mozPointerLockElement === element ||
-        document.webkitPointerLockElement === element) {
-        document.addEventListener("mousemove", moveCallback, false);
-    } else {
-        document.removeEventListener("mousemove", moveCallback, false);
-    }
+    
+    clickEvent();
 }
 
 function animate() {
@@ -123,7 +76,7 @@ function animate() {
 
 function update() {
     var delta = clock.getDelta();
-    var moveDistance = 200 * delta;
+    var moveDistance = 250 * delta;
     var rotateAngle = Math.PI / 4 * delta;
 
     if (keyboard.pressed("P")) {
@@ -197,7 +150,6 @@ function update() {
         person.rotateY(-move.yAngle);
         person.translateZ(-move.zDist);
         person.updateMatrix();
-
         if (collision(walls))
             console.log("Something's wrong with collision...");
 
@@ -221,7 +173,6 @@ function collision(wallArray) {
         var localVertex = person.children[1].geometry.vertices[vertexIndex].clone();
         var globalVertex = localVertex.applyMatrix4(person.matrix);
         var directionVector = globalVertex.sub(person.position);
-
         var ray = new THREE.Raycaster(person.position, directionVector.clone().normalize());
         var collisionResults = ray.intersectObjects(wallArray);
         if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length())

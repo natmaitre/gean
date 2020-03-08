@@ -1,7 +1,7 @@
 var THREEx	= THREEx || {};
 
 THREEx.MinecraftChar	= function(skinUrl){
-	skinUrl	= skinUrl || (THREEx.MinecraftChar.baseUrl + "maps/1/Ennemy-1.png")
+	skinUrl	= skinUrl || "maps/1/Ennemy-1.png";
     var texture	= new THREE.Texture
 	texture.magFilter	= THREE.NearestFilter;
 	texture.minFilter	= THREE.NearestFilter;
@@ -162,7 +162,6 @@ THREEx.MinecraftChar	= function(skinUrl){
 	}
 }
 
-THREEx.MinecraftChar.baseUrl	= '../'
 THREEx.MinecraftChar.defaultMaterial	= null
 
 THREEx.MinecraftChar.prototype.loadSkin	= function(url, onLoad){

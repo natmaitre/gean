@@ -3,6 +3,7 @@ var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 
 var person;
+var character;
 var gravity = new THREE.Vector3(0, -15, 0);
 var walls = [];
 
@@ -55,6 +56,11 @@ function init() {
     person.add(bounding);
     person.velocity = new THREE.Vector3(0, 0, 0);
     scene.add(person);
+
+    character = new THREEx.MinecraftChar();
+    character.root.position.set(-450, -10, 500);
+    character.root.scale.set(40,40,40);
+	scene.add(character.root);
 
     initBlocks (scene, walls);
 

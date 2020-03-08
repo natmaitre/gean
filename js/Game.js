@@ -6,6 +6,7 @@ var person;
 var character;
 var gravity = new THREE.Vector3(0, -15, 0);
 var walls = [];
+var bodyAnims = null;
 
 init();
 animate();
@@ -60,7 +61,9 @@ function init() {
     character = new THREEx.MinecraftChar();
     character.root.position.set(-450, -10, 500);
     character.root.scale.set(40,40,40);
-	scene.add(character.root);
+    scene.add(character.root);
+    bodyAnims = new THREEx.MinecraftCharBodyAnimations(character);
+    bodyAnims.start('walk');
 
     initBlocks (scene, walls);
 
@@ -84,6 +87,11 @@ function update() {
     var delta = clock.getDelta();
     var moveDistance = 250 * delta;
     var rotateAngle = Math.PI / 4 * delta;
+
+    if (bodyAnims != null) {
+        character.root.position.z = character.root.position.z + 50 * delta;
+        bodyAnims.update(delta);
+    }
 
     if (keyboard.pressed("P")) {
         camera.position.set(0, 35, 10);

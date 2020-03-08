@@ -177,7 +177,7 @@ THREEx.MinecraftChar.prototype.loadSkin	= function(url, onLoad){
 
 THREEx.MinecraftChar.prototype.loadWellKnownSkin	= function(name, onLoad){
 	console.assert(THREEx.MinecraftChar.skinWellKnownUrls[name])
-	var url	= THREEx.MinecraftChar.baseUrl + THREEx.MinecraftChar.skinWellKnownUrls[name];
+	var url	= THREEx.MinecraftChar.skinWellKnownUrls[name];
 	return this.loadSkin(url, onLoad)
 }
 

@@ -1,30 +1,26 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<title>Gean</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<link rel="shortcut icon" href="/img/favicon.png" />
-	<link rel=stylesheet href="css/base.css" />
+  <title>gEAN</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.js"></script>
-	<script src="js/Keyboard.js"></script>
-	<audio loop="loop" autoplay="autoplay">
-		<source src="audio/deep-solar-wind.ogg" />
-		<source src="audio/deep-solar-wind.mp3" />
-	</audio>
-	<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
-	<img id="crosshair" class="crosshair" src="img/crosshair.gif" />
-	<script src="maps/1/Maps.js"></script>
-	<script src="js/Blocks.js"></script>
-	<script src="js/Floor.js"></script>
-	<script src="js/Light.js"></script>
-	<script src="js/Mouse.js"></script>
-	<script src="js/Characters-animation.js"></script>
-	<script src="js/Characters-animations.js"></script>
-	<script src="js/Characters-body-anim.js"></script>
-	<script src="js/Characters.js"></script>
-	<script src="js/Game.js"></script>
+<body style="background-color: #000000; text-align: center">
+  <canvas id="gameCanvas"></canvas>
+  <script src="js/constants.js"></script>
+  <script src="js/canvasFunctions.js"></script>
+  <script src="js/mathFunctions.js"></script>
+  <script src="js/graphics.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/titleScreen.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/car.js"></script>
+  <script src="js/track.js"></script>
+  <script src="js/race.js"></script>
+  <script src="js/racer.js"></script>
+  <script src="js/audio.js"></script>
 </body>
+
 </html>

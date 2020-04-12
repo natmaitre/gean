@@ -18,7 +18,7 @@ var lastDriftDraw = 0;
 function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
   cntx.fillStyle = color;
   cntx.beginPath();
-  cntxMoveTo(x1, y1);
+  cntx.moveTo(x1, y1);
   cntxLineTo(x2, y2);
   cntxLineTo(x3, y3);
   cntxLineTo(x4, y4);
@@ -251,7 +251,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
       for(i = 0; i < cars[0].slipstreamLines.length; i++) {
         var points = cars[0].slipstreamLines[i];
         cntx.beginPath();
-        cntxMoveTo(points[0].screen.x, points[0].screen.y);
+        cntx.moveTo(points[0].screen.x, points[0].screen.y);
         for(j = 1; j < points.length; j++) {
           cntxLineTo(points[j].screen.x, points[j].screen.y);
         }

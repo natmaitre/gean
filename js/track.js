@@ -479,7 +479,7 @@ Track.prototype = {
   
     cntx.beginPath();
     var segmentDrawLength = 0.5;
-    cntxMoveTo(x, y);
+    cntx.moveTo(x, y);
     for(var i = 0; i < this.segments.length; i++) {
       angle = (this.segments[i].angle / 180) * Math.PI;
       x += segmentDrawLength * Math.cos(angle);
@@ -507,7 +507,7 @@ Track.prototype = {
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * Math.cos(angle);
     y -= segmentDrawLength * Math.sin(angle);
-    cntxMoveTo(x, y);
+    cntx.moveTo(x, y);
     x += 2 * segmentDrawLength * Math.cos(angle);
     y += 2 * segmentDrawLength * Math.sin(angle);
     cntxLineTo(x, y);

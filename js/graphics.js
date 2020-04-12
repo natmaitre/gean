@@ -58,7 +58,7 @@ function drawFuzzyCircle(x, y, r, c) {
   cntx.fillStyle = c;
   var radius = r + r * Math.random();
   cntx.beginPath();
-  cntxMoveTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
+  cntx.moveTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   for(var i = 1; i < 30; i++) {
     angle = i * Math.PI * 2 / 30;
     radius = r + r * Math.random();
@@ -179,7 +179,7 @@ function createTurnArrows() {
   cntx.fillStyle = MEDIUMGREY;
   cntx.fillRect(10, 10, 180, 180);
   cntx.beginPath();
-  cntxMoveTo(20, 100);
+  cntx.moveTo(20, 100);
   cntxLineTo(160, 30);
   cntxLineTo(160, 170);
   cntxLineTo(20, 100);
@@ -237,7 +237,7 @@ function createBackgroundTrees() {
       var colour = Math.floor(Math.random() * colours.length);
       cntx.fillStyle = colours[colour];
       cntx.beginPath();
-      cntxMoveTo(x, 240 - terPoints[0]);
+      cntx.moveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
         cntxLineTo(x + t, 240 - terPoints[t]);
       }
@@ -266,7 +266,7 @@ function createBackgroundTrees() {
       var colour = Math.floor(Math.random() * colours.length);
       cntx.fillStyle = colours[colour];
       cntx.beginPath();
-      cntxMoveTo(x, 240 - terPoints[0]);
+      cntx.moveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
         cntxLineTo(x + t, 240 - terPoints[t]);
       }
@@ -358,7 +358,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   var x = startX;
   cntx.fillStyle = '#114433';
   cntx.beginPath();
-  cntxMoveTo(x, heightOffset - points[0]);
+  cntx.moveTo(x, heightOffset - points[0]);
   for (var t = 1; t < points.length; t++) {
     cntxLineTo(x + t, heightOffset - points[t]);
   }
@@ -367,7 +367,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   x = startX;
   cntx.fillStyle = '#224a33';
   cntx.beginPath();
-  cntxMoveTo(x, heightOffset - highlightpoints[0]);
+  cntx.moveTo(x, heightOffset - highlightpoints[0]);
   for (var t = 1; t < highlightpoints.length; t++) {
     cntxLineTo(x, heightOffset - highlightpoints[t]);
     x++;
@@ -388,7 +388,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   x = startX + 4;
   cntx.fillStyle = '#335a3a';
   cntx.beginPath();
-  cntxMoveTo(x, heightOffset - highlightpoints2[0]);
+  cntx.moveTo(x, heightOffset - highlightpoints2[0]);
   for (var t = 1; t < highlightpoints2.length; t++) {
     cntxLineTo(x, heightOffset - highlightpoints2[t]);
     x++;
@@ -437,7 +437,7 @@ var tree = {
   branch : function(depth) {
     if (depth < 12) {
         cntx.beginPath();
-        cntxMoveTo(0,0);
+        cntx.moveTo(0,0);
         cntxLineTo(0,-(500)/10);
 
         cntxStroke();
@@ -836,7 +836,7 @@ function createFlowers() {
 function fillPoints(points, color) {
   cntx.beginPath();
   cntx.fillStyle = color;
-  cntxMoveTo(points[0], points[1]);
+  cntx.moveTo(points[0], points[1]);
   for(var i = 2; i < points.length; i+= 2) {
     cntxLineTo(points[i], points[i+1]);
   }
@@ -846,7 +846,7 @@ function fillPoints(points, color) {
 
 function drawLine(x1, y1, x2, y2) {
   cntx.beginPath();
-  cntxMoveTo(x1, y1);
+  cntx.moveTo(x1, y1);
   cntxLineTo(x2, y2);
   cntx.stroke();
 }

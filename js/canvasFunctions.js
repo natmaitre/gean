@@ -12,10 +12,6 @@ function cntxStroke() {
   cntx.stroke();
 }
 
-function cntxMoveTo(x, y) {
-  cntx.moveTo(x, y);
-}
-
 function cntxArc(x,y,r,sAngle,eAngle,counterclockwise) {
   cntx.arc(x,y,r,sAngle,eAngle,counterclockwise);
 }

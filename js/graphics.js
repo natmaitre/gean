@@ -243,7 +243,7 @@ function createBackgroundTrees() {
 
     var terPoints = smallTree(8, 7);
       //var terPoints = terrain(width, height, height / 2, 0.6);
-      var colour = mathRandInt(colours.length);
+      var colour = Math.floor(mathRand() * colours.length);
       cntxFillStyle(colours[colour]);
       cntxBeginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
@@ -272,7 +272,7 @@ function createBackgroundTrees() {
 
     var terPoints = smallTree(4, 4);
       //var terPoints = terrain(width, height, height / 2, 0.6);
-      var colour = mathRandInt(colours.length);
+      var colour = Math.floor(mathRand() * colours.length);
       cntxFillStyle(colours[colour]);
       cntxBeginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
@@ -773,14 +773,14 @@ function createNightSky() {
   var hmTimes = Math.round(xMax + yMax);  
   
   for(var i=0; i<=hmTimes; i++) {
-    var randomX = mathRandInt(xMax);
-    var randomY = mathRandInt(yMax);
-    var randomSize = mathRandInt(2) + 1;
-    var randomOpacityOne = mathRandInt(9) + 1;
-    var randomOpacityTwo = mathRandInt(9) + 1;
-    var randomHue = mathRandInt(360);
+    var randomX = Math.floor(mathRand() * xMax);
+    var randomY = Math.floor(mathRand() * yMax);
+    var randomSize = Math.floor(mathRand() * 2) + 1;
+    var randomOpacityOne = Math.floor(mathRand() * 9) + 1;
+    var randomOpacityTwo = Math.floor(mathRand() * 9) + 1;
+    var randomHue = Math.floor(mathRand() * 360);
     if(randomSize>1) {
-      cntx.shadowBlur = mathRandInt(15) + 5;
+      cntx.shadowBlur = Math.floor(mathRand() * 15) + 5;
       cntx.shadowColor = "white";
     }
     cntxFillStyle( "hsla("+randomHue+", 30%, 80%, ."+randomOpacityOne+randomOpacityTwo+")" );
@@ -852,7 +852,7 @@ function createFlowers() {
         cntxFillRect(x, y, 1, height);        
       }
 
-      var flower = mathRandInt(2) * 20;
+      var flower = Math.floor(mathRand() * 2) * 20;
 
       var dstX = x - 2;
       var dstY = y - 6;

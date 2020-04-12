@@ -76,7 +76,7 @@ Track.prototype = {
         turnSegment++;
       } else {
         turnSegment = 0;
-        var obj = objs[mathRandInt(objs.length)];
+        var obj = objs[Math.floor(mathRand() * objs.length)];
         if(r > prob) {
           var x = segment.p1.world.x;
 

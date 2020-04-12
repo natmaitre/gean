@@ -157,7 +157,7 @@ Race.prototype = {
       if(car.index !== 0) {
         var maxSpeed = 23000;//23000;
         if(car.index < 8 && car.index > 3) {
-          car.maxSpeed = maxSpeed * 0.905 - mathRand() * (this.carCount - n - 1) * maxSpeed / 55;
+          car.maxSpeed = maxSpeed * 0.905 - Math.random() * (this.carCount - n - 1) * maxSpeed / 55;
         } else if(car.index > 12) {
           car.maxSpeed = maxSpeed * 0.905 - (this.carCount - n - 1) * maxSpeed / 65;
         } else {
@@ -168,8 +168,8 @@ Race.prototype = {
         if(car.index < 4) {
           car.takeCornerOnInside = false;
         } else if(car.index < 8) {
-          car.takeCornerOnInside = mathRand() > 0.4;
-          car.slowOnCorners = mathRand() > 0.6;
+          car.takeCornerOnInside = Math.random() > 0.4;
+          car.slowOnCorners = Math.random() > 0.6;
         }
       }
       segment.cars.push(car);

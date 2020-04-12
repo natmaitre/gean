@@ -54,7 +54,7 @@ Track.prototype = {
     var turnSegment = 0;
     for(var i = 0; i < segmentCount; i++) {
       var segment = this.segments[i];
-      var r = mathRand();
+      var r = Math.random();
       if(segment.curve != 0 && turnSigns) {    
         if(turnSegment % 20 == 0) {
           if(segment.curve > 0) {
@@ -76,7 +76,7 @@ Track.prototype = {
         turnSegment++;
       } else {
         turnSegment = 0;
-        var obj = objs[Math.floor(mathRand() * objs.length)];
+        var obj = objs[Math.floor(Math.random() * objs.length)];
         if(r > prob) {
           var x = segment.p1.world.x;
 
@@ -482,7 +482,7 @@ Track.prototype = {
     cntxMoveTo(x, y);
     for(var i = 0; i < this.segments.length; i++) {
       angle = (this.segments[i].angle / 180) * Math.PI;
-      x += segmentDrawLength * cos(angle);
+      x += segmentDrawLength * Math.cos(angle);
       y += segmentDrawLength * Math.sin(angle);
       cntxLineTo(x, y);
 
@@ -505,10 +505,10 @@ Track.prototype = {
     cntxStrokeStyle(LIGHTGREY);
     cntxBeginPath();
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
-    x -= segmentDrawLength * cos(angle);
+    x -= segmentDrawLength * Math.cos(angle);
     y -= segmentDrawLength * Math.sin(angle);
     cntxMoveTo(x, y);
-    x += 2 * segmentDrawLength * cos(angle);
+    x += 2 * segmentDrawLength * Math.cos(angle);
     y += 2 * segmentDrawLength * Math.sin(angle);
     cntxLineTo(x, y);
   

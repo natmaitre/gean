@@ -56,13 +56,13 @@ function drawFuzzyCircle(x, y, r, c) {
   var angle = 0;
 
   cntxFillStyle(c);
-  var radius = r + r * mathRand();
+  var radius = r + r * Math.random();
   cntxBeginPath();
-  cntxMoveTo(x + (radius) * cos(angle), y + (radius) * Math.sin(angle));
+  cntxMoveTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   for(var i = 1; i < 30; i++) {
     angle = i * Math.PI * 2 / 30;
-    radius = r + r * mathRand();
-    cntxLineTo(x + (radius) * cos(angle), y + (radius) * Math.sin(angle));
+    radius = r + r * Math.random();
+    cntxLineTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   }
   cntxClosePath();
   cntxFill();
@@ -207,12 +207,12 @@ function smallTree(width, slope) {
   points[index++] = 0;
   var multiplier = 1;
   for(var i = 0; i < width; i++) {
-    y = y + mathRand() * slope;
+    y = y + Math.random() * slope;
     points[index++] = y;
   }
 
   while(y > 0) {
-    y = y - mathRand() * slope;
+    y = y - Math.random() * slope;
     points[index++] = y;
   }
 
@@ -236,14 +236,14 @@ function createBackgroundTrees() {
 
   for(var j = 0; j < 4; j++) {
     var x = sx;
-    var width = 10 + 40 * mathRand();
+    var width = 10 + 40 * Math.random();
 
     for(var i =0 ; i < width; i++) {
     // get the points
 
     var terPoints = smallTree(8, 7);
       //var terPoints = terrain(width, height, height / 2, 0.6);
-      var colour = Math.floor(mathRand() * colours.length);
+      var colour = Math.floor(Math.random() * colours.length);
       cntxFillStyle(colours[colour]);
       cntxBeginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
@@ -254,7 +254,7 @@ function createBackgroundTrees() {
       cntxClosePath();
       cntxFill();
 
-      x += 2 +  mathRand() * 4;
+      x += 2 +  Math.random() * 4;
     }
 
     var colours = [
@@ -272,7 +272,7 @@ function createBackgroundTrees() {
 
     var terPoints = smallTree(4, 4);
       //var terPoints = terrain(width, height, height / 2, 0.6);
-      var colour = Math.floor(mathRand() * colours.length);
+      var colour = Math.floor(Math.random() * colours.length);
       cntxFillStyle(colours[colour]);
       cntxBeginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
@@ -281,11 +281,11 @@ function createBackgroundTrees() {
       }
       cntxClosePath();
       cntxFill();
-      x += 2 +  mathRand() * 5;
+      x += 2 +  Math.random() * 5;
     }
 
 
-    sx = x + 50 + mathRand() * 180;
+    sx = x + 50 + Math.random() * 180;
   }
 }
 
@@ -305,19 +305,19 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   var multiplier = 1;
 
 
-  multiplier = 0.1 + 3 * mathRand();
-  var across = 20 * 100 * mathRand();
+  multiplier = 0.1 + 3 * Math.random();
+  var across = 20 * 100 * Math.random();
   for(var i = 0; i < 100; i++) {
-    y = y + mathRand() * multiplier;
+    y = y + Math.random() * multiplier;
     points[index] = y;
     highlightpoints[index] = y;
     index++;
     multiplier += 0.01;
   }
 
-  var across = 5 + 8 * mathRand();
+  var across = 5 + 8 * Math.random();
   for(var i = 0; i < across; i++) {
-    y = y + ( 0.4 - mathRand() ) * 2;
+    y = y + ( 0.4 - Math.random() ) * 2;
     highlightpoints[index] = y;
     points[index++] = y;
   }
@@ -326,24 +326,24 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   var highlightBackpoints = [];
   var highlightY = y;
   while(highlightY > 0) {
-    highlightY -= mathRand() * 5;
+    highlightY -= Math.random() * 5;
     highlightBackpoints.push(highlightY);
   }
 
-  if(mathRand() > 0.6) {
-    across = 160 * mathRand();
+  if(Math.random() > 0.6) {
+    across = 160 * Math.random();
   } else {
-    across = 20 * mathRand();
+    across = 20 * Math.random();
   }
   for(var i = 0; i < across; i++) {
-    y = y + ( 0.4 - mathRand() ) * 2;
+    y = y + ( 0.4 - Math.random() ) * 2;
     points[index++] = y;
   }
 
 //  multiplier = 1;
 //  for(var i = 0; i < 100; i++) {
   while(y > 0) {
-    y = y - mathRand() * multiplier;
+    y = y - Math.random() * multiplier;
     points[index++] = y;
     multiplier -= 0.003;
     if(multiplier < 0) {
@@ -352,13 +352,13 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   }
 
   for(var i = 0; i < highlightpoints.length - 20; i++) {
-    highlightY = highlightpoints[i] + mathRand();
+    highlightY = highlightpoints[i] + Math.random();
     highlightpoints2.push(highlightY);
   }
 
 
   for(var i = 0; i < highlightpoints2.length - 10; i++) {
-    highlightY -= mathRand() * 2;
+    highlightY -= Math.random() * 2;
     highlightBackpoints2.push(highlightY);
   }
 
@@ -387,9 +387,9 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   for (var t = 1; t < highlightBackpoints.length; t++) {
     cntxLineTo(x, heightOffset - highlightBackpoints[t]);
 
-    if(mathRand() > 0.4) {
+    if(Math.random() > 0.4) {
       x--;
-    } else if(mathRand() > 0.4) {
+    } else if(Math.random() > 0.4) {
       x++;
     }
   }
@@ -409,9 +409,9 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   for (var t = 1; t < highlightBackpoints2.length; t++) {
     cntxLineTo(x, heightOffset - highlightBackpoints2[t]);
 
-    if(mathRand() > 0.8) {
+    if(Math.random() > 0.8) {
       x++;
-    } else if(mathRand() > 0.1) {
+    } else if(Math.random() > 0.1) {
       x--;
     }
   }
@@ -427,7 +427,7 @@ function createBackgroundMountains() {
   var x = 0;
   for(var i =0 ; i < 20; i++) {
     terrain(x);//, width, height, height / 2, 0.6);
-    x += 3 + mathRand() * 100;;
+    x += 3 + Math.random() * 100;;
   }
 }
 
@@ -439,8 +439,8 @@ var tree = {
   
   draw : function() {
       cntxTranslate(500/2,500);
-      this.leavesColor = '#'+(0x1000000+(mathRand())*0xffffff).toString(16).substr(1,6);
-      cntx.lineWidth = 1 + (mathRand() * 20);
+      this.leavesColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+      cntx.lineWidth = 1 + (Math.random() * 20);
       cntx.lineJoin = 'round';
       
       this.branch(0);
@@ -455,11 +455,11 @@ var tree = {
         cntxStroke();
         
         cntxTranslate(0,-500/10);
-        var randomN = -(mathRand() * 0.1) + 0.1;
+        var randomN = -(Math.random() * 0.1) + 0.1;
 
         cntxRotate(randomN); 
 
-        if ((mathRand() * 1) < 0.6) {
+        if ((Math.random() * 1) < 0.6) {
           cntxRotate(-0.35);
           cntx.scale(0.7,0.7);
           cntxSave();
@@ -549,11 +549,11 @@ function backgroundBuilding(x, type, buildingColor, windowColor) {
 
   var yOffset = 260;
 
-  buildingHeight += 30 * mathRand();
+  buildingHeight += 30 * Math.random();
   cntxFillStyle(buildingColor);
   cntxFillRect(x, yOffset - buildingHeight, buildingWidth, buildingHeight);
 
-  if(mathRand() < 0.4) {
+  if(Math.random() < 0.4) {
     var inset = 5;
     var insetHeight = 8;
     cntxFillRect(x + inset, 
@@ -562,7 +562,7 @@ function backgroundBuilding(x, type, buildingColor, windowColor) {
       buildingHeight + insetHeight);
   }
 
-  if(mathRand() < 0.2) {
+  if(Math.random() < 0.2) {
     var inset = 5;
     var insetHeight = 13;
     var insetWidth = 2;
@@ -593,7 +593,7 @@ function createBackgroundBuildings(night) {
   }
   var x = 0;
   for(var i = 0; i < 80; i++) {
-    var n = mathRand();
+    var n = Math.random();
     if(n < 0.4) {
       backgroundBuilding(x, 0, buildingColor, windowColor);
     } else if(n < 0.6) {
@@ -601,7 +601,7 @@ function createBackgroundBuildings(night) {
     } else {
       backgroundBuilding(x, 2, buildingColor, windowColor);
     }
-    x += 10 + mathRand() * 30;
+    x += 10 + Math.random() * 30;
   }
   
   var buildingColor = '#9999aa';
@@ -613,7 +613,7 @@ function createBackgroundBuildings(night) {
 
   var x = 0;
   for(var i = 0; i < 80; i++) {
-    var n = mathRand()
+    var n = Math.random()
     if(n < 0.4) {
       backgroundBuilding(x, 0, buildingColor, windowColor);
     } else if(n < 0.6) {
@@ -621,7 +621,7 @@ function createBackgroundBuildings(night) {
     } else {
       backgroundBuilding(x, 2, buildingColor, windowColor);
     }
-    x += 10 + mathRand() * 30;
+    x += 10 + Math.random() * 30;
   }
   
 }
@@ -633,11 +633,11 @@ function createBuildings(night) {
   for(var ti = 0; ti < 4; ti++) {
     eraseScratch();
     cntx = scratchCanvas.x;
-    var grey = 100 + mathRand() * 80;
+    var grey = 100 + Math.random() * 80;
 
 
     if(night) {
-      grey = 10 + mathRand() * 20;
+      grey = 10 + Math.random() * 20;
     }
     cntxFillStyle('rgb(' + grey + ',' + grey + ',' + grey + ')');
     cntxFillRect(0, 30, 240, 500);
@@ -651,7 +651,7 @@ function createBuildings(night) {
         x = windowStartOffset + col * (windowWidth + windowSpacingH);
 
         if(night) {
-          if(mathRand() > 0.7) {
+          if(Math.random() > 0.7) {
             cntxFillStyle('#ffffec');
             cntxFillRect(x, y, windowWidth, windowHeight);
             cntxFillStyle('#bbbb88');
@@ -773,14 +773,14 @@ function createNightSky() {
   var hmTimes = Math.round(xMax + yMax);  
   
   for(var i=0; i<=hmTimes; i++) {
-    var randomX = Math.floor(mathRand() * xMax);
-    var randomY = Math.floor(mathRand() * yMax);
-    var randomSize = Math.floor(mathRand() * 2) + 1;
-    var randomOpacityOne = Math.floor(mathRand() * 9) + 1;
-    var randomOpacityTwo = Math.floor(mathRand() * 9) + 1;
-    var randomHue = Math.floor(mathRand() * 360);
+    var randomX = Math.floor(Math.random() * xMax);
+    var randomY = Math.floor(Math.random() * yMax);
+    var randomSize = Math.floor(Math.random() * 2) + 1;
+    var randomOpacityOne = Math.floor(Math.random() * 9) + 1;
+    var randomOpacityTwo = Math.floor(Math.random() * 9) + 1;
+    var randomHue = Math.floor(Math.random() * 360);
     if(randomSize>1) {
-      cntx.shadowBlur = Math.floor(mathRand() * 15) + 5;
+      cntx.shadowBlur = Math.floor(Math.random() * 15) + 5;
       cntx.shadowColor = "white";
     }
     cntxFillStyle( "hsla("+randomHue+", 30%, 80%, ."+randomOpacityOne+randomOpacityTwo+")" );
@@ -831,16 +831,16 @@ function createFlowers() {
   for(var j = 0; j < 2; j++) {
     var x = 30;
     for(var i = 0; i < 60; i++) {
-      x += 4 + 6 * mathRand();
+      x += 4 + 6 * Math.random();
 
       if(x > 780) {
         continue;
       }
       
-      var height = 20 + 4 * mathRand();
-      y = 100 + j * 16 - height + mathRand() * 12;
+      var height = 20 + 4 * Math.random();
+      y = 100 + j * 16 - height + Math.random() * 12;
       // draw the stem
-      if(mathRand() > 0.5) {
+      if(Math.random() > 0.5) {
         cntxFillStyle('#44aa55');
         cntxFillRect(x, y, 2, height);
         cntxFillStyle('#66cc88');
@@ -852,7 +852,7 @@ function createFlowers() {
         cntxFillRect(x, y, 1, height);        
       }
 
-      var flower = Math.floor(mathRand() * 2) * 20;
+      var flower = Math.floor(Math.random() * 2) * 20;
 
       var dstX = x - 2;
       var dstY = y - 6;
@@ -1301,44 +1301,44 @@ function createBush() {
     createLeaf(colours[j]);
 
       for(var i = 0; i < 100; i++) {
-        var radius = 30 * mathRand();
-        var angle = Math.PI * 2 * mathRand();
+        var radius = 30 * Math.random();
+        var angle = Math.PI * 2 * Math.random();
         var cX = 140;
         var cY = 160;
-        var dstX = cX + radius * M.cos(angle);
+        var dstX = cX + radius * M.Math.cos(angle);
         var dstY = cY + radius * M.Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * Math.PI * 2);
+        cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
       }
 
       for(var i = 0; i < 120; i++) {
-        var radius = 40 * mathRand();
-        var angle = Math.Math.PI * 2 * Math.random();
+        var radius = 40 * Math.random();
+        var angle = Math.PI * 2 * Math.random();
         var cX = 160;
         var cY = 150;
-        var dstX = cX + radius * cos(angle);
+        var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * Math.PI * 2);
+        cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
       }
 
 
       for(var i = 0; i < 100; i++) {
-        var radius = 30 * mathRand();
-        var angle = Math.PI * 2 * mathRand();
+        var radius = 30 * Math.random();
+        var angle = Math.PI * 2 * Math.random();
         var cX = 190;
         var cY = 160;
-        var dstX = cX + radius * cos(angle);
+        var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * Math.PI * 2);
+        cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
 

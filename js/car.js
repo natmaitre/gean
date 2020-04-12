@@ -68,7 +68,7 @@ Car.prototype = {
     if(this.slipstreamLengths === false) {
       this.slipstreamLengths = [];
       for(i = 0; i < segments; i++) {
-        this.slipstreamLengths.push(mathRand());
+        this.slipstreamLengths.push(Math.random());
       }
     }
     for(i = 0; i < segments; i++) {
@@ -305,7 +305,7 @@ Car.prototype = {
       }
     }
 
-    this.bounce = (this.bounce * mathRand() * speedPercent) ;
+    this.bounce = (this.bounce * Math.random() * speedPercent) ;
     
     if(this.index == 0 && race.state != STATE_RACEOVER) {
       this.x = this.x - (dx * speedPercent * playerSegment.curve * this.centrifugal);

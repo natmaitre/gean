@@ -468,7 +468,7 @@ Track.prototype = {
 //    context.fillStyle = '#222222';
 //    context.fillRect(0, 0, width, height);
     cntx.clearRect(0, 0, 600, 600);
-    cntxStrokeStyle('#666666');
+    cntx.strokeStyle = '#666666';
     cntx.lineWidth = 5;
   
     var angle = 0;
@@ -490,19 +490,13 @@ Track.prototype = {
       this.segments[i].x = x;
       this.segments[i].y = y;
     }
-  
-    cntxStroke();
-  
-    cntxStrokeStyle(LIGHTGREY);
+    cntx.stroke();
+    cntx.strokeStyle = LIGHTGREY;
     cntx.lineWidth = 4;
-    cntxStroke();
-
-
-
-    // draw the start line
+    cntx.stroke();
     segmentDrawLength = 4;
     context.lineWidth = 3;
-    cntxStrokeStyle(LIGHTGREY);
+    cntx.strokeStyle = LIGHTGREY;
     cntx.beginPath();
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * Math.cos(angle);
@@ -512,7 +506,7 @@ Track.prototype = {
     y += 2 * segmentDrawLength * Math.sin(angle);
     cntx.lineTo(x, y);
   
-    cntxStroke();
+    cntx.stroke();
   },
 
 
@@ -529,8 +523,8 @@ Track.prototype = {
       cntx.fillStyle = DARKGREY;
       cntx.fill();
       cntx.lineWidth = 2;
-      cntxStrokeStyle('#999999');
-      cntxStroke();
+      cntx.strokeStyle = '#999999';
+      cntx.stroke();
     }
     var playerPosition = cars[0].z;
     var playerSegment = track.findSegment(playerPosition);
@@ -540,8 +534,8 @@ Track.prototype = {
     cntx.fill();
 
     context.lineWidth = 2;
-    cntxStrokeStyle(MEDIUMGREY);
-    cntxStroke();
+    cntx.strokeStyle = MEDIUMGREY;
+    cntx.stroke();
         
   }
 }

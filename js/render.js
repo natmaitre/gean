@@ -24,8 +24,8 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
   cntx.lineTo(x4, y4);
   cntx.closePath();
   if(outlineOnly) {
-    cntxStrokeStyle(MEDIUMGREY);
-    cntxStroke();
+    cntx.strokeStyle = MEDIUMGREY;
+    cntx.stroke();
   } else {
     cntx.fill();
   }

@@ -263,7 +263,7 @@ Race.prototype = {
     }  
     if(this.state == STATE_RACING) {
       cntx.fillStyle = LIGHTGREY;
-      cntxStrokeStyle(LIGHTGREY);
+      cntx.strokeStyle = LIGHTGREY;
       context.font = ' 80px ' + helvetica;
       context.fillText(player.getPosition(), 100, 80);
       context.font = ' 40px ' + helvetica;
@@ -276,7 +276,7 @@ Race.prototype = {
       context.fillText( "Turbo ", window.innerWidth * 4 / 5 - 100, 136);
       cntx.beginPath();
       context.rect(window.innerWidth * 4 / 5 - 4, 110, 208, 28);
-      cntxStroke();      
+      cntx.stroke();      
       cntx.fillRect(window.innerWidth * 4 / 5, 114, player.turboAmount * 2, 20);
       if( cars[0].newPositionTime > 0) {
         context.font = ' 60px ' + helvetica;

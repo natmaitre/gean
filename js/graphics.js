@@ -440,7 +440,7 @@ var tree = {
         cntx.moveTo(0,0);
         cntx.lineTo(0,-(500)/10);
 
-        cntxStroke();
+        cntx.stroke();
         
         cntx.translate(0,-500/10);
         var randomN = -(Math.random() * 0.1) + 0.1;
@@ -463,7 +463,7 @@ var tree = {
     } else {   
       cntx.fillStyle = this.leavesColor;
       cntx.fillRect(0, 0, 500, 200);
-      cntxStroke();
+      cntx.stroke();
     }
   }
 };
@@ -1193,10 +1193,10 @@ fillPoints(points, '#a9fb78');
 //  fillPoints(points,'#5d2959');  
 
 /*
-  cntxStrokeStyle('#63a96e');
+  cntx.strokeStyle = '#63a96e';
   drawLine(1, 161, 143, 161);
 
-  cntxStrokeStyle('#111111');
+  cntx.strokeStyle = '#111111';
   cntx.lineWidth = 2;
   drawLine(4, 137, 86, 137);
 
@@ -1205,14 +1205,14 @@ fillPoints(points, '#a9fb78');
   for(var i = 0; i < 68; i += 4) {
     drawLine(6 + i, 138, 6 + i, 149);
   }
-  cntxStrokeStyle('#204e69');
+  cntx.strokeStyle = '#204e69';
   cntx.lineWidth = 2;
   drawLine(5, 114, 106, 114);
   cntx.lineWidth = 1;
   drawLine(105, 116, 105, 155);
 
 
-  cntxStrokeStyle('#204e69');
+  cntx.strokeStyle = '#204e69';
   cntx.lineWidth = 1;
   drawLine(143, 21, 65, 21);
   drawLine(65, 21, 32, 82);

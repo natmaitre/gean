@@ -60,7 +60,7 @@ function drawFuzzyCircle(x, y, r, c) {
   cntxBeginPath();
   cntxMoveTo(x + (radius) * cos(angle), y + (radius) * sin(angle));
   for(var i = 1; i < 30; i++) {
-    angle = i * PI * 2 / 30;
+    angle = i * Math.PI * 2 / 30;
     radius = r + r * mathRand();
     cntxLineTo(x + (radius) * cos(angle), y + (radius) * sin(angle));
   }
@@ -694,9 +694,9 @@ function createStreetlights(night) {
 
   cntxFillRect(40, 150, poleWidth, 300);
   cntxBeginPath();
-  cntxArc(70, 150, 30, PI, -PI / 2 );
+  cntxArc(70, 150, 30, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -PI / 2, PI, true );
+  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntxLineTo(70 - 30, 150);
   cntxFill();
 
@@ -711,9 +711,9 @@ function createStreetlights(night) {
   cntxFillRect(70, 150 - 30 + poleWidth - 4, 70, 2);
 
   cntxBeginPath();
-  cntxArc(70, 150, 30 - poleWidth + 4, PI, -PI / 2 );
+  cntxArc(70, 150, 30 - poleWidth + 4, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -PI / 2, PI, true );
+  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntxLineTo(70 - 30, 150);
   cntxFill();
 
@@ -725,9 +725,9 @@ function createStreetlights(night) {
   cntxFillRect(70, 150 - 30 + poleWidth - 2, 70, 2);
 
   cntxBeginPath();
-  cntxArc(70, 150, 30 - poleWidth + 2, PI, -PI / 2 );
+  cntxArc(70, 150, 30 - poleWidth + 2, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -PI / 2, PI, true );
+  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntxLineTo(70 - 30, 150);
   cntxFill();
 
@@ -795,10 +795,10 @@ function createLeaf(s) {
   cntxFillStyle(s);
   cntxBeginPath();
 
-  cntxArc(3, 7, 3, PI / 2, PI );
-  cntxArc(10, 7, 10, PI, PI * 1.24);
-  cntxArc(-4.7, 7, 10, PI * 1.76, 0);
-  cntxArc(2.3, 7, 3, 0, PI / 2 );
+  cntxArc(3, 7, 3, Math.PI / 2, Math.PI );
+  cntxArc(10, 7, 10, Math.PI, Math.PI * 1.24);
+  cntxArc(-4.7, 7, 10, Math.PI * 1.76, 0);
+  cntxArc(2.3, 7, 3, 0, Math.PI / 2 );
   cntxFill();  
 }
 
@@ -875,7 +875,7 @@ function createFlowers() {
 
       cntxSave();
       cntxTranslate(dstX + 6, dstY + 10);
-      cntxRotate(0.6);//Math.random() * Math.PI * 2);
+      cntxRotate(0.6);
       cntxDrawImage(canvas, 0, 60, 6, 11, 0, 0, 6, 11);
       cntxRestore();
     }
@@ -1302,28 +1302,28 @@ function createBush() {
 
       for(var i = 0; i < 100; i++) {
         var radius = 30 * mathRand();
-        var angle = PI * 2 * mathRand();
+        var angle = Math.PI * 2 * mathRand();
         var cX = 140;
         var cY = 160;
         var dstX = cX + radius * M.cos(angle);
         var dstY = cY + radius * M.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * PI * 2);
+        cntxRotate(mathRand() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
       }
 
       for(var i = 0; i < 120; i++) {
         var radius = 40 * mathRand();
-        var angle = Math.PI * 2 * Math.random();
+        var angle = Math.Math.PI * 2 * Math.random();
         var cX = 160;
         var cY = 150;
         var dstX = cX + radius * cos(angle);
         var dstY = cY + radius * sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * PI * 2);
+        cntxRotate(mathRand() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
       }
@@ -1331,14 +1331,14 @@ function createBush() {
 
       for(var i = 0; i < 100; i++) {
         var radius = 30 * mathRand();
-        var angle = PI * 2 * mathRand();
+        var angle = Math.PI * 2 * mathRand();
         var cX = 190;
         var cY = 160;
         var dstX = cX + radius * cos(angle);
         var dstY = cY + radius * sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
-        cntxRotate(mathRand() * PI * 2);
+        cntxRotate(mathRand() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntxRestore();
 

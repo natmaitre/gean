@@ -481,7 +481,7 @@ Track.prototype = {
     var segmentDrawLength = 0.5;
     cntxMoveTo(x, y);
     for(var i = 0; i < this.segments.length; i++) {
-      angle = (this.segments[i].angle / 180) * PI;
+      angle = (this.segments[i].angle / 180) * Math.PI;
       x += segmentDrawLength * cos(angle);
       y += segmentDrawLength * sin(angle);
       cntxLineTo(x, y);
@@ -504,7 +504,7 @@ Track.prototype = {
     context.lineWidth = 3;
     cntxStrokeStyle(LIGHTGREY);
     cntxBeginPath();
-    angle = ((this.segments[0].angle + 90) / 180) * PI;
+    angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * cos(angle);
     y -= segmentDrawLength * sin(angle);
     cntxMoveTo(x, y);
@@ -531,7 +531,7 @@ Track.prototype = {
       
       cntxBeginPath();
     
-      cntxArc(segment.x, segment.y, 5, 0, 2 * PI, false);
+      cntxArc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
       cntxFillStyle(DARKGREY);
       cntxFill();
       cntx.lineWidth = 2;
@@ -544,7 +544,7 @@ Track.prototype = {
     var playerSegment = track.findSegment(playerPosition);
   
     cntxBeginPath();
-    cntxArc(playerSegment.x, playerSegment.y, 5, 0, 2 * PI, false);
+    cntxArc(playerSegment.x, playerSegment.y, 5, 0, 2 * Math.PI, false);
     cntxFillStyle('#ff0000');
     cntxFill();
 

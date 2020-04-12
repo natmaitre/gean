@@ -77,11 +77,11 @@ Car.prototype = {
         this.slipstreamLengths[i] = 0;
       }
       var largeRadius = carHeight + 60;
-      if(angle > PI / 6 && angle <  PI / 2) {
-        largeRadius = carHeight +60 +  (angle - PI / 6) * 128;// - 200;// - 570;
+      if(angle > Math.PI / 6 && angle <  Math.PI / 2) {
+        largeRadius = carHeight +60 +  (angle - Math.PI / 6) * 128;// - 200;// - 570;
       }
-      if(angle >= PI / 2 && angle < (5 * PI / 6)) {
-       largeRadius = carHeight +60 +  (5 * PI / 6 - angle) * 128;// - 200;// - 570; 
+      if(angle >= Math.PI / 2 && angle < (5 * Math.PI / 6)) {
+       largeRadius = carHeight +60 +  (5 * Math.PI / 6 - angle) * 128;// - 200;// - 570; 
       }
       var x1 = this.x + this.width / 2 + smallRadius * Math.cos(angle - 0.05);
       var y1 = this.y + smallRadius * sin(angle - 0.02);
@@ -141,7 +141,7 @@ Car.prototype = {
         screen: {}
       });
       this.slipstreamLines.push(line);
-      angle += PI / segments;
+      angle += Math.PI / segments;
     }
     for(i = 0; i < this.slipstreamLines.length; i++) {
       var points = this.slipstreamLines[i];

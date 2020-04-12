@@ -1,5 +1,3 @@
-var PI = Math.PI;
-
 function mathRand() {
   return Math.random();
 }

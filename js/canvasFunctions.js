@@ -12,17 +12,6 @@ function cntxStroke() {
   cntx.stroke();
 }
 
-function cntxArc(x,y,r,sAngle,eAngle,counterclockwise) {
-  cntx.arc(x,y,r,sAngle,eAngle,counterclockwise);
-}
-
-function cntxLineTo(x, y) {
-  cntx.lineTo(x, y);
-}
-function cntxClosePath() {
-  cntx.closePath();
-}
-
 function cntxFill() {
   cntx.fill();
 }

@@ -62,9 +62,9 @@ function drawFuzzyCircle(x, y, r, c) {
   for(var i = 1; i < 30; i++) {
     angle = i * Math.PI * 2 / 30;
     radius = r + r * Math.random();
-    cntxLineTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
+    cntx.lineTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   }
-  cntxClosePath();
+  cntx.closePath();
   cntxFill();
 
 }
@@ -180,9 +180,9 @@ function createTurnArrows() {
   cntx.fillRect(10, 10, 180, 180);
   cntx.beginPath();
   cntx.moveTo(20, 100);
-  cntxLineTo(160, 30);
-  cntxLineTo(160, 170);
-  cntxLineTo(20, 100);
+  cntx.lineTo(160, 30);
+  cntx.lineTo(160, 170);
+  cntx.lineTo(20, 100);
   cntx.fillStyle = '#cc2211';
   cntxFill();
   cntx.fillStyle = MEDIUMGREY;
@@ -239,10 +239,10 @@ function createBackgroundTrees() {
       cntx.beginPath();
       cntx.moveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
-        cntxLineTo(x + t, 240 - terPoints[t]);
+        cntx.lineTo(x + t, 240 - terPoints[t]);
       }
       // finish creating the rect so we can fill it
-      cntxClosePath();
+      cntx.closePath();
       cntxFill();
 
       x += 2 +  Math.random() * 4;
@@ -268,9 +268,9 @@ function createBackgroundTrees() {
       cntx.beginPath();
       cntx.moveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
-        cntxLineTo(x + t, 240 - terPoints[t]);
+        cntx.lineTo(x + t, 240 - terPoints[t]);
       }
-      cntxClosePath();
+      cntx.closePath();
       cntxFill();
       x += 2 +  Math.random() * 5;
     }
@@ -360,21 +360,21 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   cntx.beginPath();
   cntx.moveTo(x, heightOffset - points[0]);
   for (var t = 1; t < points.length; t++) {
-    cntxLineTo(x + t, heightOffset - points[t]);
+    cntx.lineTo(x + t, heightOffset - points[t]);
   }
-  cntxClosePath();
+  cntx.closePath();
   cntxFill();
   x = startX;
   cntx.fillStyle = '#224a33';
   cntx.beginPath();
   cntx.moveTo(x, heightOffset - highlightpoints[0]);
   for (var t = 1; t < highlightpoints.length; t++) {
-    cntxLineTo(x, heightOffset - highlightpoints[t]);
+    cntx.lineTo(x, heightOffset - highlightpoints[t]);
     x++;
   }
 
   for (var t = 1; t < highlightBackpoints.length; t++) {
-    cntxLineTo(x, heightOffset - highlightBackpoints[t]);
+    cntx.lineTo(x, heightOffset - highlightBackpoints[t]);
 
     if(Math.random() > 0.4) {
       x--;
@@ -382,7 +382,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
       x++;
     }
   }
-  cntxClosePath();
+  cntx.closePath();
   cntxFill();  
 
   x = startX + 4;
@@ -390,12 +390,12 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   cntx.beginPath();
   cntx.moveTo(x, heightOffset - highlightpoints2[0]);
   for (var t = 1; t < highlightpoints2.length; t++) {
-    cntxLineTo(x, heightOffset - highlightpoints2[t]);
+    cntx.lineTo(x, heightOffset - highlightpoints2[t]);
     x++;
   }
 
   for (var t = 1; t < highlightBackpoints2.length; t++) {
-    cntxLineTo(x, heightOffset - highlightBackpoints2[t]);
+    cntx.lineTo(x, heightOffset - highlightBackpoints2[t]);
 
     if(Math.random() > 0.8) {
       x++;
@@ -404,7 +404,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
     }
   }
 
-  cntxClosePath();
+  cntx.closePath();
   cntxFill();
 
   return points;
@@ -438,7 +438,7 @@ var tree = {
     if (depth < 12) {
         cntx.beginPath();
         cntx.moveTo(0,0);
-        cntxLineTo(0,-(500)/10);
+        cntx.lineTo(0,-(500)/10);
 
         cntxStroke();
         
@@ -656,10 +656,10 @@ function createStreetlights(night) {
   var poleWidth = 7;
   cntx.fillRect(40, 150, poleWidth, 300);
   cntx.beginPath();
-  cntxArc(70, 150, 30, Math.PI, -Math.PI / 2 );
-  cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
-  cntxLineTo(70 - 30, 150);
+  cntx.arc(70, 150, 30, Math.PI, -Math.PI / 2 );
+  cntx.lineTo(70, 150 - 30 + poleWidth);
+  cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
+  cntx.lineTo(70 - 30, 150);
   cntxFill();
   cntx.fillRect(70, 150 - 30, 70, poleWidth);
   cntx.fillRect(130, 150 - 30 - 1, 35, 6);
@@ -670,10 +670,10 @@ function createStreetlights(night) {
   cntx.fillRect(40 + poleWidth - 4, 150, 2, 300);
   cntx.fillRect(70, 150 - 30 + poleWidth - 4, 70, 2);
   cntx.beginPath();
-  cntxArc(70, 150, 30 - poleWidth + 4, Math.PI, -Math.PI / 2 );
-  cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
-  cntxLineTo(70 - 30, 150);
+  cntx.arc(70, 150, 30 - poleWidth + 4, Math.PI, -Math.PI / 2 );
+  cntx.lineTo(70, 150 - 30 + poleWidth);
+  cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
+  cntx.lineTo(70 - 30, 150);
   cntxFill();
   cntx.fillStyle = '#aaaaaa';
   if(night) {
@@ -683,10 +683,10 @@ function createStreetlights(night) {
   cntx.fillRect(70, 150 - 30 + poleWidth - 2, 70, 2);
 
   cntx.beginPath();
-  cntxArc(70, 150, 30 - poleWidth + 2, Math.PI, -Math.PI / 2 );
-  cntxLineTo(70, 150 - 30 + poleWidth);
-  cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
-  cntxLineTo(70 - 30, 150);
+  cntx.arc(70, 150, 30 - poleWidth + 2, Math.PI, -Math.PI / 2 );
+  cntx.lineTo(70, 150 - 30 + poleWidth);
+  cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
+  cntx.lineTo(70 - 30, 150);
   cntxFill();
 
 
@@ -749,10 +749,10 @@ function createNightSky() {
 function createLeaf(s) {
   cntx.fillStyle = s;
   cntx.beginPath();
-  cntxArc(3, 7, 3, Math.PI / 2, Math.PI );
-  cntxArc(10, 7, 10, Math.PI, Math.PI * 1.24);
-  cntxArc(-4.7, 7, 10, Math.PI * 1.76, 0);
-  cntxArc(2.3, 7, 3, 0, Math.PI / 2 );
+  cntx.arc(3, 7, 3, Math.PI / 2, Math.PI );
+  cntx.arc(10, 7, 10, Math.PI, Math.PI * 1.24);
+  cntx.arc(-4.7, 7, 10, Math.PI * 1.76, 0);
+  cntx.arc(2.3, 7, 3, 0, Math.PI / 2 );
   cntxFill();  
 }
 
@@ -838,16 +838,16 @@ function fillPoints(points, color) {
   cntx.fillStyle = color;
   cntx.moveTo(points[0], points[1]);
   for(var i = 2; i < points.length; i+= 2) {
-    cntxLineTo(points[i], points[i+1]);
+    cntx.lineTo(points[i], points[i+1]);
   }
-  cntxClosePath();
+  cntx.closePath();
   cntxFill();
 }
 
 function drawLine(x1, y1, x2, y2) {
   cntx.beginPath();
   cntx.moveTo(x1, y1);
-  cntxLineTo(x2, y2);
+  cntx.lineTo(x2, y2);
   cntx.stroke();
 }
 

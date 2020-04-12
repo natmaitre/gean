@@ -484,7 +484,7 @@ Track.prototype = {
       angle = (this.segments[i].angle / 180) * Math.PI;
       x += segmentDrawLength * Math.cos(angle);
       y += segmentDrawLength * Math.sin(angle);
-      cntxLineTo(x, y);
+      cntx.lineTo(x, y);
 
       // in 2d overhead view
       this.segments[i].x = x;
@@ -510,7 +510,7 @@ Track.prototype = {
     cntx.moveTo(x, y);
     x += 2 * segmentDrawLength * Math.cos(angle);
     y += 2 * segmentDrawLength * Math.sin(angle);
-    cntxLineTo(x, y);
+    cntx.lineTo(x, y);
   
     cntxStroke();
   },
@@ -525,7 +525,7 @@ Track.prototype = {
       var carPosition = cars[i].z;
       var segment = track.findSegment(carPosition);
       cntx.beginPath();
-      cntxArc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
+      cntx.arc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
       cntx.fillStyle = DARKGREY;
       cntxFill();
       cntx.lineWidth = 2;
@@ -535,7 +535,7 @@ Track.prototype = {
     var playerPosition = cars[0].z;
     var playerSegment = track.findSegment(playerPosition);
     cntx.beginPath();
-    cntxArc(playerSegment.x, playerSegment.y, 5, 0, 2 * Math.PI, false);
+    cntx.arc(playerSegment.x, playerSegment.y, 5, 0, 2 * Math.PI, false);
     cntx.fillStyle = '#ff0000';
     cntxFill();
 

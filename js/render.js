@@ -19,10 +19,10 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
   cntx.fillStyle = color;
   cntx.beginPath();
   cntx.moveTo(x1, y1);
-  cntxLineTo(x2, y2);
-  cntxLineTo(x3, y3);
-  cntxLineTo(x4, y4);
-  cntxClosePath();
+  cntx.lineTo(x2, y2);
+  cntx.lineTo(x3, y3);
+  cntx.lineTo(x4, y4);
+  cntx.closePath();
   if(outlineOnly) {
     cntxStrokeStyle(MEDIUMGREY);
     cntxStroke();
@@ -253,7 +253,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
         cntx.beginPath();
         cntx.moveTo(points[0].screen.x, points[0].screen.y);
         for(j = 1; j < points.length; j++) {
-          cntxLineTo(points[j].screen.x, points[j].screen.y);
+          cntx.lineTo(points[j].screen.x, points[j].screen.y);
         }
 
         cntx.fillStyle = MEDIUMGREY;

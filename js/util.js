@@ -9,7 +9,6 @@ function utilInterpolate(a,b,percent) {
 
 function utilIncrease(start, increment, max) {
   var result = start + increment;
-
   while (result >= max)
     result -= max;
   while (result < 0)

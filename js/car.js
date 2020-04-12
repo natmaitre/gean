@@ -33,21 +33,10 @@ var Car = function() {
   t.accel          =  6800;
   t.breaking       = -16000;
   t.decel          = -8000;
-  /*
-  this.offRoadDecel   = -12000;
-  this.offRoadLimit   = this.maxSpeed /1.4;
-//  this.accel          =  maxSpeed/5;             // acceleration rate - tuned until it 'felt' right
-  //this.breaking       = -maxSpeed;               // deceleration rate when braking
-  //this.decel          = -maxSpeed/5;             // 'natural' deceleration rate when neither accelerating, nor braking
-  //this.offRoadDecel   = -maxSpeed/2;             // off road deceleration is somewhere in between
-  //this.offRoadLimit   =  maxSpeed/2;             // limit when off road deceleration no longer applies (e.g. you can always go at least this speed even when off road)
-  //this.sideStripLimit   =  this.maxSpeed/1.5;             // limit when off road deceleration no longer applies (e.g. you can always go at least this speed even when off road)
-  */
-  t.currentLapTime = 0;                       // current lap time
-  t.lastLapTime    = null;                    // last lap time
+  t.currentLapTime = 0;
+  t.lastLapTime    = null;
   t.position = 0;
   t.turnSpeed = 3000;
-
   t.slowOnCorners = false;
   t.takeCornerOnInside = false;
   t.bounce = 1.5;
@@ -78,10 +67,10 @@ Car.prototype = {
       }
       var largeRadius = carHeight + 60;
       if(angle > Math.PI / 6 && angle <  Math.PI / 2) {
-        largeRadius = carHeight +60 +  (angle - Math.PI / 6) * 128;// - 200;// - 570;
+        largeRadius = carHeight +60 +  (angle - Math.PI / 6) * 128;
       }
       if(angle >= Math.PI / 2 && angle < (5 * Math.PI / 6)) {
-       largeRadius = carHeight +60 +  (5 * Math.PI / 6 - angle) * 128;// - 200;// - 570; 
+       largeRadius = carHeight +60 +  (5 * Math.PI / 6 - angle) * 128; 
       }
       var x1 = this.x + this.width / 2 + smallRadius * Math.cos(angle - 0.05);
       var y1 = this.y + smallRadius * Math.sin(angle - 0.02);
@@ -149,7 +138,6 @@ Car.prototype = {
         camera.project(points[j], 0, 0, width, height);
       }
     }
-
   },
   limit:            function(value, min, max)   { return Math.max(min, Math.min(value, max));   
   },
@@ -160,7 +148,6 @@ Car.prototype = {
     var max2 = x2 + (w2) * percent;    
     return ! ((max1 < min2) || (min1 > max2));
   },
-
   setTurnLeft: function(turn) {
     this.turnLeft = turn;
   },

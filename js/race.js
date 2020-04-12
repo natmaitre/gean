@@ -5,7 +5,7 @@ var Race = function() {
   this.state = 0;
   this.countdownNumber = 3;
   this.lastTime = 0 ;
-  this.carCount = 15;// 10;
+  this.carCount = 15;
   this.trackNumber = 0;
   this.zIsDown = false;
   this.xIsDown = false;
@@ -17,7 +17,7 @@ var STATE_COUNTDOWN = 1;
 var STATE_RACING = 4;
 var STATE_RACEOVER = 5;
 
-Race.COUNTDOWN_INTERVAL = 800;//800;//800;//1;//800;
+Race.COUNTDOWN_INTERVAL = 800;
 
 Race.prototype = {
   init: function() {
@@ -70,16 +70,16 @@ Race.prototype = {
           this.xIsDown = true;
           player.setTurbo(true);
           break;
-        case KEYUP:
+        case 38:
           player.setAccelerate(true);
           break;
-        case KEYDOWN:
+        case 40:
           player.setBrake(true);
           break;
-        case KEYLEFT:
+        case 37:
           player.setTurnLeft(true);
           break;
-        case KEYRIGHT:
+        case 39:
           player.setTurnRight(true);
           break;
       }
@@ -97,16 +97,16 @@ Race.prototype = {
           this.xIsDown = false;
           player.setTurbo(false);
           break;
-        case KEYUP:
+        case 38:
           player.setAccelerate(false);
           break;
-        case KEYDOWN:
+        case 40:
           player.setBrake(false);
           break;
-        case KEYLEFT:
+        case 37:
           player.setTurnLeft(false);
           break;
-        case KEYRIGHT:
+        case 38:
           player.setTurnRight(false);
           break;
       }
@@ -239,7 +239,7 @@ Race.prototype = {
   render: function() {
     renderRender();
     if(this.state == STATE_PRERACE) {
-      context.font = 'italic bold ' + window.innerHeight/5 + 'px ' + helvetica;
+      context.font = 'italic bold ' + window.innerHeight/5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
       if(this.countdownNumber < 4) {
         cntx.fillStyle = DARKGREY;
         context.fillText("RACE", window.innerWidth / 2, window.innerHeight/4+4);  
@@ -247,7 +247,7 @@ Race.prototype = {
         context.fillText("RACE", window.innerWidth / 2, window.innerHeight/4);  
       }
       if(this.countdownNumber < 3) {
-        context.font = 'italic bold ' + window.innerHeight/5 + 'px' + helvetica;
+        context.font = 'italic bold ' + window.innerHeight/5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
         cntx.fillStyle = DARKGREY;
         context.fillText(numbers[this.raceNumber], window.innerWidth / 2, window.innerHeight/4*2+4);  
         cntx.fillStyle = LIGHTGREY;
@@ -255,7 +255,7 @@ Race.prototype = {
       }
     }
     if(this.state == STATE_COUNTDOWN) {
-      context.font = ' ' + window.innerHeight/5 + 'px ' + helvetica;
+      context.font = ' ' + window.innerHeight/5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillStyle= '#111111';
       context.fillText(this.countdownNumber, window.innerWidth / 2, 254);  
       context.fillStyle= LIGHTGREY;
@@ -264,31 +264,31 @@ Race.prototype = {
     if(this.state == STATE_RACING) {
       cntx.fillStyle = LIGHTGREY;
       cntx.strokeStyle = LIGHTGREY;
-      context.font = ' 80px ' + helvetica;
+      context.font = ' 80px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillText(player.getPosition(), 100, 80);
-      context.font = ' 40px ' + helvetica;
+      context.font = ' 40px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillText("Lap " + player.getLap() + " of 2", 100, 130);
       context.fillText("Lap Time: " + player.getCurrentLapTime().toFixed(2), 150, 180);
-      context.font = ' 80px ' + helvetica;
+      context.font = ' 80px "Helvetica Neue", Helvetica, Arial, sans-serif';
       var speed = ("000" + Math.round(player.getSpeed() / 100 ).toString(10)).substr(-3);
       context.fillText( speed + "km/h", window.innerWidth * 4 / 5, 80);
-      context.font = ' 40px ' + helvetica;
+      context.font = ' 40px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillText( "Turbo ", window.innerWidth * 4 / 5 - 100, 136);
       cntx.beginPath();
       context.rect(window.innerWidth * 4 / 5 - 4, 110, 208, 28);
       cntx.stroke();      
       cntx.fillRect(window.innerWidth * 4 / 5, 114, player.turboAmount * 2, 20);
       if( cars[0].newPositionTime > 0) {
-        context.font = ' 60px ' + helvetica;
+        context.font = ' 60px "Helvetica Neue", Helvetica, Arial, sans-serif';
         cntx.fillStyle = LIGHTGREY;
         context.fillText(cars[0].getPosition(), window.innerWidth/2, window.innerHeight/3);
       }
     }
     if(this.state == STATE_RACEOVER) {
-      context.font = ' 300px ' + helvetica;
+      context.font = ' 300px "Helvetica Neue", Helvetica, Arial, sans-serif';
       cntx.fillStyle = LIGHTGREY;
       context.fillText(cars[0].finishPosition, 300, 290);
-      context.font = ' 40px ' + helvetica;
+      context.font = ' 40px "Helvetica Neue", Helvetica, Arial, sans-serif';
       var y = 380;
       if(cars[0].finishPosition == '1st') {
         context.fillText("x: Next Race", 397, y);

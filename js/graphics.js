@@ -1170,8 +1170,6 @@ fillPoints(points, '#a9fb78');
     38, 77
   ];
   fillPoints(points, '#95eef7');
-
-  // wheel
   points = [
     13, 197,
     16, 205,
@@ -1182,7 +1180,6 @@ fillPoints(points, '#a9fb78');
   ];
   fillPoints(points, DARKGREY);
 
-  // strip under lights
   var points = [
     1, 155, 
     1, 167, 

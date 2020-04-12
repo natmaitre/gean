@@ -13,6 +13,7 @@ var bgLayer2Offset     = 0;
 var bgLayer1Offset     = 0;   
 var outlineOnly = false;
 var lastDriftDraw = 0;
+var COLORS_LANEMARKER = 0;
 
 // draw a polygon
 function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {

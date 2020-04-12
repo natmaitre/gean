@@ -47,7 +47,7 @@ TitleScreen.prototype = {
     cntx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for (var i = 0; i < 30; i++) {
       var fontSize = 100 + i * 10;
-      context.font = 'italic ' + fontSize + 'px ' + helvetica;
+      context.font = 'italic ' + fontSize + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fontStyle = 'italic';
       var col = 80 + (i * 4);
       col = (col + t / 6) % 200;
@@ -57,7 +57,7 @@ TitleScreen.prototype = {
       cntx.fillStyle = 'rgb(' + col + ',' + col + ',' + col + ')';
       cntx.fillText("racer", this.canvas.width / 2, 300 - i);
     }
-    context.font = '44px ' + helvetica;
+    context.font = '44px "Helvetica Neue", Helvetica, Arial, sans-serif';
     cntx.fillText("Arrow keys to drive, x for Turbo, z for Handbrake", this.canvas.width / 2, 570);
     cntx.fillText("x To Start", this.canvas.width / 2, 460);
     camera.z = utilIncrease(camera.z, dt * 120, track.getLength());

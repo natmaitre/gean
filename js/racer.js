@@ -17,7 +17,6 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-
 document.addEventListener("keyup", function (e) {
   if (racing) {
     race.keyUp(e);
@@ -26,13 +25,10 @@ document.addEventListener("keyup", function (e) {
   }
 });
 
-
 var now = getTimestamp();
 var last = getTimestamp();
-
 var dt = 0;
 var gdt = 0;
-
 var cars = []; 
 var player = null;
 var camera = new Camera();
@@ -45,36 +41,27 @@ function startGame(options) {
   racing = true;
   camera.reset();
   race.start(0);
-
 }
 titleScreen.init();
 
 function frame() {
-  //  stats.begin();
-
   now = getTimestamp();
   dt = Math.min(1, (now - last) / 1000);
   gdt = gdt + dt;
-
   if (!racing) {
     titleScreen.render(dt);
     gdt = 0;
   } else {
     outlineOnly = false;
-
     var step = 1 / 180;
     while (gdt > step) {
       gdt = gdt - step;
       race.update(step);
     }
-
     track.drawOverheadTrack();
     race.render();
-
     last = now;
-
   }
   requestAnimationFrame(frame);
-  //  stats.end();
 }
 frame();

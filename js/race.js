@@ -241,16 +241,16 @@ Race.prototype = {
     if(this.state == STATE_PRERACE) {
       context.font = 'italic bold ' + window.innerHeight/5 + 'px ' + helvetica;
       if(this.countdownNumber < 4) {
-        cntxFillStyle(DARKGREY);
+        cntx.fillStyle = DARKGREY;
         context.fillText("RACE", window.innerWidth / 2, window.innerHeight/4+4);  
-        cntxFillStyle(LIGHTGREY);
+        cntx.fillStyle = LIGHTGREY;
         context.fillText("RACE", window.innerWidth / 2, window.innerHeight/4);  
       }
       if(this.countdownNumber < 3) {
         context.font = 'italic bold ' + window.innerHeight/5 + 'px' + helvetica;
-        cntxFillStyle(DARKGREY);
+        cntx.fillStyle = DARKGREY;
         context.fillText(numbers[this.raceNumber], window.innerWidth / 2, window.innerHeight/4*2+4);  
-        cntxFillStyle(LIGHTGREY);
+        cntx.fillStyle = LIGHTGREY;
         context.fillText(numbers[this.raceNumber], window.innerWidth / 2, window.innerHeight/4*2);  
       }
     }
@@ -262,7 +262,7 @@ Race.prototype = {
       context.fillText(this.countdownNumber, window.innerWidth / 2, 250);  
     }  
     if(this.state == STATE_RACING) {
-      cntxFillStyle(LIGHTGREY);
+      cntx.fillStyle = LIGHTGREY;
       cntxStrokeStyle(LIGHTGREY);
       context.font = ' 80px ' + helvetica;
       context.fillText(player.getPosition(), 100, 80);
@@ -274,19 +274,19 @@ Race.prototype = {
       context.fillText( speed + "km/h", window.innerWidth * 4 / 5, 80);
       context.font = ' 40px ' + helvetica;
       context.fillText( "Turbo ", window.innerWidth * 4 / 5 - 100, 136);
-      cntxBeginPath();
+      cntx.beginPath();
       context.rect(window.innerWidth * 4 / 5 - 4, 110, 208, 28);
       cntxStroke();      
-      cntxFillRect(window.innerWidth * 4 / 5, 114, player.turboAmount * 2, 20);
+      cntx.fillRect(window.innerWidth * 4 / 5, 114, player.turboAmount * 2, 20);
       if( cars[0].newPositionTime > 0) {
         context.font = ' 60px ' + helvetica;
-        cntxFillStyle(LIGHTGREY);
+        cntx.fillStyle = LIGHTGREY;
         context.fillText(cars[0].getPosition(), window.innerWidth/2, window.innerHeight/3);
       }
     }
     if(this.state == STATE_RACEOVER) {
       context.font = ' 300px ' + helvetica;
-      cntxFillStyle(LIGHTGREY);
+      cntx.fillStyle = LIGHTGREY;
       context.fillText(cars[0].finishPosition, 300, 290);
       context.font = ' 40px ' + helvetica;
       var y = 380;

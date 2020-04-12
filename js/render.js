@@ -16,9 +16,8 @@ var lastDriftDraw = 0;
 
 // draw a polygon
 function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
-  var ctx = context;
-  cntxFillStyle(color);
-  cntxBeginPath();
+  cntx.fillStyle = color;
+  cntx.beginPath();
   cntxMoveTo(x1, y1);
   cntxLineTo(x2, y2);
   cntxLineTo(x3, y3);
@@ -46,8 +45,8 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
 
     // draw side land
     if(!outlineOnly) {
-      cntxFillStyle(landColor);
-      cntxFillRect(0, segment.p3.screen.y, width, segment.p1.screen.y - segment.p3.screen.y);
+      cntx.fillStyle = landColor;
+      cntx.fillRect(0, segment.p3.screen.y, width, segment.p1.screen.y - segment.p3.screen.y);
     }
 
     // draw kerb
@@ -247,28 +246,28 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
           amount -= 1;
         }        
       }
-      cntxGlobalAlpha(1 - amount);
+      cntx.globalAlpha = 1 - amount;
 
       for(i = 0; i < cars[0].slipstreamLines.length; i++) {
         var points = cars[0].slipstreamLines[i];
-        cntxBeginPath();
+        cntx.beginPath();
         cntxMoveTo(points[0].screen.x, points[0].screen.y);
         for(j = 1; j < points.length; j++) {
           cntxLineTo(points[j].screen.x, points[j].screen.y);
         }
 
-        cntxFillStyle(MEDIUMGREY);
+        cntx.fillStyle = MEDIUMGREY;
         cntxFill();
 
       }
-      cntxGlobalAlpha(1);
+      cntx.globalAlpha = 1;
     }
 
 
     // ***** DRAW SHADOW IF IN AIR *******/
 /*
     if(playerShadowY != destY) {
-      cntxGlobalAlpha(0.4);
+      cntx.globalAlpha = 0.4;
         var destW  = (sprite.w * spriteScale * width/2) ;
         renderPolygon(destX, playerShadowY,
           destX + destW, playerShadowY,
@@ -276,7 +275,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
           destX + 0.3 * destW, playerShadowY - 180,
           
           DARKGREY);
-      cntxGlobalAlpha(1);      
+      cntx.globalAlpha = 1;      
     }
     */
     // ***** DRAW CAR SPRITE ****** /
@@ -295,16 +294,16 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
       var time = getTimestamp();
       if(time - lastDriftDraw > 100) {
 
-        cntxGlobalAlpha(0.8);
-        cntxFillStyle(MEDIUMGREY);
+        cntx.globalAlpha = 0.8;
+        cntx.fillStyle = MEDIUMGREY;
         var x = destX + 12;
         var y = destY - 4;
-        cntxFillRect(x, y, 50, 10)
+        cntx.fillRect(x, y, 50, 10)
 
         x = destX + 260;
-        cntxFillRect(x, y, 50, 10)
+        cntx.fillRect(x, y, 50, 10)
 
-        cntxGlobalAlpha(1);
+        cntx.globalAlpha = 1;
         lastDriftDraw = time;
       }
     }
@@ -322,10 +321,10 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
 
   function renderFog(x, y, width, height, fog) {
     if (fog < 1) {
-      cntxGlobalAlpha(1-fog)
-      cntxFillStyle(COLORS_FOG);
-      cntxFillRect(x, y, width, height);
-      cntxGlobalAlpha(1);
+      cntx.globalAlpha =  1-fog;
+      cntx.fillStyle = COLORS_FOG;
+      cntx.fillRect(x, y, width, height);
+      cntx.globalAlpha = 1;
     }
   }
 
@@ -346,7 +345,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
   //  context.clearRect(0, 0, width, height);
   
     context.fillStyle = '#4576aa';
-    cntxFillRect(0, 0, width, height);
+    cntx.fillRect(0, 0, width, height);
   
   
     // render background hills, sky, trees

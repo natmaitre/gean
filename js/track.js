@@ -467,7 +467,7 @@ Track.prototype = {
     var height = canvas.height;
 //    context.fillStyle = '#222222';
 //    context.fillRect(0, 0, width, height);
-    cntxClearRect(600, 600);
+    cntx.clearRect(0, 0, 600, 600);
     cntxStrokeStyle('#666666');
     cntx.lineWidth = 5;
   
@@ -477,7 +477,7 @@ Track.prototype = {
   
 
   
-    cntxBeginPath();
+    cntx.beginPath();
     var segmentDrawLength = 0.5;
     cntxMoveTo(x, y);
     for(var i = 0; i < this.segments.length; i++) {
@@ -503,7 +503,7 @@ Track.prototype = {
     segmentDrawLength = 4;
     context.lineWidth = 3;
     cntxStrokeStyle(LIGHTGREY);
-    cntxBeginPath();
+    cntx.beginPath();
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * Math.cos(angle);
     y -= segmentDrawLength * Math.sin(angle);
@@ -517,35 +517,26 @@ Track.prototype = {
 
 
   drawOverheadTrack: function() {
-    //var canvas = document.getElementById('trackCanvas');
-    cntx = overheadTrack.x;//canvas.getContext('2d');
+    cntx = overheadTrack.x;
     this.overheadMap = overheadTrack.c;
-
-    cntxClearRect(600, 600);
+    cntx.clearRect(0, 0, 600, 600);
     cntxDrawImage(this.map, 0, 0, 600, 600, 0, 0, 600, 600);
-  
-    // opponents
     for(var i = 0; i < cars.length; i++) {
       var carPosition = cars[i].z;
       var segment = track.findSegment(carPosition);
-      
-      cntxBeginPath();
-    
+      cntx.beginPath();
       cntxArc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
-      cntxFillStyle(DARKGREY);
+      cntx.fillStyle = DARKGREY;
       cntxFill();
       cntx.lineWidth = 2;
       cntxStrokeStyle('#999999');
       cntxStroke();
     }
-
-    // camera z position plus player z position from camera
     var playerPosition = cars[0].z;
     var playerSegment = track.findSegment(playerPosition);
-  
-    cntxBeginPath();
+    cntx.beginPath();
     cntxArc(playerSegment.x, playerSegment.y, 5, 0, 2 * Math.PI, false);
-    cntxFillStyle('#ff0000');
+    cntx.fillStyle = '#ff0000';
     cntxFill();
 
     context.lineWidth = 2;

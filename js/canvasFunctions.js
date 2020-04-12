@@ -1,17 +1,5 @@
 var cntx = null;
-
-
-function cntxClearRect(width, height) {
-  cntx.clearRect(0, 0, width, height);
-}
-
-function cntxGlobalAlpha(alpha) {
-  cntx.globalAlpha = alpha;
-}
-function cntxFillRect(x, y, width, height) {
-  cntx.fillRect(x, y, width, height);
-}
-  
+ 
 function cntxCreateLinearGradient(x0, y0, x1, y1) {
   return cntx.createLinearGradient(x0, y0, x1, y1);
 }
@@ -22,14 +10,6 @@ function cntxStrokeStyle(s) {
 
 function cntxStroke() {
   cntx.stroke();
-}
-
-function cntxFillStyle(s) {
-  cntx.fillStyle = s;
-}
-
-function cntxBeginPath() {
-  cntx.beginPath();
 }
 
 function cntxMoveTo(x, y) {

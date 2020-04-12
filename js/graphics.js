@@ -55,9 +55,9 @@ function drawFuzzyCircle(x, y, r, c) {
   
   var angle = 0;
 
-  cntxFillStyle(c);
+  cntx.fillStyle = c;
   var radius = r + r * Math.random();
-  cntxBeginPath();
+  cntx.beginPath();
   cntxMoveTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   for(var i = 1; i < 30; i++) {
     angle = i * Math.PI * 2 / 30;
@@ -170,35 +170,26 @@ function newSprite(flipH) {
 function createTurnArrows() {
   cntx = scratchCanvas.x;
   eraseScratch();
-
-  cntxFillStyle('#996644');
-  cntxFillRect(0, 0, 200, 200);
-
-  cntxFillStyle('#996644');
-  cntxFillRect(10, 200, 10, 10);
-
-  cntxFillStyle('#996644');
-  cntxFillRect(180, 200, 10, 10);
-
-  cntxFillStyle(MEDIUMGREY);
-  cntxFillRect(10, 10, 180, 180);
-  cntxBeginPath();
+  cntx.fillStyle = '#996644';
+  cntx.fillRect(0, 0, 200, 200);
+  cntx.fillStyle = '#996644';
+  cntx.fillRect(10, 200, 10, 10);
+  cntx.fillStyle = '#996644';
+  cntx.fillRect(180, 200, 10, 10);
+  cntx.fillStyle = MEDIUMGREY;
+  cntx.fillRect(10, 10, 180, 180);
+  cntx.beginPath();
   cntxMoveTo(20, 100);
   cntxLineTo(160, 30);
   cntxLineTo(160, 170);
   cntxLineTo(20, 100);
-  cntxFillStyle('#cc2211');
+  cntx.fillStyle = '#cc2211';
   cntxFill();
-
-  cntxFillStyle(MEDIUMGREY);
-  cntxFillRect(10, 10, 20, 180);
-
+  cntx.fillStyle = MEDIUMGREY;
+  cntx.fillRect(10, 10, 20, 180);
   SPRITES_TURNLEFT = newSprite();
   SPRITES_TURNRIGHT = newSprite(1);
 }
-
-
-// ***************** BACKGROUND TREES ******************** //
 
 function smallTree(width, slope) {
   var points = [];
@@ -244,8 +235,8 @@ function createBackgroundTrees() {
     var terPoints = smallTree(8, 7);
       //var terPoints = terrain(width, height, height / 2, 0.6);
       var colour = Math.floor(Math.random() * colours.length);
-      cntxFillStyle(colours[colour]);
-      cntxBeginPath();
+      cntx.fillStyle = colours[colour];
+      cntx.beginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
         cntxLineTo(x + t, 240 - terPoints[t]);
@@ -273,8 +264,8 @@ function createBackgroundTrees() {
     var terPoints = smallTree(4, 4);
       //var terPoints = terrain(width, height, height / 2, 0.6);
       var colour = Math.floor(Math.random() * colours.length);
-      cntxFillStyle(colours[colour]);
-      cntxBeginPath();
+      cntx.fillStyle = colours[colour];
+      cntx.beginPath();
       cntxMoveTo(x, 240 - terPoints[0]);
       for (var t = 1; t < terPoints.length; t++) {
         cntxLineTo(x + t, 240 - terPoints[t]);
@@ -365,19 +356,17 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   var heightOffset = 260;
 
   var x = startX;
-  cntxFillStyle('#114433');
-  cntxBeginPath();
+  cntx.fillStyle = '#114433';
+  cntx.beginPath();
   cntxMoveTo(x, heightOffset - points[0]);
   for (var t = 1; t < points.length; t++) {
     cntxLineTo(x + t, heightOffset - points[t]);
   }
   cntxClosePath();
   cntxFill();
-
-
   x = startX;
-  cntxFillStyle('#224a33');
-  cntxBeginPath();
+  cntx.fillStyle = '#224a33';
+  cntx.beginPath();
   cntxMoveTo(x, heightOffset - highlightpoints[0]);
   for (var t = 1; t < highlightpoints.length; t++) {
     cntxLineTo(x, heightOffset - highlightpoints[t]);
@@ -396,10 +385,9 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   cntxClosePath();
   cntxFill();  
 
-  // highlight 2
   x = startX + 4;
-  cntxFillStyle('#335a3a');
-  cntxBeginPath();
+  cntx.fillStyle = '#335a3a';
+  cntx.beginPath();
   cntxMoveTo(x, heightOffset - highlightpoints2[0]);
   for (var t = 1; t < highlightpoints2.length; t++) {
     cntxLineTo(x, heightOffset - highlightpoints2[t]);
@@ -448,7 +436,7 @@ var tree = {
   
   branch : function(depth) {
     if (depth < 12) {
-        cntxBeginPath();
+        cntx.beginPath();
         cntxMoveTo(0,0);
         cntxLineTo(0,-(500)/10);
 
@@ -473,22 +461,17 @@ var tree = {
             this.branch(depth);
         }
     } else {   
-          
-      cntxFillStyle(this.leavesColor);
-      cntxFillRect(0, 0, 500, 200);
+      cntx.fillStyle = this.leavesColor;
+      cntx.fillRect(0, 0, 500, 200);
       cntxStroke();
     }
   }
 };
 
-
 var SPRITES_TREES = [];
 function createTrees() {
   SPRITES_TREES = [];
-  
   for(var ti = 0; ti < 6; ti++) {
-
-    var treeSpread = 0.6;
     var treeOK = false;
     var c = 0;
     while(!treeOK) {
@@ -498,7 +481,6 @@ function createTrees() {
       tree.draw();
       var bounds = getScratchSpriteBounds();
       treeOK = (bounds.w < 300 && bounds.h < 400) || c > 5;
-
       scratchCanvas.x.restore();
       c++;
     }
@@ -506,35 +488,23 @@ function createTrees() {
   }
 }
 
-
-
-
-
-// ***************** BACKGROUND BUILDINGS ******************** //
-
-
 function backgroundBuilding(x, type, buildingColor, windowColor) {
   cntx = backgroundLayer1.x;
-
   var buildingHeight = 30;//40 ;
   var buildingWidth = 20;//25;
-
   var windowSpacing = 2;//2;
   var windowWidth = 1;//3;
   var windowHeight = 1;//3;
   var windowColumns = 4;
   var windowRows = 8;
 
-
   if(type == 1) {
-//    windowSpacing = 2;
     windowWidth = 2;//8;
     windowHeight = 2;
     windowColumns = 3;
     windowRows = 10;
     buildingHeight = 40;//60;
     buildingWidth = 25;//30;
-
   }
 
   if(type == 2) {
@@ -548,15 +518,14 @@ function backgroundBuilding(x, type, buildingColor, windowColor) {
   }
 
   var yOffset = 260;
-
   buildingHeight += 30 * Math.random();
-  cntxFillStyle(buildingColor);
-  cntxFillRect(x, yOffset - buildingHeight, buildingWidth, buildingHeight);
+  cntx.fillStyle = buildingColor;
+  cntx.fillRect(x, yOffset - buildingHeight, buildingWidth, buildingHeight);
 
   if(Math.random() < 0.4) {
     var inset = 5;
     var insetHeight = 8;
-    cntxFillRect(x + inset, 
+    cntx.fillRect(x + inset, 
       yOffset - (buildingHeight + insetHeight), 
       buildingWidth - 2*inset, 
       buildingHeight + insetHeight);
@@ -567,7 +536,7 @@ function backgroundBuilding(x, type, buildingColor, windowColor) {
     var insetHeight = 13;
     var insetWidth = 2;
 
-    cntxFillRect(x + inset, 
+    cntx.fillRect(x + inset, 
       yOffset - (buildingHeight + insetHeight), 
       insetWidth, 
       buildingHeight + insetHeight);
@@ -577,8 +546,8 @@ function backgroundBuilding(x, type, buildingColor, windowColor) {
     var wy = windowSpacing + row * (windowHeight + windowSpacing);
     for(var col = 0; col < windowColumns; col++) {
       var wx = windowSpacing + col * (windowWidth + windowSpacing);
-      cntxFillStyle(windowColor);
-      cntxFillRect(x + wx, yOffset - buildingHeight + wy, windowWidth, windowHeight);
+      cntx.fillStyle = windowColor;
+      cntx.fillRect(x + wx, yOffset - buildingHeight + wy, windowWidth, windowHeight);
     }
   }
 }
@@ -635,12 +604,11 @@ function createBuildings(night) {
     cntx = scratchCanvas.x;
     var grey = 100 + Math.random() * 80;
 
-
     if(night) {
       grey = 10 + Math.random() * 20;
     }
-    cntxFillStyle('rgb(' + grey + ',' + grey + ',' + grey + ')');
-    cntxFillRect(0, 30, 240, 500);
+    cntx.fillStyle = 'rgb(' + grey + ',' + grey + ',' + grey + ')';
+    cntx.fillRect(0, 30, 240, 500);
 
     var windowWidth=24, windowHeight=15,windowStartOffset=8,windowSpacingH = 8,windowSpacingV = 10;
     var row=col=x=y=0;
@@ -649,25 +617,23 @@ function createBuildings(night) {
       y = 30 + windowStartOffset + row * (windowHeight + windowSpacingV);
       for(col = 0; col < 7; col++) {
         x = windowStartOffset + col * (windowWidth + windowSpacingH);
-
         if(night) {
           if(Math.random() > 0.7) {
-            cntxFillStyle('#ffffec');
-            cntxFillRect(x, y, windowWidth, windowHeight);
-            cntxFillStyle('#bbbb88');
-            cntxFillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
+            cntx.fillStyle = '#ffffec';
+            cntx.fillRect(x, y, windowWidth, windowHeight);
+            cntx.fillStyle = '#bbbb88';
+            cntx.fillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
           } else {          
-            cntxFillStyle('#112237');
-            cntxFillRect(x, y, windowWidth, windowHeight);
-            cntxFillStyle('#111a30');
-            cntxFillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
+            cntx.fillStyle = '#112237';
+            cntx.fillRect(x, y, windowWidth, windowHeight);
+            cntx.fillStyle = '#111a30';
+            cntx.fillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
           }
         } else {
-          cntxFillStyle('#5555a7');
-          //ctx.filter = 'blur(1px)';
-          cntxFillRect(x, y, windowWidth, windowHeight);
-          cntxFillStyle('#444495');
-          cntxFillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
+          cntx.fillStyle = '#5555a7';
+          cntx.fillRect(x, y, windowWidth, windowHeight);
+          cntx.fillStyle = '#444495';
+          cntx.fillRect(x, y + windowHeight / 2, windowWidth, windowHeight / 2);
         }
       }
     }
@@ -683,48 +649,40 @@ function createStreetlights(night) {
   cntx = scratchCanvas.x;
   eraseScratch();
   cntxSave();
-
-  cntxFillStyle('#999999');
-
+  cntx.fillStyle = '#999999';
   if(night) {
-    cntxFillStyle('#555555');
+    cntx.fillStyle = '#555555';
   }
-
   var poleWidth = 7;
-
-  cntxFillRect(40, 150, poleWidth, 300);
-  cntxBeginPath();
+  cntx.fillRect(40, 150, poleWidth, 300);
+  cntx.beginPath();
   cntxArc(70, 150, 30, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
   cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntxLineTo(70 - 30, 150);
   cntxFill();
-
-  cntxFillRect(70, 150 - 30, 70, poleWidth);
-  cntxFillRect(130, 150 - 30 - 1, 35, 6);
-
-  cntxFillStyle('#aaaaaa');
+  cntx.fillRect(70, 150 - 30, 70, poleWidth);
+  cntx.fillRect(130, 150 - 30 - 1, 35, 6);
+  cntx.fillStyle = '#aaaaaa';
   if(night) {
-    cntxFillStyle('#777777');
+    cntx.fillStyle = '#777777';
   }
-  cntxFillRect(40 + poleWidth - 4, 150, 2, 300);
-  cntxFillRect(70, 150 - 30 + poleWidth - 4, 70, 2);
-
-  cntxBeginPath();
+  cntx.fillRect(40 + poleWidth - 4, 150, 2, 300);
+  cntx.fillRect(70, 150 - 30 + poleWidth - 4, 70, 2);
+  cntx.beginPath();
   cntxArc(70, 150, 30 - poleWidth + 4, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
   cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntxLineTo(70 - 30, 150);
   cntxFill();
-
-  cntxFillStyle('#aaaaaa');
+  cntx.fillStyle = '#aaaaaa';
   if(night) {
-    cntxFillStyle('#999999');
+    cntx.fillStyle = '#999999';
   }
-  cntxFillRect(40 + poleWidth - 2, 150, 2, 300);
-  cntxFillRect(70, 150 - 30 + poleWidth - 2, 70, 2);
+  cntx.fillRect(40 + poleWidth - 2, 150, 2, 300);
+  cntx.fillRect(70, 150 - 30 + poleWidth - 2, 70, 2);
 
-  cntxBeginPath();
+  cntx.beginPath();
   cntxArc(70, 150, 30 - poleWidth + 2, Math.PI, -Math.PI / 2 );
   cntxLineTo(70, 150 - 30 + poleWidth);
   cntxArc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
@@ -736,16 +694,16 @@ function createStreetlights(night) {
     cntx.filter = 'blur(2px)';    
   }
 
-  cntxFillStyle('#ffffff');
-  cntxFillRect(128, 150 - 30 + 4, 38, 12);
+  cntx.fillStyle = '#ffffff';
+  cntx.fillRect(128, 150 - 30 + 4, 38, 12);
 
   if(night) {
-    cntxGlobalAlpha(0.8);
+    cntx.globalAlpha = 0.8;
     cntx.globalCompositeOperation = 'lighter';
 
     cntx.filter = 'blur(4px)';    
-    cntxFillRect(123, 150 - 30 +3, 44, 18);  
-    cntxGlobalAlpha(1);
+    cntx.fillRect(123, 150 - 30 +3, 44, 18);  
+    cntx.globalAlpha = 1;
   }
 
 //  cntx.filter = null;
@@ -766,8 +724,8 @@ function createNightSky() {
   gradient.addColorStop(0, "#00111e");
   gradient.addColorStop(1, "#033d5e");
 
-  cntxFillStyle(gradient);//'#00111e';
-  cntxFillRect(0, 0, BACKGROUNDLAYERWIDTH, BACKGROUNDLAYERHEIGHT);
+  cntx.fillStyle = gradient;
+  cntx.fillRect(0, 0, BACKGROUNDLAYERWIDTH, BACKGROUNDLAYERHEIGHT);
 
 
   var hmTimes = Math.round(xMax + yMax);  
@@ -783,18 +741,14 @@ function createNightSky() {
       cntx.shadowBlur = Math.floor(Math.random() * 15) + 5;
       cntx.shadowColor = "white";
     }
-    cntxFillStyle( "hsla("+randomHue+", 30%, 80%, ."+randomOpacityOne+randomOpacityTwo+")" );
-    cntxFillRect(randomX, randomY, randomSize, randomSize);
+    cntx.fillStyle = "hsla("+randomHue+", 30%, 80%, ."+randomOpacityOne+randomOpacityTwo+")";
+    cntx.fillRect(randomX, randomY, randomSize, randomSize);
   }
 }
 
-
-
 function createLeaf(s) {
-
-  cntxFillStyle(s);
-  cntxBeginPath();
-
+  cntx.fillStyle = s;
+  cntx.beginPath();
   cntxArc(3, 7, 3, Math.PI / 2, Math.PI );
   cntxArc(10, 7, 10, Math.PI, Math.PI * 1.24);
   cntxArc(-4.7, 7, 10, Math.PI * 1.76, 0);
@@ -807,9 +761,6 @@ function createFlowers() {
   cntx = scratchCanvas.x;
   var canvas = scratchCanvas.c;
   cntx.save();
-
-
-
   var leafGradient = cntxCreateLinearGradient(0, 0, 0, 8);
   leafGradient.addColorStop(0, "#ff111e");
   leafGradient.addColorStop(1, "#aa3d5e");
@@ -836,24 +787,20 @@ function createFlowers() {
       if(x > 780) {
         continue;
       }
-      
       var height = 20 + 4 * Math.random();
       y = 100 + j * 16 - height + Math.random() * 12;
-      // draw the stem
       if(Math.random() > 0.5) {
-        cntxFillStyle('#44aa55');
-        cntxFillRect(x, y, 2, height);
-        cntxFillStyle('#66cc88');
-        cntxFillRect(x, y, 1, height);
+        cntx.fillStyle = '#44aa55';
+        cntx.fillRect(x, y, 2, height);
+        cntx.fillStyle = '#66cc88';
+        cntx.fillRect(x, y, 1, height);
       } else {
-        cntxFillStyle('#449955');
-        cntxFillRect(x, y, 2, height);
-        cntxFillStyle('#66aa88');
-        cntxFillRect(x, y, 1, height);        
+        cntx.fillStyle = '#449955';
+        cntx.fillRect(x, y, 2, height);
+        cntx.fillStyle = '#66aa88';
+        cntx.fillRect(x, y, 1, height);        
       }
-
       var flower = Math.floor(Math.random() * 2) * 20;
-
       var dstX = x - 2;
       var dstY = y - 6;
       cntxSave();
@@ -887,8 +834,8 @@ function createFlowers() {
 }
 
 function fillPoints(points, color) {
-  cntxBeginPath();
-  cntxFillStyle(color);
+  cntx.beginPath();
+  cntx.fillStyle = color;
   cntxMoveTo(points[0], points[1]);
   for(var i = 2; i < points.length; i+= 2) {
     cntxLineTo(points[i], points[i+1]);
@@ -898,7 +845,7 @@ function fillPoints(points, color) {
 }
 
 function drawLine(x1, y1, x2, y2) {
-  cntxBeginPath();
+  cntx.beginPath();
   cntxMoveTo(x1, y1);
   cntxLineTo(x2, y2);
   cntx.stroke();

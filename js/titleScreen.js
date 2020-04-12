@@ -43,8 +43,8 @@ TitleScreen.prototype = {
   render: function (dt) {
     cntx = this.context;
     var t = getTimestamp();
-    cntxFillStyle(DARKGREY);
-    cntxFillRect(0, 0, this.canvas.width, this.canvas.height);
+    cntx.fillStyle = DARKGREY;
+    cntx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     for (var i = 0; i < 30; i++) {
       var fontSize = 100 + i * 10;
       context.font = 'italic ' + fontSize + 'px ' + helvetica;
@@ -54,7 +54,7 @@ TitleScreen.prototype = {
       if (i == 29) {
         col = 255;
       }
-      cntxFillStyle('rgb(' + col + ',' + col + ',' + col + ')');
+      cntx.fillStyle = 'rgb(' + col + ',' + col + ',' + col + ')';
       cntx.fillText("racer", this.canvas.width / 2, 300 - i);
     }
     context.font = '44px ' + helvetica;

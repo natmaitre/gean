@@ -84,13 +84,13 @@ Car.prototype = {
        largeRadius = carHeight +60 +  (5 * Math.PI / 6 - angle) * 128;// - 200;// - 570; 
       }
       var x1 = this.x + this.width / 2 + smallRadius * Math.cos(angle - 0.05);
-      var y1 = this.y + smallRadius * sin(angle - 0.02);
+      var y1 = this.y + smallRadius * Math.sin(angle - 0.02);
       var x2 = this.x + this.width / 2 + smallRadius * Math.cos(angle + 0.05);
-      var y2 = this.y + smallRadius * sin(angle + 0.02);
+      var y2 = this.y + smallRadius * Math.sin(angle + 0.02);
       var x3 = this.x + this.width / 2 + largeRadius * Math.cos(angle - 0.05);
-      var y3 = this.y + largeRadius * sin(angle - 0.05);
+      var y3 = this.y + largeRadius * Math.sin(angle - 0.05);
       var x4 = this.x + this.width / 2 + largeRadius * Math.cos(angle + 0.05);
-      var y4 = this.y + largeRadius * sin(angle + 0.05);
+      var y4 = this.y + largeRadius * Math.sin(angle + 0.05);
       var x1a =  x1 + (x3 - x1) * this.slipstreamLengths[i];
       var x2a = x2 + (x4 - x2) * this.slipstreamLengths[i];
       var y1a = y1 + (y3 - y1) * this.slipstreamLengths[i];

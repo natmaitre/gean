@@ -58,11 +58,11 @@ function drawFuzzyCircle(x, y, r, c) {
   cntxFillStyle(c);
   var radius = r + r * mathRand();
   cntxBeginPath();
-  cntxMoveTo(x + (radius) * cos(angle), y + (radius) * sin(angle));
+  cntxMoveTo(x + (radius) * cos(angle), y + (radius) * Math.sin(angle));
   for(var i = 1; i < 30; i++) {
     angle = i * Math.PI * 2 / 30;
     radius = r + r * mathRand();
-    cntxLineTo(x + (radius) * cos(angle), y + (radius) * sin(angle));
+    cntxLineTo(x + (radius) * cos(angle), y + (radius) * Math.sin(angle));
   }
   cntxClosePath();
   cntxFill();
@@ -1306,7 +1306,7 @@ function createBush() {
         var cX = 140;
         var cY = 160;
         var dstX = cX + radius * M.cos(angle);
-        var dstY = cY + radius * M.sin(angle);
+        var dstY = cY + radius * M.Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
         cntxRotate(mathRand() * Math.PI * 2);
@@ -1320,7 +1320,7 @@ function createBush() {
         var cX = 160;
         var cY = 150;
         var dstX = cX + radius * cos(angle);
-        var dstY = cY + radius * sin(angle);
+        var dstY = cY + radius * Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
         cntxRotate(mathRand() * Math.PI * 2);
@@ -1335,7 +1335,7 @@ function createBush() {
         var cX = 190;
         var cY = 160;
         var dstX = cX + radius * cos(angle);
-        var dstY = cY + radius * sin(angle);
+        var dstY = cY + radius * Math.sin(angle);
         cntxSave();
         cntxTranslate(dstX, dstY);
         cntxRotate(mathRand() * Math.PI * 2);

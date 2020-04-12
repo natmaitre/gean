@@ -483,7 +483,7 @@ Track.prototype = {
     for(var i = 0; i < this.segments.length; i++) {
       angle = (this.segments[i].angle / 180) * Math.PI;
       x += segmentDrawLength * cos(angle);
-      y += segmentDrawLength * sin(angle);
+      y += segmentDrawLength * Math.sin(angle);
       cntxLineTo(x, y);
 
       // in 2d overhead view
@@ -506,10 +506,10 @@ Track.prototype = {
     cntxBeginPath();
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * cos(angle);
-    y -= segmentDrawLength * sin(angle);
+    y -= segmentDrawLength * Math.sin(angle);
     cntxMoveTo(x, y);
     x += 2 * segmentDrawLength * cos(angle);
-    y += 2 * segmentDrawLength * sin(angle);
+    y += 2 * segmentDrawLength * Math.sin(angle);
     cntxLineTo(x, y);
   
     cntxStroke();

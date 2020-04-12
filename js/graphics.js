@@ -65,7 +65,7 @@ function drawFuzzyCircle(x, y, r, c) {
     cntx.lineTo(x + (radius) * Math.cos(angle), y + (radius) * Math.sin(angle));
   }
   cntx.closePath();
-  cntxFill();
+  cntx.fill();
 
 }
 function getScratchSpriteBounds() {
@@ -184,7 +184,7 @@ function createTurnArrows() {
   cntx.lineTo(160, 170);
   cntx.lineTo(20, 100);
   cntx.fillStyle = '#cc2211';
-  cntxFill();
+  cntx.fill();
   cntx.fillStyle = MEDIUMGREY;
   cntx.fillRect(10, 10, 20, 180);
   SPRITES_TURNLEFT = newSprite();
@@ -243,7 +243,7 @@ function createBackgroundTrees() {
       }
       // finish creating the rect so we can fill it
       cntx.closePath();
-      cntxFill();
+      cntx.fill();
 
       x += 2 +  Math.random() * 4;
     }
@@ -271,7 +271,7 @@ function createBackgroundTrees() {
         cntx.lineTo(x + t, 240 - terPoints[t]);
       }
       cntx.closePath();
-      cntxFill();
+      cntx.fill();
       x += 2 +  Math.random() * 5;
     }
 
@@ -363,7 +363,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
     cntx.lineTo(x + t, heightOffset - points[t]);
   }
   cntx.closePath();
-  cntxFill();
+  cntx.fill();
   x = startX;
   cntx.fillStyle = '#224a33';
   cntx.beginPath();
@@ -383,7 +383,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
     }
   }
   cntx.closePath();
-  cntxFill();  
+  cntx.fill();  
 
   x = startX + 4;
   cntx.fillStyle = '#335a3a';
@@ -405,7 +405,7 @@ function terrain(startX) {//}, width, height, displace, roughness) {
   }
 
   cntx.closePath();
-  cntxFill();
+  cntx.fill();
 
   return points;
 }
@@ -445,16 +445,16 @@ var tree = {
         cntx.translate(0,-500/10);
         var randomN = -(Math.random() * 0.1) + 0.1;
 
-        cntxRotate(randomN); 
+        cntx.rotate(randomN); 
 
         if ((Math.random() * 1) < 0.6) {
-          cntxRotate(-0.35);
+          cntx.rotate(-0.35);
           cntx.scale(0.7,0.7);
-          cntxSave();
+          cntx.save();
           this.branch(depth + 1);
           cntx.restore();  
-          cntxRotate(0.6);
-          cntxSave();
+          cntx.rotate(0.6);
+          cntx.save();
           this.branch(depth + 1);   
           cntx.restore();        
         } else  { 
@@ -648,7 +648,7 @@ function createBuildings(night) {
 function createStreetlights(night) {
   cntx = scratchCanvas.x;
   eraseScratch();
-  cntxSave();
+  cntx.save();
   cntx.fillStyle = '#999999';
   if(night) {
     cntx.fillStyle = '#555555';
@@ -660,7 +660,7 @@ function createStreetlights(night) {
   cntx.lineTo(70, 150 - 30 + poleWidth);
   cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntx.lineTo(70 - 30, 150);
-  cntxFill();
+  cntx.fill();
   cntx.fillRect(70, 150 - 30, 70, poleWidth);
   cntx.fillRect(130, 150 - 30 - 1, 35, 6);
   cntx.fillStyle = '#aaaaaa';
@@ -674,7 +674,7 @@ function createStreetlights(night) {
   cntx.lineTo(70, 150 - 30 + poleWidth);
   cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntx.lineTo(70 - 30, 150);
-  cntxFill();
+  cntx.fill();
   cntx.fillStyle = '#aaaaaa';
   if(night) {
     cntx.fillStyle = '#999999';
@@ -687,7 +687,7 @@ function createStreetlights(night) {
   cntx.lineTo(70, 150 - 30 + poleWidth);
   cntx.arc(70, 150, 30 - poleWidth, -Math.PI / 2, Math.PI, true );
   cntx.lineTo(70 - 30, 150);
-  cntxFill();
+  cntx.fill();
 
 
   if(night) {
@@ -720,7 +720,7 @@ function createNightSky() {
   var yMax = BACKGROUNDLAYERHEIGHT;
   cntx = backgroundLayer3.x;
 
-  var gradient = cntxCreateLinearGradient(0, 0, 0, yMax);
+  var gradient = cntx.createLinearGradient(0, 0, 0, yMax);
   gradient.addColorStop(0, "#00111e");
   gradient.addColorStop(1, "#033d5e");
 
@@ -753,7 +753,7 @@ function createLeaf(s) {
   cntx.arc(10, 7, 10, Math.PI, Math.PI * 1.24);
   cntx.arc(-4.7, 7, 10, Math.PI * 1.76, 0);
   cntx.arc(2.3, 7, 3, 0, Math.PI / 2 );
-  cntxFill();  
+  cntx.fill();  
 }
 
 function createFlowers() {
@@ -761,7 +761,7 @@ function createFlowers() {
   cntx = scratchCanvas.x;
   var canvas = scratchCanvas.c;
   cntx.save();
-  var leafGradient = cntxCreateLinearGradient(0, 0, 0, 8);
+  var leafGradient = cntx.createLinearGradient(0, 0, 0, 8);
   leafGradient.addColorStop(0, "#ff111e");
   leafGradient.addColorStop(1, "#aa3d5e");
 
@@ -803,27 +803,27 @@ function createFlowers() {
       var flower = Math.floor(Math.random() * 2) * 20;
       var dstX = x - 2;
       var dstY = y - 6;
-      cntxSave();
+      cntx.save();
       cntx.translate(dstX + 3, dstY);
-      cntxRotate(0.3);
-      cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
+      cntx.rotate(0.3);
+      cntx.drawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
       cntx.restore();
 
-      cntxSave();
+      cntx.save();
       cntx.translate(dstX - 3, dstY + 1);
-      cntxRotate(-0.3);
-      cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
+      cntx.rotate(-0.3);
+      cntx.drawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
       cntx.restore();
 
-      cntxSave();
+      cntx.save();
       cntx.translate(dstX, dstY);
-      cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
+      cntx.drawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
       cntx.restore();
 
-      cntxSave();
+      cntx.save();
       cntx.translate(dstX + 6, dstY + 10);
-      cntxRotate(0.6);
-      cntxDrawImage(canvas, 0, 60, 6, 11, 0, 0, 6, 11);
+      cntx.rotate(0.6);
+      cntx.drawImage(canvas, 0, 60, 6, 11, 0, 0, 6, 11);
       cntx.restore();
     }
   }
@@ -841,7 +841,7 @@ function fillPoints(points, color) {
     cntx.lineTo(points[i], points[i+1]);
   }
   cntx.closePath();
-  cntxFill();
+  cntx.fill();
 }
 
 function drawLine(x1, y1, x2, y2) {
@@ -962,7 +962,7 @@ function createCar() {
     60, 24
   ];
   //fillPoints(points,'#4773dd');
-  var gradient = cntxCreateLinearGradient(0, 19, 0, 90);
+  var gradient = cntx.createLinearGradient(0, 19, 0, 90);
   gradient.addColorStop(0, "#4fa8f7");
   gradient.addColorStop(1, "#2d3c7c");
 
@@ -1156,7 +1156,7 @@ fillPoints(points, '#a9fb78');
     66, 19
   ];
 
-  var gradient = cntxCreateLinearGradient(0, 19, 0, 90);
+  var gradient = cntx.createLinearGradient(0, 19, 0, 90);
   gradient.addColorStop(0, "#4fa8f7");
   gradient.addColorStop(1, "#2d3c7c");
 
@@ -1218,10 +1218,10 @@ fillPoints(points, '#a9fb78');
   drawLine(65, 21, 32, 82);
   drawLine(32, 82, 143, 82);
 */
-  cntxSave();
+  cntx.save();
   cntx.scale(-1, 1);
 
-  cntxDrawImage(scratchCanvas.c, 0, 0, 143, 210,
+  cntx.drawImage(scratchCanvas.c, 0, 0, 143, 210,
     -143 -132, 0, 143, 210);
   cntx.restore();
 
@@ -1254,10 +1254,10 @@ function createBush() {
         var cY = 160;
         var dstX = cX + radius * M.Math.cos(angle);
         var dstY = cY + radius * M.Math.sin(angle);
-        cntxSave();
+        cntx.save();
         cntx.translate(dstX, dstY);
-        cntxRotate(Math.random() * Math.PI * 2);
-        cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
+        cntx.rotate(Math.random() * Math.PI * 2);
+        cntx.drawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntx.restore();
       }
 
@@ -1268,10 +1268,10 @@ function createBush() {
         var cY = 150;
         var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
-        cntxSave();
+        cntx.save();
         cntx.translate(dstX, dstY);
-        cntxRotate(Math.random() * Math.PI * 2);
-        cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
+        cntx.rotate(Math.random() * Math.PI * 2);
+        cntx.drawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntx.restore();
       }
 
@@ -1283,10 +1283,10 @@ function createBush() {
         var cY = 160;
         var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
-        cntxSave();
+        cntx.save();
         cntx.translate(dstX, dstY);
-        cntxRotate(Math.random() * Math.PI * 2);
-        cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
+        cntx.rotate(Math.random() * Math.PI * 2);
+        cntx.drawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
         cntx.restore();
 
       }

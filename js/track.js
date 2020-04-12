@@ -520,14 +520,14 @@ Track.prototype = {
     cntx = overheadTrack.x;
     this.overheadMap = overheadTrack.c;
     cntx.clearRect(0, 0, 600, 600);
-    cntxDrawImage(this.map, 0, 0, 600, 600, 0, 0, 600, 600);
+    cntx.drawImage(this.map, 0, 0, 600, 600, 0, 0, 600, 600);
     for(var i = 0; i < cars.length; i++) {
       var carPosition = cars[i].z;
       var segment = track.findSegment(carPosition);
       cntx.beginPath();
       cntx.arc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
       cntx.fillStyle = DARKGREY;
-      cntxFill();
+      cntx.fill();
       cntx.lineWidth = 2;
       cntxStrokeStyle('#999999');
       cntxStroke();
@@ -537,7 +537,7 @@ Track.prototype = {
     cntx.beginPath();
     cntx.arc(playerSegment.x, playerSegment.y, 5, 0, 2 * Math.PI, false);
     cntx.fillStyle = '#ff0000';
-    cntxFill();
+    cntx.fill();
 
     context.lineWidth = 2;
     cntxStrokeStyle(MEDIUMGREY);

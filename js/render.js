@@ -27,7 +27,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
     cntxStrokeStyle(MEDIUMGREY);
     cntxStroke();
   } else {
-    cntxFill();
+    cntx.fill();
   }
 }
 
@@ -257,7 +257,7 @@ function renderPolygon(x1, y1, x2, y2, x3, y3, x4, y4, color) {
         }
 
         cntx.fillStyle = MEDIUMGREY;
-        cntxFill();
+        cntx.fill();
 
       }
       cntx.globalAlpha = 1;

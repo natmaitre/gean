@@ -20,14 +20,6 @@ function cntxSave() {
   cntx.save();
 }
 
-function cntxRestore() {
-  cntx.restore();
-}
-
-function cntxTranslate(x, y) {
-  cntx.translate(x, y);
-}
-
 function cntxRotate(a) {
   cntx.rotate(a);
 }

@@ -426,7 +426,7 @@ var tree = {
   leavesColor:'',
   
   draw : function() {
-      cntxTranslate(500/2,500);
+      cntx.translate(500/2,500);
       this.leavesColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
       cntx.lineWidth = 1 + (Math.random() * 20);
       cntx.lineJoin = 'round';
@@ -442,7 +442,7 @@ var tree = {
 
         cntxStroke();
         
-        cntxTranslate(0,-500/10);
+        cntx.translate(0,-500/10);
         var randomN = -(Math.random() * 0.1) + 0.1;
 
         cntxRotate(randomN); 
@@ -452,11 +452,11 @@ var tree = {
           cntx.scale(0.7,0.7);
           cntxSave();
           this.branch(depth + 1);
-          cntxRestore();  
+          cntx.restore();  
           cntxRotate(0.6);
           cntxSave();
           this.branch(depth + 1);   
-          cntxRestore();        
+          cntx.restore();        
         } else  { 
             this.branch(depth);
         }
@@ -711,7 +711,7 @@ function createStreetlights(night) {
 
   SPRITES_STREETLIGHTLEFT = newSprite();
   SPRITES_STREETLIGHTRIGHT = newSprite(1);
-  cntxRestore();
+  cntx.restore();
 
 }
 
@@ -804,27 +804,27 @@ function createFlowers() {
       var dstX = x - 2;
       var dstY = y - 6;
       cntxSave();
-      cntxTranslate(dstX + 3, dstY);
+      cntx.translate(dstX + 3, dstY);
       cntxRotate(0.3);
       cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
-      cntxRestore();
+      cntx.restore();
 
       cntxSave();
-      cntxTranslate(dstX - 3, dstY + 1);
+      cntx.translate(dstX - 3, dstY + 1);
       cntxRotate(-0.3);
       cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
-      cntxRestore();
+      cntx.restore();
 
       cntxSave();
-      cntxTranslate(dstX, dstY);
+      cntx.translate(dstX, dstY);
       cntxDrawImage(canvas, 0, flower, 6, 11, 0, 0, 6, 11);
-      cntxRestore();
+      cntx.restore();
 
       cntxSave();
-      cntxTranslate(dstX + 6, dstY + 10);
+      cntx.translate(dstX + 6, dstY + 10);
       cntxRotate(0.6);
       cntxDrawImage(canvas, 0, 60, 6, 11, 0, 0, 6, 11);
-      cntxRestore();
+      cntx.restore();
     }
   }
 
@@ -1223,7 +1223,7 @@ fillPoints(points, '#a9fb78');
 
   cntxDrawImage(scratchCanvas.c, 0, 0, 143, 210,
     -143 -132, 0, 143, 210);
-  cntxRestore();
+  cntx.restore();
 
   SPRITES_CARSTRAIGHT = newSprite(0);
 }
@@ -1255,10 +1255,10 @@ function createBush() {
         var dstX = cX + radius * M.Math.cos(angle);
         var dstY = cY + radius * M.Math.sin(angle);
         cntxSave();
-        cntxTranslate(dstX, dstY);
+        cntx.translate(dstX, dstY);
         cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
-        cntxRestore();
+        cntx.restore();
       }
 
       for(var i = 0; i < 120; i++) {
@@ -1269,10 +1269,10 @@ function createBush() {
         var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
         cntxSave();
-        cntxTranslate(dstX, dstY);
+        cntx.translate(dstX, dstY);
         cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
-        cntxRestore();
+        cntx.restore();
       }
 
 
@@ -1284,10 +1284,10 @@ function createBush() {
         var dstX = cX + radius * Math.cos(angle);
         var dstY = cY + radius * Math.sin(angle);
         cntxSave();
-        cntxTranslate(dstX, dstY);
+        cntx.translate(dstX, dstY);
         cntxRotate(Math.random() * Math.PI * 2);
         cntxDrawImage(canvas, 0, 0, 6, 11, 0, 0, 6, 11);
-        cntxRestore();
+        cntx.restore();
 
       }
     }

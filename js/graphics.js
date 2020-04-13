@@ -733,83 +733,36 @@ function drawLine(x1, y1, x2, y2) {
   cntx.stroke();
 }
 
-function createCar(model) {
+function createCar(model, type) {
   eraseScratch();
   cntx = scratchCanvas.x;
   var points = [];
-  for (p in CARS[model].side) {
-    points = CARS[model].side[p].points;
-    if (CARS[model].side[p].fill) fillPoints(points, CARS[model].side[p].fill);
-    if (CARS[model].side[p].gradient) {
-      var gradient = cntx.createLinearGradient(CARS[model].side[p].gradient[0], CARS[model].side[p].gradient[1], CARS[model].side[p].gradient[2], CARS[model].side[p].gradient[3]);
-      gradient.addColorStop(0, CARS[model].side[p].color[0]);
-      gradient.addColorStop(1, CARS[model].side[p].color[1]);
+  for (p in model) {
+    points = model[p].points;
+    if (model[p].fill) fillPoints(points, model[p].fill);
+    if (model[p].gradient) {
+      var gradient = cntx.createLinearGradient(model[p].gradient[0], model[p].gradient[1], model[p].gradient[2], model[p].gradient[3]);
+      gradient.addColorStop(0, model[p].color[0]);
+      gradient.addColorStop(1, model[p].color[1]);
       fillPoints(points, gradient);
     }
   }
-  SPRITES_CARLEFT = newSprite(0);
-  SPRITES_CARRIGHT = newSprite(1);
-}
-
-function createCar2(model) {
-  eraseScratch();
-  cntx = scratchCanvas.x;
-  var points = [5, 197, 143, 197, 141, 87, 1, 87, 4, 106, 1, 121, 1, 180];
-  fillPoints(points, '#4abf74');
-  var points = [141, 87, 143, 1, 87, 3, 72, 6, 61, 17, 31, 67, 1, 87, ];
-  fillPoints(points, '#a9fb78');
-  points = [4, 100, 143, 100, 143, 93, 3, 93];
-  fillPoints(points, '#226d7d');
-  points = [4, 155, 143, 155, 143, 113, 4, 113];
-  fillPoints(points, '#226d7d');
-  points = [4, 150, 86, 149, 86, 121, 5, 121, 3, 139];
-  fillPoints(points, '#b44258');
-  points = [4, 149, 86, 149, 86, 138, 4, 138];
-  fillPoints(points, '#5d2959');
-  points = [22, 131, 22, 134, 73, 134, 73, 131];
-  fillPoints(points, '#d65d5b');
-  points = [32, 82, 143, 82, 143, 19, 66, 19];
-  var gradient = cntx.createLinearGradient(0, 19, 0, 90);
-  gradient.addColorStop(0, "#4fa8f7");
-  gradient.addColorStop(1, "#2d3c7c");
-  fillPoints(points, gradient);
-  points = [47, 59, 143, 59, 143, 64, 78, 68, 38, 77];
-  fillPoints(points, '#95eef7');
-  points = [13, 197, 16, 205, 23, 208, 49, 207, 56, 202, 58, 197];
-  fillPoints(points, DARKGREY);
-  var points = [1, 155, 1, 167, 143, 167, 143, 155];
-  fillPoints(points, '#a9fb78');
-  /*
-    cntx.strokeStyle = '#63a96e';
-    drawLine(1, 161, 143, 161);
-    cntx.strokeStyle = '#111111';
-    cntx.lineWidth = 2;
-    drawLine(4, 137, 86, 137);
-    cntx.lineWidth = 1;
-    for(var i = 0; i < 68; i += 4) {
-      drawLine(6 + i, 138, 6 + i, 149);
-    }
-    cntx.strokeStyle = '#204e69';
-    cntx.lineWidth = 2;
-    drawLine(5, 114, 106, 114);
-    cntx.lineWidth = 1;
-    drawLine(105, 116, 105, 155);
-    cntx.strokeStyle = '#204e69';
-    cntx.lineWidth = 1;
-    drawLine(143, 21, 65, 21);
-    drawLine(65, 21, 32, 82);
-    drawLine(32, 82, 143, 82);
-  */
-  cntx.save();
-  cntx.scale(-1, 1);
-  cntx.drawImage(scratchCanvas.c, 0, 0, 143, 210, -143 - 132, 0, 143, 210);
-  cntx.restore();
-  SPRITES_CARSTRAIGHT = newSprite(0);
+  if (type === "side") {
+    SPRITES_CARLEFT = newSprite(0);
+    SPRITES_CARRIGHT = newSprite(1);
+  }
+  if (type === "back") {
+    cntx.save();
+    cntx.scale(-1, 1);
+    cntx.drawImage(scratchCanvas.c, 0, 0, 143, 210, -143 - 132, 0, 143, 210);
+    cntx.restore();
+    SPRITES_CARSTRAIGHT = newSprite(0);
+  }
 }
 
 function createCars(model = 0) {
-  createCar(model);
-  createCar2(model);
+  createCar(CARS[model].side, "side");
+  createCar(CARS[model].back, "back");
 }
 
 /*

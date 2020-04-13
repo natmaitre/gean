@@ -1,12 +1,10 @@
 var track = null;
 var numbers = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT'];
-var Race = function(TrackNumber = 0) {
-  this.track = null;
+var Race = function() {
   this.state = 0;
   this.countdownNumber = 3;
   this.lastTime = 0 ;
   this.carCount = 15;
-  this.trackNumber = TrackNumber;
   this.zIsDown = false;
   this.xIsDown = false;
   this.raceNumber = 0;
@@ -22,19 +20,14 @@ Race.COUNTDOWN_INTERVAL = 800;
 Race.prototype = {
   init: function() {
   },
-  start: function(startTrack) {
-    trackNumber = startTrack;
+  start: function(trackNumber) {
     raceAudioEngineSpeed(0);
-    if(trackNumber >= 4) {
-      trackNumber = 0;
-    }
-    //trackNumber = 3;
     this.raceNumber = trackNumber;
     track = new Track();
-    if (trackNumber === 0) track.buildTrack1();
-    if (trackNumber === 1) track.buildTrack2();
-    if (trackNumber === 2) track.buildTrack3();
-    if (trackNumber === 3) track.buildTrack4();
+    if (this.raceNumber === 0) track.buildTrack1();
+    if (this.raceNumber === 1) track.buildTrack2();
+    if (this.raceNumber === 2) track.buildTrack3();
+    if (this.raceNumber === 3) track.buildTrack4();
     this.resetCars();
     player = cars[0];
     player.initSlipstreamLines();

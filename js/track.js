@@ -174,9 +174,7 @@ Track.prototype = {
     var kerbWidth = 0;
     if (curve != 0) {
       kerbWidth = curve * 40;
-      if (kerbWidth < 0) {
-        kerbWidth = -kerbWidth;
-      }
+      if (kerbWidth < 0) kerbWidth = -kerbWidth;
       kerbWidth += 60;
     }
     this.segments.push({
@@ -322,13 +320,11 @@ Track.prototype = {
     return this.segments[Math.floor(z / Track.segmentLength) % this.segments.length];
   },
   drawMap: function () {
-    if (this.map == null) {
-      this.map = document.createElement('canvas');
-    }
+    if (this.map == null) this.map = document.createElement('canvas');
     this.map.width = 600;
     this.map.height = 600;
     cntx = this.map.getContext('2d');
-    cntx.clearRect(0, 0, 600, 600);
+    cntx.clearRect(0, 0, this.map.width, this.map.height);
     cntx.strokeStyle = '#666666';
     cntx.lineWidth = 5;
     var angle = 0;
@@ -346,12 +342,12 @@ Track.prototype = {
       this.segments[i].y = y;
     }
     cntx.stroke();
-    cntx.strokeStyle = LIGHTGREY;
+    cntx.strokeStyle = '#e5e5e5';
     cntx.lineWidth = 4;
     cntx.stroke();
     segmentDrawLength = 4;
     context.lineWidth = 3;
-    cntx.strokeStyle = LIGHTGREY;
+    cntx.strokeStyle = '#e5e5e5';
     cntx.beginPath();
     angle = ((this.segments[0].angle + 90) / 180) * Math.PI;
     x -= segmentDrawLength * Math.cos(angle);
@@ -372,7 +368,7 @@ Track.prototype = {
       var segment = track.findSegment(carPosition);
       cntx.beginPath();
       cntx.arc(segment.x, segment.y, 5, 0, 2 * Math.PI, false);
-      cntx.fillStyle = DARKGREY;
+      cntx.fillStyle = '#222222';
       cntx.fill();
       cntx.lineWidth = 2;
       cntx.strokeStyle = '#999999';
@@ -385,7 +381,7 @@ Track.prototype = {
     cntx.fillStyle = '#ff0000';
     cntx.fill();
     context.lineWidth = 2;
-    cntx.strokeStyle = MEDIUMGREY;
+    cntx.strokeStyle = '#cccccc';
     cntx.stroke();
   }
 }

@@ -22,35 +22,21 @@ Race.COUNTDOWN_INTERVAL = 800;
 Race.prototype = {
   init: function() {
   },
-
   start: function(trackNumber) {
     raceAudioEngineSpeed(0);
-
     if(trackNumber >= 4) {
       trackNumber = 0;
     }
     trackNumber = 3;
     this.raceNumber = trackNumber;
     track = new Track();
-
-    switch(trackNumber) {
-      case 0:
-        track.buildTrack1();
-        break;
-      case 1:
-        track.buildTrack2();
-        break;
-      case 2:
-        track.buildTrack3();
-        break;
-      case 3:
-        track.buildTrack4();
-        break;
-    }
+    if (trackNumber === 0) track.buildTrack1();
+    if (trackNumber === 1) track.buildTrack2();
+    if (trackNumber === 2) track.buildTrack3();
+    if (trackNumber === 3) track.buildTrack4();
     this.resetCars();
     player = cars[0];
     player.initSlipstreamLines();
-
     this.state = STATE_PRERACE;
     this.countdownNumber = 4;
     this.lastTime = getTimestamp();
@@ -132,7 +118,6 @@ Race.prototype = {
     for (var n = 0 ; n < this.carCount ; n++) {
       z = track.getLength() - (this.carCount - n) * Track.segmentLength * 13;
       segment = track.findSegment(z);
-
       var trackLeft = segment.p1.world.x;
       var trackRight = segment.p2.world.x;
       car = new Car();
@@ -146,10 +131,10 @@ Race.prototype = {
       car.x = x;
       car.z = z;
       car.sprite = sprite;
-      car.speed = 0;//speed;      
+      car.speed = 0;     
       car.percent = utilPercentRemaining(car.z, Track.segmentLength);  
       if(car.index !== 0) {
-        var maxSpeed = 23000;//23000;
+        var maxSpeed = 23000;
         if(car.index < 8 && car.index > 3) {
           car.maxSpeed = maxSpeed * 0.905 - Math.random() * (this.carCount - n - 1) * maxSpeed / 55;
         } else if(car.index > 12) {
@@ -158,7 +143,6 @@ Race.prototype = {
           car.maxSpeed = maxSpeed * 0.905 - (this.carCount - n - 1) * maxSpeed / 45;
         }
         car.accel = maxSpeed / 2;  
-        
         if(car.index < 4) {
           car.takeCornerOnInside = false;
         } else if(car.index < 8) {
@@ -200,16 +184,11 @@ Race.prototype = {
   updateRace: function(dt) {
     var playerSegment = track.findSegment(player.z);
     var speedPercent  = player.speedPercent;//player.speed / maxSpeed;
-    var dx            = dt * 2 * speedPercent; // at top speed, should be able to cross from left to right (-1 to 1) in 1 second
     var startPosition = camera.z;
       for(var i = 0; i < cars.length; i++) {
       cars[i].update(dt);//, playerSegment, player.width);
     }
-  //  updateCars(dt, playerSegment, player.width);
-  
-//    player.update(dt);
-    camera.update(dt);
-
+      camera.update(dt);
     bgLayer3Offset  = utilIncrease(bgLayer3Offset,  bgLayer3Speed  * playerSegment.curve * (camera.z-startPosition) / Track.segmentLength, 1);
     bgLayer2Offset = utilIncrease(bgLayer2Offset, bgLayer2Speed * playerSegment.curve * (camera.z-startPosition) / Track.segmentLength, 1);
     bgLayer1Offset = utilIncrease(bgLayer1Offset, bgLayer1Speed * playerSegment.curve * (camera.z-startPosition) / Track.segmentLength, 1);

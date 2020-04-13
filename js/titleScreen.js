@@ -51,11 +51,9 @@ TitleScreen.prototype = {
       context.fontStyle = 'italic';
       var col = 80 + (i * 4);
       col = (col + t / 6) % 200;
-      if (i == 29) {
-        col = 255;
-      }
+      if (i == 29) col = 255;
       cntx.fillStyle = 'rgb(' + col + ',' + col + ',' + col + ')';
-      cntx.fillText("racer", this.canvas.width / 2, 300 - i);
+      cntx.fillText("gean", this.canvas.width / 2, 300 - i);
     }
     context.font = '44px "Helvetica Neue", Helvetica, Arial, sans-serif';
     cntx.fillText("Arrow keys to drive, x for Turbo, z for Handbrake", this.canvas.width / 2, 570);

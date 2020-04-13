@@ -29,7 +29,7 @@ Race.prototype = {
     if(trackNumber >= 4) {
       trackNumber = 0;
     }
-    trackNumber = 0;
+    trackNumber = 3;
     this.raceNumber = trackNumber;
     track = new Track();
 
@@ -47,7 +47,6 @@ Race.prototype = {
         track.buildTrack4();
         break;
     }
-
     this.resetCars();
     player = cars[0];
     player.initSlipstreamLines();
@@ -89,7 +88,7 @@ Race.prototype = {
   keyUp: function(e) {
     if(this.state != STATE_RACEOVER) {
       switch(e.keyCode) {
-        case 90: // z
+        case 90:
           this.zIsDown = false;
           player.setDrift(false);
           break;
@@ -106,39 +105,34 @@ Race.prototype = {
         case 37:
           player.setTurnLeft(false);
           break;
-        case 38:
+        case 39:
           player.setTurnRight(false);
           break;
       }
     } else {
       if(e.keyCode == 90) {
         if(!this.zIsDown) {
-          // retry race
-
           this.start(this.raceNumber);
         }
         this.zIsDown = false;
       }
-
       if(e.keyCode == 88) {
         if(!this.xIsDown) {
-          // next race
           if(cars[0].finishPosition == '1st') {
             this.start(this.raceNumber + 1);
           }
         }
         this.xIsDown = false;
       }
-
     }
   },
   resetCars: function() {
-    //    resetCars();
     cars = [];
-    var n, car, segment, offset, z, sprite, speed;
+    var n, car, segment, z, sprite;
     for (var n = 0 ; n < this.carCount ; n++) {
       z = track.getLength() - (this.carCount - n) * Track.segmentLength * 13;
       segment = track.findSegment(z);
+
       var trackLeft = segment.p1.world.x;
       var trackRight = segment.p2.world.x;
       car = new Car();

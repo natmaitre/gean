@@ -3,6 +3,7 @@ var COLORS_KERBLIGHT = '#a02222',
   COLORS_LANDLIGHT = '#000000',
   COLORS_LANDDARK = '#000000',
   COLORS_ROAD = '#000000';
+var TRACK = [];
 
 var Track = function () {
   this.trackLength = 0;
@@ -87,143 +88,65 @@ Track.prototype = {
       }
     }
   },
-  buildTrack1: function () {
-    COLORS_ROAD = '#3a3a3a';
-    COLORS_LANDLIGHT = '#047804';
-    COLORS_LANDDARK = '#006A00';
-    COLORS_LANEMARKER = MEDIUMGREY;
-    COLORS_FOG = 0;
+  buildTrackFromJSON: function (trackID, t) {
     resetGraphics();
-    createTurnArrows();
-    createTrees();
-    createBackgroundTrees();
-    createBackgroundMountains();
-    createCars();
-    var t = this;
-    t.addStraight(50);
-    t.addEasyCurve90(1, 0);
-    t.addRoad(50, 50, 39, 0, 40, 0);
-    t.addEasyCurve90(1, 0);
-    t.addStraight(25);
-    t.addEasyCurve30(-1, 0);
-    t.addEasyCurve30(1, 0);
-    t.addHill(50, 40);
-    t.addEasyCurve90(1, 0);
-    t.addEasyCurve30(-1, 0);
-    t.addEasyCurve30(1, 0);
-    t.addEasyCurve90(1, -40);
-    t.addStraight(50, -40);
-    t.addStraight(55, 0);
+    COLORS_ROAD = TRACK[trackID].colors.road;
+    COLORS_LANDLIGHT = TRACK[trackID].colors.landlight;
+    COLORS_LANDDARK = TRACK[trackID].colors.landdark;
+    COLORS_LANEMARKER = TRACK[trackID].colors.lanemarker;
+    COLORS_FOG = TRACK[trackID].colors.fog;
+    if (TRACK[trackID].cars === true) createCars();
+    for (let s in TRACK[trackID].side) {
+      if (TRACK[trackID].side[s] === 'TURNARROWS') createTurnArrows();
+      if (TRACK[trackID].side[s] === 'TREES') createTrees();
+      if (TRACK[trackID].side[s] === 'FLOWERS') createFlowers();
+      if (TRACK[trackID].side[s] === 'BUILDING_DAY') createBuildings(false);
+      if (TRACK[trackID].side[s] === 'BUILDING_NIGHT') createBuildings(true);
+      if (TRACK[trackID].side[s] === 'STREETLIGHT_DAY') createStreetlights(false);
+      if (TRACK[trackID].side[s] === 'STREETLIGHT_NIGHT') createStreetlights(true);
+    }
+    for (let b in TRACK[trackID].background) {
+      if (TRACK[trackID].background[b] === 'MOUNTAINS') createBackgroundMountains();
+      if (TRACK[trackID].background[b] === 'TREES') createBackgroundTrees();
+      if (TRACK[trackID].background[b] === 'BUILDING_DAY') createBackgroundBuildings(false);
+      if (TRACK[trackID].background[b] === 'BUILDING_NIGHT') {
+        createBackgroundBuildings(true);
+        createNightSky();
+      }
+    }
+    for (let r in TRACK[trackID].road) {
+      let d = TRACK[trackID].road[r].data;
+      if (TRACK[trackID].road[r].type === 'S') t.addStraight(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'EC90') t.addEasyCurve90(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'HC90') t.addHardCurve90(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'HC180') t.addHardCurve180(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'MC90') t.addMediumCurve90(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'EC30') t.addEasyCurve30(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'H') t.addHill(d[0], d[1]);
+      if (TRACK[trackID].road[r].type === 'R') t.addRoad(d[0], d[1], d[2], d[3], d[4], d[5]);
+    }
     t.calculateLength();
     t.drawMap();
-    t.createRoadsideObjects(SPRITES_TREES, 0.9, 10, 900, true);
+    let SPRITES_OPTIONS = SPRITES_TREES;
+    if (TRACK[trackID].sideOptions[0] === 'TREES') SPRITES_OPTIONS = SPRITES_TREES;
+    if (TRACK[trackID].sideOptions[0] === 'FLOWERS') SPRITES_OPTIONS = [SPRITES_FLOWERS];
+    if (['BUILDING_DAY', 'BUILDING_NIGHT'].includes(TRACK[trackID].sideOptions[0])) {
+      SPRITES_OPTIONS = SPRITES_BUILDINGS;
+      t.createStreetLights();
+    }
+    t.createRoadsideObjects(SPRITES_OPTIONS, TRACK[trackID].sideOptions[1], TRACK[trackID].sideOptions[2], TRACK[trackID].sideOptions[3], TRACK[trackID].sideOptions[4]);
+  },
+  buildTrack1: function () {
+    this.buildTrackFromJSON(0, this);
   },
   buildTrack2: function () {
-    COLORS_ROAD = '#3a3a3a';
-    COLORS_LANDLIGHT = '#047804';
-    COLORS_LANDDARK = '#006A00';
-    COLORS_LANEMARKER = MEDIUMGREY;
-    COLORS_FOG = 0;
-    resetGraphics();
-    createCars();
-    createTurnArrows();
-    createTrees();
-    createBackgroundTrees();
-    createBackgroundMountains();
-    createFlowers();
-    var t = this;
-    t.addStraight(20);
-    t.addStraight(46, 0);
-    t.addEasyCurve90(1, 30);
-    t.addStraight(90, 0);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(25, 0);
-    t.addMediumCurve90(1, 50);
-    t.addStraight(25, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addStraight(68, -50);
-    t.addMediumCurve90(-1, 0);
-    t.addMediumCurve90(1, 0);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(48, 0);
-    t.addEasyCurve90(1, -30);
-    t.addStraight(38, 0);
-    t.addEasyCurve30(-1, 0);
-    t.addEasyCurve30(1, 0)
-    t.calculateLength();
-    t.drawMap();
-    t.createRoadsideObjects([SPRITES_FLOWERS], 0.3, 6, 1300, true);
+    this.buildTrackFromJSON(1, this);
   },
   buildTrack3: function () {
-    COLORS_ROAD = '#3a3a3a';
-    COLORS_LANDLIGHT = '#5a5a5a';
-    COLORS_LANDDARK = '#626262';
-    COLORS_LANEMARKER = MEDIUMGREY;
-    COLORS_FOG = 0;
-    resetGraphics();
-    createCars();
-    createBuildings(false);
-    createStreetlights(false);
-    createBackgroundBuildings(false);
-    var t = this;
-    t.addStraight(100);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(151, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(30, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(80, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addStraight(20, 0);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(10, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(50, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addMediumCurve90(1, 0);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(62, 0);
-    t.calculateLength();
-    t.drawMap();
-    t.createRoadsideObjects(SPRITES_BUILDINGS, 0.95, 20, 3300, false);
-    t.createStreetLights();
+    this.buildTrackFromJSON(2, this);
   },
   buildTrack4: function () {
-    COLORS_ROAD = '#111111';
-    COLORS_LANEMARKER = '#555555';
-    COLORS_FOG = '#000000';
-    COLORS_LANDLIGHT = '#090909';
-    COLORS_LANDDARK = '#030303';
-    resetGraphics();
-    createCars();
-    createBuildings(true);
-    createStreetlights(true);
-    createBackgroundBuildings(true);
-    createNightSky();
-    var t = this;
-    t.addStraight(100);
-    t.addHardCurve180(1, 0);
-    t.addHardCurve90(-1, 0);
-    t.addStraight(40, 0);
-    t.addHardCurve90(1, 0);
-    t.addHardCurve90(-1, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(50, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addStraight(20, 0);
-    t.addMediumCurve90(1, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(60, 0);
-    t.addMediumCurve90(-1, 0);
-    t.addMediumCurve90(1, 0);
-    t.addStraight(51, 0);
-    t.addHardCurve90(1, 0);
-    t.addStraight(110, 0);
-    t.calculateLength();
-    t.drawMap();
-    t.createRoadsideObjects(SPRITES_BUILDINGS, 0.95, 20, 3300, false);
-    t.createStreetLights();
+    this.buildTrackFromJSON(2, this);
   },
   lastY: function () {
     return (this.segments.length == 0) ? 0 : this.segments[this.segments.length - 1].p3.world.y;

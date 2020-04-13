@@ -1,8 +1,8 @@
-var COLORS_KERBLIGHT = '#a02222',
-  COLORS_KERBDARK = '#BBBBBB',
-  COLORS_LANDLIGHT = '#000000',
-  COLORS_LANDDARK = '#000000',
-  COLORS_ROAD = '#000000';
+var COLORS_KERBLIGHT = '#a02222';
+var COLORS_KERBDARK = '#BBBBBB';
+var COLORS_LANDLIGHT = '#000000';
+var COLORS_LANDDARK = '#000000';
+var COLORS_ROAD = '#000000';
 var TRACK = [];
 
 var Track = function () {
@@ -318,11 +318,6 @@ Track.prototype = {
       x: x
     });
   },
-  /*
-  When the car reaches the end of the road we will simply loop back to the beginning. 
-  To make this a little easier we provide a method to find the segment for any Z value
-  even if it extends beyond the length of the road:
-  */
   findSegment: function (z) {
     return this.segments[Math.floor(z / Track.segmentLength) % this.segments.length];
   },

@@ -113,10 +113,9 @@ function renderSprite(sprite, scale, destX, destY, clipY, fog) {
       destW,
       destH - clipH);
     if (fog !== false && COLORS_FOG != 0) {
-      renderFog(destX, destY, destW, destH, fog); //ctx, x, y, width, height, fog) {
+      renderFog(destX, destY, destW, destH, fog);
     }
   }
-
 }
 
 function renderExponentialFog(distance, density) {
@@ -173,12 +172,7 @@ function renderPlayer(scale, destX, destY, steer, updown, playerShadowY) {
       */
   // ***** DRAW CAR SPRITE ****** /
 
-  renderSprite(
-    sprite,
-    spriteScale,
-    destX,
-    destY + player.bounce,
-    false);
+  renderSprite( sprite, spriteScale, destX, destY + player.bounce, false);
 
   if (player.driftAmount > 0) {
     var time = getTimestamp();
@@ -274,20 +268,13 @@ function renderRender() {
     for (i = 0; i < segment.sprites.length; i++) {
       sprite = segment.sprites[i];
       spriteScale = segment.p1.screen.scale;
-
       spriteX = segment.p1.screen.x - segment.p1.world.x * segment.p1.screen.scale * width / 2 +
         spriteScale * sprite.x * width / 2;
       spriteY = segment.p1.screen.y;
-      spriteScale = sprite.s * spriteScale; //* 800 / sprite.source.w;
-      renderSprite(
-        sprite.source,
-        spriteScale,
-        spriteX,
-        spriteY,
-        segment.clip,
-        false);
+      spriteScale = sprite.s * spriteScale;
+      renderSprite(sprite.source, spriteScale, spriteX, spriteY, segment.clip, false);
       var destW = (sprite.source.w * spriteScale * width / 2);
-      var offsetX = -0; //.5;
+      var offsetX = -0;
       var destX = spriteX + (destW * (offsetX || 0));
       spriteScale = segment.p1.screen.scale;
       spriteScale = sprite.s * spriteScale;

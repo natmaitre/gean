@@ -101,7 +101,6 @@ Car.prototype = {
         },
         camera: {},
         screen: {}
-
       });
       line.push({
         world: {
@@ -120,7 +119,6 @@ Car.prototype = {
         },
         camera: {},
         screen: {}
-
       });
       line.push({
         world: {
@@ -169,38 +167,27 @@ Car.prototype = {
   setDrift: function (drift) {
     this.driftRequest = drift;
   },
-
   getCurrentLapTime: function () {
     return this.currentLapTime;
   },
-
   getLap: function () {
     if (this.lap < 1) {
       return 1;
     }
     return this.lap;
   },
-
   getPosition: function () {
     var i = this.position,
       j = i % 10,
       k = i % 100;
-    if (j == 1 && k != 11) {
-      return i + "st";
-    }
-    if (j == 2 && k != 12) {
-      return i + "nd";
-    }
-    if (j == 3 && k != 13) {
-      return i + "rd";
-    }
+    if (j == 1 && k != 11) return i + "st";
+    if (j == 2 && k != 12) return i + "nd";
+    if (j == 3 && k != 13) return i + "rd";
     return i + "th";
   },
-
   getSpeed: function () {
     return this.speed;
   },
-
   update: function (dt) {
     var maxSpeed = this.maxSpeed;
     this.speedPercent = this.speed / this.maxSpeed;
@@ -211,14 +198,12 @@ Car.prototype = {
     var dx = dt * this.turnSpeed * speedPercent;
     var trackLeft = currentSegment.p1.world.x;
     var trackRight = currentSegment.p2.world.x;
-
     var carLeftSide = this.x;
     var carRightSide = this.x + this.width;
     var distanceToLeft = carLeftSide - trackLeft;
     var distanceToRight = trackRight - carRightSide;
     var trackWidth = trackRight - trackLeft;
     var extraSpeed = 1;
-
     if (currentSegment.curve < 0 && distanceToLeft > 0) {
       if (this.index == 0) {
         extraSpeed = 1 + (trackWidth - this.width - distanceToLeft) * (-currentSegment.curve) / (trackWidth * 80);
@@ -236,7 +221,6 @@ Car.prototype = {
     if (this.slipstreamTime > 0) {
       mult += 0.4;
     }
-
     if (this.driftRequest) {
       if (this.speed > 8000) {
         if (!this.drift && !this.accelerate) {
@@ -250,8 +234,6 @@ Car.prototype = {
     } else {
       this.drift = false;
     }
-
-
     if (this.driftAmount > 0 && this.speed > 8000) {
       this.driftAmount -= dt;
       mult -= 0.04;
@@ -268,19 +250,16 @@ Car.prototype = {
       this.driftAmount = 0;
       this.driftDirection = 0
     }
-
     var turboOn = this.turbo;
     if (this.turboRequest) {
       this.turbo = this.turboAmount > 0 && this.speed > 8000 && this.accelerate;
     } else {
       this.turbo = false;
     }
-
     if (this.turbo) {
       accMult = 1.2;
       maxSpeed = this.maxTurboSpeed;
     }
-
     this.bounce = 3.4;
     if (distanceToLeft < -this.width * 0.1 || distanceToRight < -this.width * 0.1) {
       if (distanceToLeft + this.width * 0.1 < -playerSegment.kerbWidth ||
@@ -294,9 +273,7 @@ Car.prototype = {
         this.bounce = 6;
       }
     }
-
     this.bounce = (this.bounce * Math.random() * speedPercent);
-
     if (this.index == 0 && race.state != STATE_RACEOVER) {
       this.x = this.x - (dx * speedPercent * playerSegment.curve * this.centrifugal);
       if (this.driftDirection != 0) {
@@ -306,14 +283,10 @@ Car.prototype = {
         this.x = this.x - dx;
       else if (this.turnRight)
         this.x = this.x + dx;
-
       var ddrift = this.driftDirection * this.speed * 0.00055;
       this.x += ddrift;
       this.z = utilIncrease(this.z, dt * this.speed * extraSpeed, track.getLength());
-
-      this.y = utilInterpolate(currentSegment.p1.world.y,
-        currentSegment.p3.world.y,
-        this.percent);
+      this.y = utilInterpolate(currentSegment.p1.world.y, currentSegment.p3.world.y, this.percent);
 
       // ---------------------------------------------- JUMP!!!
       // make the car jump if going fast..
@@ -410,7 +383,6 @@ Car.prototype = {
           break;
         }
       }
-
       var isBehind = false;
       for (var i = 0; i < cars.length; i++) {
         var distance = cars[i].z - player.z;
@@ -457,14 +429,11 @@ Car.prototype = {
       }
       this.z = utilIncrease(this.z, dt * this.speed, track.getLength());
     }
-
     this.percent = utilPercentRemaining(this.z, Track.segmentLength); // useful for interpolation during rendering phase
     var newSegment = track.findSegment(this.z);
-
     if (this.index === 0) {
       for (n = 0; n < newSegment.cars.length; n++) {
         var car = newSegment.cars[n];
-
         if (car.index != this.index) {
           if (this.speed > car.speed) {
             if (this.overlap(this.x, this.width,
@@ -481,7 +450,6 @@ Car.prototype = {
                   this.slipstreamTime = 0;
 
                 }
-
                 this.speed = car.speed;
                 this.z = car.z - 100;
               }
@@ -491,27 +459,21 @@ Car.prototype = {
         }
       }
     }
-
     if (this.x + this.width / 2 < trackLeft - 1.2 * this.width) {
       this.x = trackLeft - 1.2 * this.width - this.width / 2;
     }
-
     if (this.x + this.width / 2 > trackRight + 1.2 * this.width) {
       this.x = trackRight + 1.2 * this.width - this.width / 2;
     }
-
-    this.speed = this.limit(this.speed, 0, maxSpeed); // or exceed maxSpeed
-
+    this.speed = this.limit(this.speed, 0, maxSpeed);
     if (this.index == 0) {
       raceAudioEngineSpeed(this.speedPercent);
     }
-
     if (currentSegment != newSegment) {
       var index = currentSegment.cars.indexOf(this);
       currentSegment.cars.splice(index, 1);
       newSegment.cars.push(this);
     }
-
     if (this.z < Track.segmentLength * 1.2 && !this.lapStarted) {
       this.lap++;
       this.lapStarted = true;
@@ -523,7 +485,6 @@ Car.prototype = {
       }
       this.currentLapTime += dt;
     }
-
     var currentPosition = this.position;
     this.position = 1;
     for (var i = 0; i < cars.length; i++) {
@@ -537,7 +498,6 @@ Car.prototype = {
         }
       }
     }
-
     if (this.index == 0) {
       if (this.newPositionTime > 0) {
         this.newPositionTime -= dt;
@@ -547,7 +507,6 @@ Car.prototype = {
         this.newPositionTime = 1;
       }
     }
-
     if (this.index === 0 && this.lap === 3 && race.state != STATE_RACEOVER) {
       this.finishPosition = this.getPosition();
       this.turbo = false;
@@ -556,7 +515,6 @@ Car.prototype = {
       race.raceOver();
     }
   },
-
   /*
   workOutPosition: function() {
     // work out position
@@ -604,12 +562,10 @@ Car.prototype = {
               dir = 1;
             }
           }
-          return dir * 3 / i; //* (this.speed-player.speed)/maxSpeed;
+          return dir * 3 / i;
         }
-
       }
     }
-
     if (this.takeCornerOnInside) {
       for (var i = 1; i < lookAhead; i++) {
         segment = track.getSegment((carSegment.index + i) % trackSegments);
@@ -627,7 +583,6 @@ Car.prototype = {
           }
           return 2 / i;
         }
-
       }
     }
     return 0;

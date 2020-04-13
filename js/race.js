@@ -1,12 +1,12 @@
 var track = null;
 var numbers = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT'];
-var Race = function() {
+var Race = function(TrackNumber = 0) {
   this.track = null;
   this.state = 0;
   this.countdownNumber = 3;
   this.lastTime = 0 ;
   this.carCount = 15;
-  this.trackNumber = 0;
+  this.trackNumber = TrackNumber;
   this.zIsDown = false;
   this.xIsDown = false;
   this.raceNumber = 0;
@@ -22,12 +22,13 @@ Race.COUNTDOWN_INTERVAL = 800;
 Race.prototype = {
   init: function() {
   },
-  start: function(trackNumber) {
+  start: function(startTrack) {
+    trackNumber = startTrack;
     raceAudioEngineSpeed(0);
     if(trackNumber >= 4) {
       trackNumber = 0;
     }
-    trackNumber = 3;
+    //trackNumber = 3;
     this.raceNumber = trackNumber;
     track = new Track();
     if (trackNumber === 0) track.buildTrack1();

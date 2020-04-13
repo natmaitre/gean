@@ -146,7 +146,7 @@ Track.prototype = {
     this.buildTrackFromJSON(2, this);
   },
   buildTrack4: function () {
-    this.buildTrackFromJSON(2, this);
+    this.buildTrackFromJSON(3, this);
   },
   lastY: function () {
     return (this.segments.length == 0) ? 0 : this.segments[this.segments.length - 1].p3.world.y;

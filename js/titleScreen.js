@@ -10,9 +10,10 @@ TitleScreen.prototype = {
     track.buildTrack0();
   },
   keyDown: function (e) {
-    if (e.keyCode === 88) {
-      startGame();
-    }
+    if (e.keyCode === 49) startGame(0);
+    if (e.keyCode === 50) startGame(1);
+    if (e.keyCode === 51) startGame(2);
+    if (e.keyCode === 52) startGame(3);
   },
   keyUp: function (e) {
   },
@@ -57,7 +58,7 @@ TitleScreen.prototype = {
     }
     context.font = '44px "Helvetica Neue", Helvetica, Arial, sans-serif';
     cntx.fillText("Arrow keys to drive, x for Turbo, z for Handbrake", this.canvas.width / 2, 570);
-    cntx.fillText("x To Start", this.canvas.width / 2, 460);
+    cntx.fillText("1,2,3 or 4 To Start", this.canvas.width / 2, 460);
     camera.z = utilIncrease(camera.z, dt * 120, track.getLength());
     this.renderRoad();
   }

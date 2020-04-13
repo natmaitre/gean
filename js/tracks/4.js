@@ -1,4 +1,4 @@
-TRACK[2] = {
+TRACK[3] = {
   "colors": {
     "road": "#111111",
     "landlight": "#090909",

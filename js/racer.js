@@ -33,14 +33,14 @@ var cars = [];
 var player = null;
 var camera = new Camera();
 var race = new Race();
-track = new Track();
+var track = new Track();
 var titleScreen = new TitleScreen(canvas, context);
 
-function startGame(options) {
+function startGame(trackNumber) {
   raceAudioInit();
   racing = true;
   camera.reset();
-  race.start(0);
+  race.start(trackNumber);
 }
 titleScreen.init();
 

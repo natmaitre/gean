@@ -30,7 +30,7 @@ Camera.prototype = {
     p.screen.x = Math.round((width / 2) + (p.screen.scale * p.camera.x * width / 2));
     p.screen.y = Math.round((height / 2) - (p.screen.scale * p.camera.y * height / 2));
   },
-  update: function (dt) {
+  update: function () {
     if (cars[0]) {
       this.z = cars[0].z - this.zOffset;
       if (this.z < 0) {

@@ -103,18 +103,9 @@ function renderSprite(sprite, scale, destX, destY, clipY, fog) {
   destY = destY - destH;
   var clipH = clipY ? Math.max(0, destY + destH - clipY) : 0;
   if (clipH < destH) {
-    context.drawImage(spritesCanvas,
-      sprite.x,
-      sprite.y,
-      sprite.w,
-      sprite.h - (sprite.h * clipH / destH),
-      destX,
-      destY,
-      destW,
-      destH - clipH);
-    if (fog !== false && COLORS_FOG != 0) {
-      renderFog(destX, destY, destW, destH, fog);
-    }
+    context.drawImage(spritesCanvas, sprite.x, sprite.y, sprite.w, sprite.h - (sprite.h * clipH / destH),
+      destX, destY, destW, destH - clipH);
+    if (fog !== false && COLORS_FOG != 0) renderFog(destX, destY, destW, destH, fog);
   }
 }
 
@@ -124,30 +115,23 @@ function renderExponentialFog(distance, density) {
 
 function renderPlayer(scale, destX, destY, steer, updown, playerShadowY) {
   var sprite;
-  if (steer < 0) {
-    sprite = SPRITES_CARLEFT;
-  } else if (steer > 0) {
-    sprite = SPRITES_CARRIGHT;
-  } else {
-    sprite = SPRITES_CARSTRAIGHT;
-  }
+  if (steer < 0) sprite = SPRITES_CARLEFT;
+  else if (steer > 0) sprite = SPRITES_CARRIGHT;
+  else sprite = SPRITES_CARSTRAIGHT;
   var spriteScale = player.width * scale / sprite.w;
-  var i, j;
   if (player.slipstreamTime > 0 || player.slipstream > 0) {
     cars[0].initSlipstreamLines();
     var amount = 0;
     if (player.slipstreamTime <= 0) {
       amount = player.slipstream;
-      while (amount > 1) {
-        amount -= 1;
-      }
+      while (amount > 1) amount -= 1;
     }
     cntx.globalAlpha = 1 - amount;
-    for (i = 0; i < cars[0].slipstreamLines.length; i++) {
+    for (var i = 0; i < cars[0].slipstreamLines.length; i++) {
       var points = cars[0].slipstreamLines[i];
       cntx.beginPath();
       cntx.moveTo(points[0].screen.x, points[0].screen.y);
-      for (j = 1; j < points.length; j++) {
+      for (var j = 1; j < points.length; j++) {
         cntx.lineTo(points[j].screen.x, points[j].screen.y);
       }
       cntx.fillStyle = MEDIUMGREY;
@@ -311,16 +295,11 @@ function renderRender() {
       carX = p.screen.x;
       var playerDirection = 0;
       if (player.speed > 0) {
-        if (player.driftDirection != 0) {
-          playerDirection = player.driftDirection;
-        } else {
-          playerDirection = (player.turnLeft ? -1 : player.turnRight ? 1 : 0);
-        }
+        if (player.driftDirection != 0) playerDirection = player.driftDirection;
+        else playerDirection = (player.turnLeft ? -1 : player.turnRight ? 1 : 0);
       }
       renderPlayer(camera.depth / camera.zOffset, carX, playerScreenY, playerDirection, playerSegment.p3.world.y - playerSegment.p1.world.y, playerShadowY);
-      if (race.state == STATE_RACING) {
-        context.drawImage(track.overheadMap, -40, 200, 400, 400);
-      }
+      if (race.state == STATE_RACING) context.drawImage(track.overheadMap, -40, 200, 400, 400);
     }
   }
 }

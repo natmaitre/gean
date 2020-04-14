@@ -19,9 +19,7 @@ Camera.prototype = {
   },
   project: function (p, cameraXOffset, looped, width, height) {
     var cameraZ = this.z;
-    if (looped) {
-      cameraZ -= track.getLength();
-    }
+    if (looped) cameraZ -= track.getLength();
     var cameraX = this.x + cameraXOffset;
     p.camera.x = (p.world.x || 0) - cameraX;
     p.camera.y = (p.world.y || 0) - this.y;
@@ -31,17 +29,11 @@ Camera.prototype = {
     p.screen.y = Math.round((height / 2) - (p.screen.scale * p.camera.y * height / 2));
   },
   update: function () {
-    if (cars[0]) {
-      this.z = cars[0].z - this.zOffset;
-      if (this.z < 0) {
-        this.z += track.getLength();
-      }
-      camera.x = cars[0].x + cars[0].width / 2;
-      var playerSegment = track.findSegment(cars[0].z);
-      var playerPercent = utilPercentRemaining(cars[0].z, Track.segmentLength);
-      this.y = this.yOffset + utilInterpolate(playerSegment.p1.world.y,
-        playerSegment.p3.world.y,
-        playerPercent);
-    }
+    this.z = cars[0].z - this.zOffset;
+    if (this.z < 0) this.z += track.getLength();
+    camera.x = cars[0].x + cars[0].width / 2;
+    var playerSegment = track.findSegment(cars[0].z);
+    var playerPercent = utilPercentRemaining(cars[0].z, Track.segmentLength);
+    this.y = this.yOffset + utilInterpolate(playerSegment.p1.world.y, playerSegment.p3.world.y, playerPercent);
   }
 }

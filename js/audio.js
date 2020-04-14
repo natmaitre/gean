@@ -127,9 +127,6 @@ function raceAudioEngineSpeed(speed) {
   audioScriptSpeed = 0.2 + speed * 2;
 }
 
-function raceAudioEngineStop() {
-}
-
 var lastCrashTime = 0;
 function raceAudioCrash() {
   var crashTime = getTimestamp();
@@ -145,23 +142,10 @@ function raceAudioCrash() {
   audioSource.connect(gain);
   gain.connect(audioCtx.destination);
   audioSource.buffer = noiseBuffer;
-  gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime );//+ 1/64);
+  gain.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime );
   gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + noteLength * 0.7 );
   audioSource.playbackRate.setValueAtTime(0.035, audioCtx.currentTime);
   audioSource.playbackRate.setValueAtTime(0.002, audioCtx.currentTime + noteLength);
   audioSource.start(audioCtx.currentTime);
   audioSource.stop(audioCtx.currentTime+noteLength);
-}
-
-function drawBuffer(buffer) {
-  var canvas = document.getElementById('debugCanvas');
-  var context = canvas.getContext('2d');
-  var mult = 200;
-  context.strokeStyle = '#dddddd';
-  context.beginPath();
-  context.moveTo(0, 300 + buffer[0] * mult);
-  for(var i = 1; i < buffer.length; i+=2) {
-    context.lineTo(i, 300 + buffer[i] * mult);
-  }
-  context.stroke();
 }

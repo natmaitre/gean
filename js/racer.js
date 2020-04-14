@@ -3,26 +3,20 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext('2d');
 context.textAlign = 'center';
-var racing = false;
+var racing = 0;
 
 var getTimestamp = function () {
   return performance.now();
 };
 
 document.addEventListener("keydown", function (e) {
-  if (racing) {
-    race.keyDown(e);
-  } else {
-    titleScreen.keyDown(e);
-  }
+  if (racing === 1) race.keyDown(e);
+  if (racing === 0) titleScreen.keyDown(e);
 });
 
 document.addEventListener("keyup", function (e) {
-  if (racing) {
-    race.keyUp(e);
-  } else {
-    titleScreen.keyUp(e);
-  }
+  if (racing === 1) race.keyUp(e);
+  if (racing === 0) titleScreen.keyUp(e);
 });
 
 var now = getTimestamp();
@@ -38,20 +32,19 @@ var titleScreen = new TitleScreen(canvas, context);
 
 function startGame(trackNumber) {
   raceAudioInit();
-  racing = true;
+  racing = 1;
   camera.reset();
   race.start(trackNumber);
 }
-titleScreen.init();
-
 function frame() {
   now = getTimestamp();
   dt = Math.min(1, (now - last) / 1000);
   gdt = gdt + dt;
-  if (!racing) {
+  if (racing === 0) {
     titleScreen.render(dt);
     gdt = 0;
-  } else {
+  }
+  if (racing === 1) {
     outlineOnly = false;
     var step = 1 / 180;
     while (gdt > step) {
@@ -64,4 +57,6 @@ function frame() {
   }
   requestAnimationFrame(frame);
 }
+
+titleScreen.init();
 frame();

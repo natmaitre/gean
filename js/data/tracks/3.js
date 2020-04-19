@@ -10,6 +10,7 @@ TRACK[2] = {
   "side": ["BUILDING_DAY", "STREETLIGHT_DAY"],
   "sideOptions": ["BUILDING_DAY", 0.95, 20, 3300, false],
   "cars": true,
+  "carsType": [1,1,1,1,1,1,1,1,1,1,2,1,1,1],
   "road": {
     "a": {
       "type": "S",

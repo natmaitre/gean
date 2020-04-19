@@ -115,9 +115,9 @@ function renderExponentialFog(distance, density) {
 
 function renderPlayer(scale, destX, destY, steer, updown, playerShadowY) {
   var sprite;
-  if (steer < 0) sprite = SPRITES_CARLEFT;
-  else if (steer > 0) sprite = SPRITES_CARRIGHT;
-  else sprite = SPRITES_CARSTRAIGHT;
+  if (steer < 0) sprite = SPRITES_CARLEFT[0];
+  else if (steer > 0) sprite = SPRITES_CARRIGHT[0];
+  else sprite = SPRITES_CARSTRAIGHT[0];
   var spriteScale = player.width * scale / sprite.w;
   if (player.slipstreamTime > 0 || player.slipstream > 0) {
     cars[0].initSlipstreamLines();
@@ -236,16 +236,12 @@ function renderRender() {
         spriteX = utilInterpolate(
             (segment.p1.screen.x + segment.p2.screen.x) / 2,
             (segment.p3.screen.x + segment.p4.screen.x) / 2,
-            car.percent) +
-          (scale * car.x * width / 2);
+            car.percent) + (scale * car.x * width / 2);
         spriteY = utilInterpolate(segment.p1.screen.y, segment.p4.screen.y, car.percent);
-        var sprite = SPRITES_CARSTRAIGHT;
+        var sprite = SPRITES_CARSTRAIGHT[car.index];
         spriteScale = car.width * scale / sprite.w;
-        if (car.turnLeft) {
-          sprite = SPRITES_CARLEFT;
-        } else if (car.turnRight) {
-          sprite = SPRITES_CARRIGHT;
-        }
+        if (car.turnLeft) sprite = SPRITES_CARLEFT[car.index];
+        else if (car.turnRight) sprite = SPRITES_CARRIGHT[car.index];
         renderSprite(sprite, spriteScale, spriteX, spriteY, segment.clip, segment.fog);
       }
     }

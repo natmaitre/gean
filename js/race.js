@@ -4,7 +4,7 @@ var Race = function () {
   this.state = 0;
   this.countdownNumber = 3;
   this.lastTime = 0;
-  this.carCount = 15;
+  this.carCount = 1;
   this.zIsDown = false;
   this.xIsDown = false;
   this.raceNumber = 0;
@@ -21,10 +21,8 @@ Race.prototype = {
     raceAudioEngineSpeed(0);
     this.raceNumber = trackNumber;
     track = new Track();
-    if (this.raceNumber === 0) track.buildTrack1();
-    if (this.raceNumber === 1) track.buildTrack2();
-    if (this.raceNumber === 2) track.buildTrack3();
-    if (this.raceNumber === 3) track.buildTrack4();
+    track.buildTrack(this.raceNumber)
+    this.carCount = track.getCarCount();
     this.resetCars();
     player = cars[0];
     player.initSlipstreamLines();
@@ -102,20 +100,19 @@ Race.prototype = {
   },
   resetCars: function () {
     cars = [];
-    var n, car, segment, z, sprite;
+    var n, car, segment, z;
     for (var n = 0; n < this.carCount; n++) {
       z = track.getLength() - (this.carCount - n) * Track.segmentLength * 13;
       segment = track.findSegment(z);
       var trackLeft = segment.p1.world.x;
       var trackRight = segment.p2.world.x;
-      car = new Car();
+      car = new Car(n);
       var x = 0;
       if (n % 2) x = trackLeft / 2;
       else x = trackRight / 2 - car.width;
       car.index = n;
       car.x = x;
       car.z = z;
-      car.sprite = sprite;
       car.speed = 0;
       car.percent = utilPercentRemaining(car.z, Track.segmentLength);
       if (car.index !== 0) {
@@ -175,8 +172,8 @@ Race.prototype = {
   updateRaceOver: function () {},
   update: function (dt) {
     if (this.state == STATE_PRERACE) this.updatePrerace(dt);
-    if (this.state == STATE_COUNTDOWN) this.updateCountdown(dt);
-    if (this.state == STATE_COUNTDOWN || this.state == STATE_RACING) this.updateRace(dt);
+    else if (this.state == STATE_COUNTDOWN) this.updateCountdown(dt);
+    else if (this.state == STATE_COUNTDOWN || this.state == STATE_RACING) this.updateRace(dt);
   },
   render: function () {
     renderRender();
@@ -189,7 +186,6 @@ Race.prototype = {
         context.fillText("RACE", window.innerWidth / 2, window.innerHeight / 4);
       }
       if (this.countdownNumber < 3) {
-        context.font = 'italic bold ' + window.innerHeight / 5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
         cntx.fillStyle = DARKGREY;
         context.fillText(numbers[this.raceNumber], window.innerWidth / 2, window.innerHeight / 4 * 2 + 4);
         cntx.fillStyle = LIGHTGREY;
@@ -197,7 +193,6 @@ Race.prototype = {
       }
     }
     if (this.state == STATE_COUNTDOWN) {
-      context.font = ' ' + window.innerHeight / 5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillStyle = '#111111';
       context.fillText(this.countdownNumber, window.innerWidth / 2, 254);
       context.fillStyle = LIGHTGREY;

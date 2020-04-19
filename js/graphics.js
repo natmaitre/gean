@@ -14,8 +14,12 @@ spritesCanvas = sprites.c,
   backgroundLayer2 = createCanvas(BACKGROUNDLAYERWIDTH, BACKGROUNDLAYERHEIGHT),
   backgroundLayer1 = createCanvas(BACKGROUNDLAYERWIDTH, BACKGROUNDLAYERHEIGHT),
   overheadTrack = createCanvas(OVERHEADTRACKWIDTH, OVERHEADTRACKHEIGHT),
-  SPRITES_STREETLIGHTLEFT = SPRITES_STREETLIGHTRIGHT = SPRITES_CARLEFT = SPRITES_CARRIGHT = SPRITES_CARSTRAIGHT = SPRITES_TURNLEFT = SPRITES_TURNRIGHT = SPRITES_FLOWERS = 0,
+  SPRITES_STREETLIGHTLEFT = SPRITES_STREETLIGHTRIGHT = SPRITES_TURNLEFT = SPRITES_TURNRIGHT = SPRITES_FLOWERS = 0,
   SPRITES_BUILDINGS = [], COLORS_FOG = 0;
+
+var SPRITES_CARLEFT = []
+var SPRITES_CARRIGHT = []
+var SPRITES_CARSTRAIGHT = []
 
 var DARKGREY = '#222222';
 var MEDIUMGREY = '#cccccc';
@@ -168,7 +172,7 @@ function drawLine(x1, y1, x2, y2) {
   cntx.stroke();
 }
 
-function createCar(model, type) {
+function createCar(number, model, type) {
   eraseScratch();
   cntx = scratchCanvas.x;
   var points = [];
@@ -183,19 +187,23 @@ function createCar(model, type) {
     }
   }
   if (type === "side") {
-    SPRITES_CARLEFT = newSprite(0);
-    SPRITES_CARRIGHT = newSprite(1);
+    SPRITES_CARLEFT[number] = newSprite(0);
+    SPRITES_CARRIGHT[number] = newSprite(1);
   }
   if (type === "back") {
     cntx.save();
     cntx.scale(-1, 1);
     cntx.drawImage(scratchCanvas.c, 0, 0, 143, 210, -143 - 132, 0, 143, 210);
     cntx.restore();
-    SPRITES_CARSTRAIGHT = newSprite(0);
+    SPRITES_CARSTRAIGHT[number] = newSprite(0);
   }
 }
 
-function createCars(model = 0) {
-  createCar(CARS[model].side, "side");
-  createCar(CARS[model].back, "back");
+function createCars(carTypeList) {
+  createCar(0, CARS[0].side, "side");
+  createCar(0, CARS[0].back, "back");
+  for (let c = 1; c < carTypeList.length; c++ ) {
+    createCar(c, CARS[carTypeList[c]].side, "side");
+    createCar(c, CARS[carTypeList[c]].back, "back");
+  }
 }

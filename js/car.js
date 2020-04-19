@@ -321,9 +321,8 @@ Car.prototype = {
           this.turboAmount -= dt * 2.45;
           raceAudioSetTurboTime(time - this.turboStartTime);
         }
-        if (this.speed < maxSpeed * mult) {
-          this.speed = this.doaccelerate(this.speed, this.accel * accMult, dt);
-        } else {
+        if (this.speed < maxSpeed * mult) this.speed = this.doaccelerate(this.speed, this.accel * accMult, dt);
+        else {
           this.speed = this.doaccelerate(this.speed, this.decel, dt);
           if (this.speed < maxSpeed * mult) this.speed = maxSpeed * mult;
         }
@@ -334,10 +333,7 @@ Car.prototype = {
         var spriteW = sprite.s * sprite.source.cw;
         var spriteX = sprite.x + sprite.source.cx * sprite.s;
         var carX = this.x;
-        if (this.overlap(carX,
-            this.width,
-            spriteX,
-            spriteW, 1)) {
+        if (this.overlap(carX, this.width, spriteX, spriteW, 1)) {
           if (this.index == 0) {
             raceAudioCrash();
             this.slipstream = 0;
@@ -366,9 +362,7 @@ Car.prototype = {
       }
       if (this.slipstreamTime > 0) this.slipstreamTime -= dt;
     } else {
-      if (this.speed < maxSpeed) {
-        this.speed = this.doaccelerate(this.speed, this.accel, dt);
-      }
+      if (this.speed < maxSpeed) this.speed = this.doaccelerate(this.speed, this.accel, dt);
       var turnDir = this.updateCarPosition(currentSegment, playerSegment, player.width);
       var newX = this.x + turnDir * dx;
       if (currentSegment.curve == 0) {
@@ -381,7 +375,7 @@ Car.prototype = {
       if (newX + this.width < trackRight * 0.6 && newX > trackLeft * 0.8) this.x = newX;
       this.z = utilIncrease(this.z, dt * this.speed, track.getLength());
     }
-    this.percent = utilPercentRemaining(this.z, Track.segmentLength); // useful for interpolation during rendering phase
+    this.percent = utilPercentRemaining(this.z, Track.segmentLength); 
     var newSegment = track.findSegment(this.z);
     if (this.index === 0) {
       for (n = 0; n < newSegment.cars.length; n++) {

@@ -10,6 +10,7 @@ TRACK[1] = {
   "side": ["TURNARROWS", "TREES", "FLOWERS"],
   "sideOptions": ["FLOWERS", 0.3, 6, 1300, true],
   "cars": true,
+  "carsType": [1,1,1,1,1,1,1,1,1,1,2,1,1,1],
   "road": {
     "a": {
       "type": "S",

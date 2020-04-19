@@ -10,6 +10,7 @@ TRACK[3] = {
   "side": ["BUILDING_NIGHT", "STREETLIGHT_NIGHT"],
   "sideOptions": ["BUILDING_NIGHT", 0.95, 20, 3300, false],
   "cars": true,
+  "carsType": [1,1,1,1,1,1,1,1,1,1,2,1,1,1],
   "road": {
     "a": {
       "type": "S",

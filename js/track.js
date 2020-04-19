@@ -6,6 +6,7 @@ var COLORS_ROAD = '#000000';
 var TRACK = [];
 
 var Track = function () {
+  this.trackId = 0;
   this.trackLength = 0;
   this.currentAngle = 0;
   this.segments = [];
@@ -88,14 +89,18 @@ Track.prototype = {
       }
     }
   },
+  getCarCount: function () {
+    return TRACK[this.trackId].carsType.length;
+  },
   buildTrackFromJSON: function (trackID, t) {
+    this.trackId = trackID;
     resetGraphics();
     COLORS_ROAD = TRACK[trackID].colors.road;
     COLORS_LANDLIGHT = TRACK[trackID].colors.landlight;
     COLORS_LANDDARK = TRACK[trackID].colors.landdark;
     COLORS_LANEMARKER = TRACK[trackID].colors.lanemarker;
     COLORS_FOG = TRACK[trackID].colors.fog;
-    if (TRACK[trackID].cars === true) createCars();
+    if (TRACK[trackID].cars === true) createCars(TRACK[trackID].carsType);
     for (let s in TRACK[trackID].side) {
       if (TRACK[trackID].side[s] === 'TURNARROWS') createTurnArrows();
       if (TRACK[trackID].side[s] === 'TREES') createTrees();
@@ -136,17 +141,8 @@ Track.prototype = {
     }
     t.createRoadsideObjects(SPRITES_OPTIONS, TRACK[trackID].sideOptions[1], TRACK[trackID].sideOptions[2], TRACK[trackID].sideOptions[3], TRACK[trackID].sideOptions[4]);
   },
-  buildTrack1: function () {
-    this.buildTrackFromJSON(0, this);
-  },
-  buildTrack2: function () {
-    this.buildTrackFromJSON(1, this);
-  },
-  buildTrack3: function () {
-    this.buildTrackFromJSON(2, this);
-  },
-  buildTrack4: function () {
-    this.buildTrackFromJSON(3, this);
+  buildTrack: function (id) {
+    this.buildTrackFromJSON(id, this);
   },
   lastY: function () {
     return (this.segments.length == 0) ? 0 : this.segments[this.segments.length - 1].p3.world.y;

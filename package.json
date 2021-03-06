@@ -1,0 +1,23 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "Pokemon game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natmaitre/pokemon.git"
+  },
+  "author": "natan@me.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natmaitre/pokemon/issues"
+  },
+  "homepage": "https://github.com/natmaitre/pokemon#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

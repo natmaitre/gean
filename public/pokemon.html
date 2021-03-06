@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pokemon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="https://www.yoctu.com/wp-content/themes/yoctu/images/favicon/favicon-32x32.png">
+  <script type="text/javascript" src="./database.js"></script>
+  <script type="text/javascript" src="./pokemon.js"></script>
+  <link rel="stylesheet" type="text/css" href="pokemon.css" />
+</head>
+
+<body id="body">
+  <div class="game">
+    <div class="opponent">
+      <div class="stats">
+        <div class="top">
+          <div class="pokeballs">
+            <div class="pokeball"></div>
+            <div class="pokeball"></div>
+            <div class="pokeball"></div>
+          </div>
+          <div id="apHP" class="hp-count"></div>
+        </div>
+        <span class="name"></span>
+        <span class="level"></span>
+      </div>
+      <img class="pokemon" src="" />
+    </div>
+    <div class="player">
+      <div class="stats">
+        <div class="top">
+          <div class="pokeballs">
+            <div class="pokeball"></div>
+            <div class="pokeball"></div>
+            <div class="pokeball"></div>
+          </div>
+          <div id="myHP" class="hp-count"></div>
+        </div>
+        <span class="name"></span>
+        <span class="level"></span>
+      </div>
+      <img class="pokemon" src="" />
+    </div>
+  </div>
+  <div class="box">
+    <div class="actions">
+
+    </div>
+    <div id="message" class="message"></div>
+    <div class="continue"></div>
+  </div>
+  <img id="fullscreen" onclick="openFullscreen();"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/OOjs_UI_icon_fullScreen.svg/1200px-OOjs_UI_icon_fullScreen.svg.png" />
+</body>
+
+</html>

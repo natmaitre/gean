@@ -135,12 +135,16 @@ function compPokemon() {
 }
 
 function retreat() {
-  if (!player.move) document.querySelector(".box .actions").innerHTML = '<button onclick="startGameOver()">Retreat</button>'
+  if (!player.move) {
+    document.getElementById("message").innerHTML = "Do you really want to retreat ?"
+    document.querySelector(".box .actions").innerHTML = '<button onclick="startGameOver()">Retreat</button>'
+  }
 }
 
 function showAttack() {
   if (!player.move) {
     document.querySelector(".box .actions").innerHTML = ""
+    document.getElementById("message").innerHTML = "Select your attack"
     for (const p of player.attacks)
       document.querySelector(".box .actions").innerHTML += '<button onclick=\'' + p.function+'("player","' + p.name + '",' + p.damage + ');\'>' + p.name + '</button>'
   }
@@ -148,8 +152,8 @@ function showAttack() {
 
 function showContinue() {
   if (!player.move) document.querySelector(".box .continue").innerHTML = '<button onclick="showAttack()">Attack</button>\
-  <button onclick="compPokemon()">Switch</button>\
-  <button onclick="compPokemon()">Action</button>\
+  <button onclick="">Switch</button>\
+  <button onclick="">Action</button>\
   <button onclick="retreat()">Retreat</button>'
 }
 
@@ -157,10 +161,12 @@ function startGame() {
   for (const d of db) {
     if (opID[opPOS] === d.id) {
       if (opponent.hp <= 0) opponent = JSON.parse(JSON.stringify(d))
+      document.getElementById("opoke" + opPOS).style['background-image'] = 'url("' + opponent.picImg + '")'
       opponent.move = 0
     }
     if (plID[plPOS] === d.id) {
       if (player.hp <= 0) player = JSON.parse(JSON.stringify(d))
+      document.getElementById("ppoke" + plPOS).style['background-image'] = 'url("' + player.picImg + '")'
       player.move = 1
     }
   }

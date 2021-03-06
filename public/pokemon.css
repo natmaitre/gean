@@ -165,8 +165,8 @@ body {
   float: left;
   background-image: url('http://bit.ly/pokeballimg');
   background-size: 100% 100%;
-  width: 25px;
-  height: 25px;
+  width: 4vh;
+  height: 4vh;
 }
 
 .stats .hp-count:before {

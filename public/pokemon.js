@@ -1,7 +1,10 @@
-let plPOS = 0
-let opPOS = 0
+var plPOS = 0
+var opPOS = 0
 const plID = ['pikachu', 'blastoise', 'caterpie']
 const opID = ['bulbasaur', 'nidoran', 'charizard']
+
+var plDECK = [{}, {}, {}]
+var opDECK = [{}, {}, {}]
 
 let player = {
   hp: 0
@@ -150,32 +153,60 @@ function retreat () {
   }
 }
 
+function switchPokemon (pos) {
+  plPOS = pos
+  player = plDECK[plPOS]
+  document.querySelector('.box .actions').innerHTML = ''
+  document.getElementById('message').innerHTML = 'Pokemon switched!'
+  document.querySelector('.player .pokemon').src = player.backImg
+  document.querySelector('.player .stats .name').innerHTML = player.name
+  document.querySelector('.player .stats .level').innerHTML = player.level
+  document.getElementById('myHP').innerHTML = player.hp
+  playerTurn()
+}
+
+function showSwitchPokemon () {
+  if (!player.move) {
+    document.querySelector('.box .actions').innerHTML = ''
+    document.getElementById('message').innerHTML = 'Select your pokemon'
+    for (let o in plDECK) {
+      document.querySelector('.box .actions').innerHTML += '<button onclick="switchPokemon(' + o + ');"><div style=""><img src="' + plDECK[o].picImg + '" /><div style="position: absolute;top: 10%;left: 50%;transform: translate(-50%, -50%);">' + plDECK[o].hp + '</div></div></button>'
+    }
+  }
+}
+
 function showAttack () {
   if (!player.move) {
     document.querySelector('.box .actions').innerHTML = ''
     document.getElementById('message').innerHTML = 'Select your attack'
-    for (const p of player.attacks) { document.querySelector('.box .actions').innerHTML += '<button onclick=\'' + p.function + '("player","' + p.name + '",' + p.damage + ');\'>' + p.name + '</button>' }
+    for (const p of player.attacks) { 
+      document.querySelector('.box .actions').innerHTML += '<button onclick=\'' + p.function + '("player","' + p.name + '",' + p.damage + ');\'>' + p.name + '</button>' 
+    }
   }
 }
 
 function showContinue () {
   if (!player.move) {
-    document.querySelector('.box .continue').innerHTML = '<button onclick="showAttack()">Attack</button><button onclick="">Switch</button><button onclick="">Action</button><button onclick="retreat()">Retreat</button>'
+    document.querySelector('.box .continue').innerHTML = '<button onclick="showAttack()">Attack</button><button onclick="showSwitchPokemon();">Switch</button><button onclick="">Action</button><button onclick="retreat()">Retreat</button>'
   }
 }
 
 function startGame () {
   for (const d of db) {
+    if (opID.includes(d.id)) opDECK[opID.indexOf(d.id)] = JSON.parse(JSON.stringify(d))
     if (opID[opPOS] === d.id) {
-      if (opponent.hp <= 0) opponent = JSON.parse(JSON.stringify(d))
+      if (opponent.hp <= 0) opponent = opDECK[opID.indexOf(d.id)]
       document.getElementById('opoke' + opPOS).style['background-image'] = 'url("' + opponent.picImg + '")'
       opponent.move = 0
     }
+    if (plID.includes(d.id)) plDECK[plID.indexOf(d.id)] = JSON.parse(JSON.stringify(d))
     if (plID[plPOS] === d.id) {
-      if (player.hp <= 0) player = JSON.parse(JSON.stringify(d))
-      document.getElementById('ppoke' + plPOS).style['background-image'] = 'url("' + player.picImg + '")'
+      if (player.hp <= 0) player = plDECK[plID.indexOf(d.id)]
       player.move = 1
     }
+  }
+  for (let o in plDECK) {
+    document.getElementById('ppoke' + o).style['background-image'] = 'url("' + plDECK[o].picImg + '")'
   }
   document.querySelector('.box .actions').innerHTML = ''
   document.getElementById('message').innerHTML = 'Select your action !'

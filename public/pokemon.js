@@ -1,90 +1,99 @@
-var player = {
+let plPOS = 0
+let opPOS = 0
+const plID = ['pikachu', 'blastoise', 'caterpie']
+const opID = ['bulbasaur', 'nidoran', 'charizard']
+
+let player = {
   hp: 0
 }
-var opponent = {
+let opponent = {
   hp: 0
 }
 
-function openFullscreen() {
-  var elem = document.getElementById("body");
+function openFullscreen () {
+  const elem = document.getElementById('body')
   if (elem.requestFullscreen) {
-    elem.requestFullscreen();
+    elem.requestFullscreen()
   } else if (elem.webkitRequestFullscreen) {
-    elem.webkitRequestFullscreen();
+    elem.webkitRequestFullscreen()
   } else if (elem.msRequestFullscreen) {
-    elem.msRequestFullscreen();
+    elem.msRequestFullscreen()
   }
 }
 
-function playerTurn() {
+function playerTurn () {
   player.move = !player.move
   opponent.move = !opponent.move
-  document.querySelector(".player .stats").style['border-color'] = 'black'
-  document.querySelector(".opponent .stats").style['border-color'] = 'black'
-  document.querySelector(".box .actions").innerHTML = "";
+  document.querySelector('.player .stats').style['border-color'] = 'black'
+  document.querySelector('.opponent .stats').style['border-color'] = 'black'
+  document.querySelector('.box .actions').innerHTML = ''
   if (!player.move) {
-    document.querySelector(".player .stats").style['border-color'] = 'yellow'
+    document.querySelector('.player .stats').style['border-color'] = 'yellow'
     showContinue()
   }
   if (!opponent.move) {
-    document.querySelector(".box .continue").innerHTML = ""
-    document.querySelector(".opponent .stats").style['border-color'] = 'yellow'
+    document.querySelector('.box .continue').innerHTML = ''
+    document.querySelector('.opponent .stats').style['border-color'] = 'yellow'
     setTimeout(function () {
       compPokemon()
     }, 1500)
   }
 }
 
-function fainted(pokemon) {
+function fainted (pokemon) {
   if (pokemon.hp <= 0) {
-    document.getElementById('message').innerHTML = " " + pokemon.name + " fainted! "
+    document.getElementById('message').innerHTML = ' ' + pokemon.name + ' fainted! '
     if (player.move) {
       plPOS++
-      document.querySelector(".player .pokemon").src = '/imgs/explosion.gif'
+      document.querySelector('.player .pokemon').src = '/imgs/explosion.gif'
       setTimeout(function () {
-        document.querySelector(".player .pokemon").src = ""
+        document.querySelector('.player .pokemon').src = ''
       }, 1000)
     } else {
       opPOS++
-      document.querySelector(".opponent .pokemon").src = '/imgs/explosion.gif'
+      document.querySelector('.opponent .pokemon').src = '/imgs/explosion.gif'
       setTimeout(function () {
-        document.querySelector(".opponent .pokemon").src = ""
+        document.querySelector('.opponent .pokemon').src = ''
       }, 1000)
     }
-    if (plPOS >= plID.length) setTimeout(function () {
-      startGameOver()
-    }, 3000)
-    else if (opPOS >= plID.length) setTimeout(function () {
-      startGameOver()
-    }, 3000)
-    else setTimeout(function () {
-      startGame()
-    }, 3000)
+    if (plPOS >= plID.length) {
+      setTimeout(function () {
+        startGameOver()
+      }, 3000)
+    } else if (opPOS >= plID.length) {
+      setTimeout(function () {
+        startGameOver()
+      }, 3000)
+    } else {
+      setTimeout(function () {
+        startGame()
+      }, 3000)
+    }
   }
 }
 
-function attack(name, attacker, defenser, damage) {
+function attack (name, attacker, defenser, damage) {
   if ((attacker.hp > 0) && (defenser.hp > 0)) {
-    var miss = Math.floor((Math.random() * 10) + 1);
-    if (miss == 1) {
-      document.getElementById('message').innerHTML = "<span style='color:red'>" + attacker.name + "'s attack missed!<span>";
+    const miss = Math.floor((Math.random() * 10) + 1)
+    if (miss === 1) {
+      document.getElementById('message').innerHTML = "<span style='color:red'>" + attacker.name + "'s attack missed!<span>"
     } else {
       for (const a of attacker.attacks) {
         if (name === a.function) name = a.name
       }
-      document.getElementById('message').innerHTML = " " + attacker.name + " used " + name + " ";
-      let style = ""
-      var critical = Math.floor((Math.random() * 10) + 1);
+      document.getElementById('message').innerHTML = ' ' + attacker.name + ' used ' + name + ' '
+      let style = ''
+      const critical = Math.floor((Math.random() * 10) + 1)
       if (critical === 4) {
-        style = "color:green"
-        damage = 2 * damage;
+        style = 'color:green'
+        damage = 2 * damage
       }
-      document.getElementById('message').innerHTML += "<span style='" + style + "'> (" + damage + ") </span>";
-      defenser.hp = defenser.hp - damage;
+      document.getElementById('message').innerHTML += "<span style='" + style + "'> (" + damage + ') </span>'
+      defenser.hp = defenser.hp - damage
       if (defenser.hp < 0) {
         defenser.hp = 0
       }
-      if (opponent.move) document.getElementById('apHP').innerHTML = defenser.hp;
+      if (opponent.move) document.getElementById('apHP').innerHTML = defenser.hp
       else document.getElementById('myHP').innerHTML = defenser.hp
       fainted(defenser)
     }
@@ -92,98 +101,96 @@ function attack(name, attacker, defenser, damage) {
   }
 }
 
-function attackType(type, name, damage) {
+function attackType (type, name, damage) {
   if (type === 'player') attack(name, player, opponent, damage)
   else attack(name, opponent, player, damage)
 }
 
-function waterCannon(type, name, damage) {
+function waterCannon (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function waterPulse(type, name, damage) {
+function waterPulse (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function surf(type, name, damage) {
+function surf (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function tackle(type, name, damage) {
+function tackle (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function flameThrower(type, name, damage) {
+function flameThrower (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function dragonClaw(type, name, damage) {
+function dragonClaw (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function ember(type, name, damage) {
+function ember (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function growl(type, name, damage) {
+function growl (type, name, damage) {
   attackType(type, name, damage)
 }
 
-function compPokemon() {
-  let a = Math.floor(Math.random() * 4)
-  eval(opponent.attacks[a].function)('opponent', opponent.attacks[a].name, opponent.attacks[a].damage);
+function compPokemon () {
+  const a = Math.floor(Math.random() * 4)
+  eval(opponent.attacks[a].function)('opponent', opponent.attacks[a].name, opponent.attacks[a].damage)
 }
 
-function retreat() {
+function retreat () {
   if (!player.move) {
-    document.getElementById("message").innerHTML = "Do you really want to retreat ?"
-    document.querySelector(".box .actions").innerHTML = '<button onclick="startGameOver()">Retreat</button>'
+    document.getElementById('message').innerHTML = 'Do you really want to retreat ?'
+    document.querySelector('.box .actions').innerHTML = '<button onclick="startGameOver()">Retreat</button>'
   }
 }
 
-function showAttack() {
+function showAttack () {
   if (!player.move) {
-    document.querySelector(".box .actions").innerHTML = ""
-    document.getElementById("message").innerHTML = "Select your attack"
-    for (const p of player.attacks)
-      document.querySelector(".box .actions").innerHTML += '<button onclick=\'' + p.function+'("player","' + p.name + '",' + p.damage + ');\'>' + p.name + '</button>'
+    document.querySelector('.box .actions').innerHTML = ''
+    document.getElementById('message').innerHTML = 'Select your attack'
+    for (const p of player.attacks) { document.querySelector('.box .actions').innerHTML += '<button onclick=\'' + p.function + '("player","' + p.name + '",' + p.damage + ');\'>' + p.name + '</button>' }
   }
 }
 
-function showContinue() {
-  if (!player.move) document.querySelector(".box .continue").innerHTML = '<button onclick="showAttack()">Attack</button>\
-  <button onclick="">Switch</button>\
-  <button onclick="">Action</button>\
-  <button onclick="retreat()">Retreat</button>'
+function showContinue () {
+  if (!player.move) {
+    document.querySelector('.box .continue').innerHTML = '<button onclick="showAttack()">Attack</button><button onclick="">Switch</button><button onclick="">Action</button><button onclick="retreat()">Retreat</button>'
+  }
 }
 
-function startGame() {
+function startGame () {
   for (const d of db) {
     if (opID[opPOS] === d.id) {
       if (opponent.hp <= 0) opponent = JSON.parse(JSON.stringify(d))
-      document.getElementById("opoke" + opPOS).style['background-image'] = 'url("' + opponent.picImg + '")'
+      document.getElementById('opoke' + opPOS).style['background-image'] = 'url("' + opponent.picImg + '")'
       opponent.move = 0
     }
     if (plID[plPOS] === d.id) {
       if (player.hp <= 0) player = JSON.parse(JSON.stringify(d))
-      document.getElementById("ppoke" + plPOS).style['background-image'] = 'url("' + player.picImg + '")'
+      document.getElementById('ppoke' + plPOS).style['background-image'] = 'url("' + player.picImg + '")'
       player.move = 1
     }
   }
-  document.querySelector(".box .actions").innerHTML = "";
-  document.getElementById("message").innerHTML = "Select your action !"
-  document.querySelector(".player .pokemon").src = player.backImg
-  document.querySelector(".opponent .pokemon").src = opponent.frontImg
-  document.querySelector(".player .stats .name").innerHTML = player.name
-  document.querySelector(".opponent .stats .name").innerHTML = opponent.name
-  document.querySelector(".player .stats .level").innerHTML = player.level
-  document.querySelector(".opponent .stats .level").innerHTML = opponent.level
-  document.getElementById('apHP').innerHTML = opponent.hp;
-  document.getElementById('myHP').innerHTML = player.hp;
-  playerTurn();
+  document.querySelector('.box .actions').innerHTML = ''
+  document.getElementById('message').innerHTML = 'Select your action !'
+  document.querySelector('.player .pokemon').src = player.backImg
+  document.querySelector('.opponent .pokemon').src = opponent.frontImg
+  document.querySelector('.player .stats .name').innerHTML = player.name
+  document.querySelector('.opponent .stats .name').innerHTML = opponent.name
+  document.querySelector('.player .stats .level').innerHTML = player.level
+  document.querySelector('.opponent .stats .level').innerHTML = opponent.level
+  document.getElementById('apHP').innerHTML = opponent.hp
+  document.getElementById('myHP').innerHTML = player.hp
+  playerTurn()
 }
 
-function startGameOver() {
+function startGameOver () {
   plPOS = 0
   opPOS = 0
   player = {
@@ -196,10 +203,9 @@ function startGameOver() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  plID = ["pikachu", "blastoise", "caterpie"]
-  opID = ["bulbasaur", "nidoran", "charizard"]
+  document.getElementById('fullscreen').addEventListener('click', function (event) {
+    openFullscreen()
+  })
 
   startGameOver()
-
-}, false);
+}, false)

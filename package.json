@@ -4,7 +4,9 @@
   "description": "Pokemon game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint && npm run unit",
+    "lint": "eslint --fix --ext .js index.js test/unit",
+    "unit": "jest",
     "start": "node index.js"
   },
   "repository": {
@@ -18,6 +20,44 @@
   },
   "homepage": "https://github.com/natmaitre/pokemon#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "*"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-config-standard": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-promise": "*",
+    "eslint-plugin-jest": "*",
+    "eslint-plugin-node": "*",
+    "eslint-plugin-standard": "*",
+    "jest": "*",
+    "supertest": "*"
+  },
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node",
+    "modulePaths": [
+      "<rootDir>",
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "test/coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    },
+    "collectCoverageFrom": [
+      "*.js",
+      "public/*.js",
+      "!**/node_modules/**"
+    ]
   }
 }

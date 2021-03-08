@@ -2,56 +2,29 @@
 <html>
 
 <head>
-  <title>Pokemon</title>
+  <title>NatPoke</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32"
     href="https://www.yoctu.com/wp-content/themes/yoctu/images/favicon/favicon-32x32.png">
   <script type="text/javascript" src="./database.js"></script>
-  <script type="text/javascript" src="./pokemon.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
   <link rel="stylesheet" type="text/css" href="pokemon.css" />
 </head>
 
 <body id="body">
-  <div class="game">
-    <div class="opponent">
-      <div class="stats">
-        <div class="top">
-          <div class="pokeballs">
-            <div class="pokeball" id="opoke0"></div>
-            <div class="pokeball" id="opoke1"></div>
-            <div class="pokeball" id="opoke2"></div>
-          </div>
-          <div id="apHP" class="hp-count"></div>
-        </div>
-        <span class="name"></span>
-        <span class="level"></span>
-      </div>
-      <img class="pokemon" src="" />
+    <div align="center"><h1 style="color:white;">NatPoke</h1></div>
+    <div id="letsbattle">
+        <button id="battlebtn" class="battlebtn" onclick="window.location.replace('/fight.html');" disabled>Battle</button>
     </div>
-    <div class="player">
-      <div class="stats">
-        <div class="top">
-          <div class="pokeballs">
-            <div class="pokeball" id="ppoke0"></div>
-            <div class="pokeball" id="ppoke1"></div>
-            <div class="pokeball" id="ppoke2"></div>
-          </div>
-          <div id="myHP" class="hp-count"></div>
-        </div>
-        <span class="name"></span>
-        <span class="level"></span>
-      </div>
-      <img class="pokemon" src="" />
+    <div id="slots" align="center">
+        <div class="slot" id="slot0"></div>
+        <div class="slot" id="slot1"></div>
+        <div class="slot" id="slot2"></div>
     </div>
-  </div>
-  <div class="box">
-    <div class="actions">
-
+    <div id="arrowleft"><img src="/imgs/left.png" style="position:absolute;height:7vh;top:40vh;width:3vw;left:5vw;" /></div>
+    <div id="main" class="main" align="center">
     </div>
-    <div id="message" class="message"></div>
-    <div class="continue"></div>
-  </div>
-  <img id="fullscreen" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/OOjs_UI_icon_fullScreen.svg/1200px-OOjs_UI_icon_fullScreen.svg.png" />
+    <div id="arrowright"><img src="/imgs/right.png"  style="position:absolute;height:7vh;top:40vh;width:3vw;right:5vw;"/></div>
 </body>
 
 </html>

@@ -11,6 +11,24 @@ body {
   height: 10vh;
 }
 
+#main {
+  position: absolute;
+  margin: auto;
+  top: 32vh;
+  height: 20vh;
+  left: 10vw;
+  width: 80vw;
+  border: 3px solid #666;
+  border-radius: 8px 8px 8px 8px;
+  background-color: #333;
+}
+
+.imageSelect {
+  margin: 5px;
+  padding: 5px;
+  width: 10vw;
+}
+
 .game {
   margin: auto;
   position: relative;
@@ -118,6 +136,84 @@ body {
   top: 75vh;
   width: 30vw;
   height: 20vh;
+}
+
+#letsbattle {
+  position: absolute;
+  right: 12vw;
+  top: 15vh;
+}
+
+.slot {
+  background: #666;
+  border: 3px solid #888;
+  border-radius: 4px;
+  color: #fff;
+  font-family: monospace;
+  font-size: 3vh;
+  margin: 4px;
+  padding: 4px;
+  width: 16vw;
+  height: 15vh;
+  outline: none !important;
+}
+
+.slot:hover {
+  background: #777;
+  border-color: #999;
+}
+
+.slot:active {
+  background: #777;
+  border-color: yellow;
+}
+
+#slot0 {
+  position:absolute;
+  top: 10vh;
+  left: 10vw;
+}
+
+#slot1 {
+  position:absolute;
+  top: 10vh;
+  left: 30vw;
+}
+
+#slot2 {
+  position:absolute;
+  top: 10vh;
+  left: 50vw;
+}
+
+.battlebtn {
+  background: #666;
+  border: 3px solid #888;
+  border-radius: 4px;
+  color: #fff;
+  font-family: monospace;
+  font-size: 3vh;
+  margin: 4px;
+  padding: 4px;
+  width: 16vw;
+  height: 8vh;
+  outline: none !important;
+}
+
+.battlebtn:hover {
+  background: #777;
+  border-color: #999;
+}
+
+.battlebtn:active {
+  background: #555;
+  border-color: #000;
+}
+
+.battlebtn:disabled {
+  color: #000;
+  background: #555;
+  border-color: #666;
 }
 
 .box .actions button {

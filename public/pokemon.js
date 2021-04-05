@@ -72,11 +72,11 @@ function fainted(pokemon) {
     }
     if (plPOS >= plID.length) {
       setTimeout(function () {
-        startGameOver()
+        lostGame()
       }, 3000)
     } else if (opPOS >= plID.length) {
       setTimeout(function () {
-        startGameOver()
+        winGame()
       }, 3000)
     } else {
       setTimeout(function () {
@@ -160,7 +160,7 @@ function compPokemon() {
 function retreat() {
   if (!player.move) {
     document.getElementById('message').innerHTML = 'Do you really want to retreat ?'
-    document.querySelector('.box .actions').innerHTML = '<button onclick="window.location.replace(\'/\');">Retreat</button>'
+    document.querySelector('.box .actions').innerHTML = '<button onclick="window.location.replace(\'/lost.html\');">Retreat</button>'
   }
 }
 
@@ -202,6 +202,16 @@ function showContinue() {
   }
 }
 
+function lostGame() {
+  endGame()
+  window.location = '/lost.html'
+}
+
+function winGame() {
+  endGame()
+  window.location = '/won.html'
+}
+
 function startGame() {
   for (const d of db) {
     if (opID.includes(d.id)) opDECK[opID.indexOf(d.id)] = JSON.parse(JSON.stringify(d))
@@ -232,7 +242,7 @@ function startGame() {
   playerTurn()
 }
 
-function startGameOver() {
+function endGame() {
   plPOS = 0
   opPOS = 0
   player = {
@@ -241,6 +251,10 @@ function startGameOver() {
   opponent = {
     hp: 0
   }
+}
+
+function startGameOver() {
+  endGame()
   startGame()
 }
 

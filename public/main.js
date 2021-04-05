@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     for (const d in MyDeck) {
-        document.getElementById('slot' + d).innerHTML = '<img class="imageSelect" src="' + MyDeck[d].picImg + '" />'
+        document.getElementById('slot' + d).innerHTML = '<img class="imageSelect" src="' + (MyDeck[d].picImg || '') + '" />'
     }
     if ('id' in MyDeck[0] && 'id' in MyDeck[1] && 'id' in MyDeck[2]) {
         document.getElementById('battlebtn').disabled = false

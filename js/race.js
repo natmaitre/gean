@@ -18,7 +18,7 @@ Race.COUNTDOWN_INTERVAL = 800;
 Race.prototype = {
   init: function () {},
   start: function (trackNumber) {
-    raceAudioEngineSpeed(0);
+    raceAudioEngineSpeed(0);   
     this.raceNumber = trackNumber;
     track = new Track();
     track.buildTrack(this.raceNumber)
@@ -107,6 +107,13 @@ Race.prototype = {
       var trackLeft = segment.p1.world.x;
       var trackRight = segment.p2.world.x;
       car = new Car(n);
+      
+      //surchargercar 
+      if (n == 0) {
+        car.maxSpeed = 36000;
+      }
+      
+      
       var x = 0;
       if (n % 2) x = trackLeft / 2;
       else x = trackRight / 2 - car.width;
@@ -169,7 +176,8 @@ Race.prototype = {
     bgLayer2Offset = utilIncrease(bgLayer2Offset, bgLayer2Speed * playerSegment.curve * (camera.z - startPosition) / Track.segmentLength, 1);
     bgLayer1Offset = utilIncrease(bgLayer1Offset, bgLayer1Speed * playerSegment.curve * (camera.z - startPosition) / Track.segmentLength, 1);
   },
-  updateRaceOver: function () {},
+  updateRaceOver: function () {
+  },
   update: function (dt) {
     if (this.state == STATE_PRERACE) this.updatePrerace(dt);
     else if (this.state == STATE_COUNTDOWN) this.updateCountdown(dt);
@@ -178,6 +186,7 @@ Race.prototype = {
   render: function () {
     renderRender();
     if (this.state == STATE_PRERACE) {
+      raceAudioStart();
       context.font = 'italic bold ' + window.innerHeight / 5 + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';
       if (this.countdownNumber < 4) {
         cntx.fillStyle = DARKGREY;
@@ -222,6 +231,7 @@ Race.prototype = {
       }
     }
     if (this.state == STATE_RACEOVER) {
+      raceAudioEnd()
       context.font = ' 300px "Helvetica Neue", Helvetica, Arial, sans-serif';
       cntx.fillStyle = LIGHTGREY;
       context.fillText(cars[0].finishPosition, 300, 290);

@@ -260,59 +260,7 @@ Car.prototype = {
       this.z = utilIncrease(this.z, dt * this.speed * extraSpeed, track.getLength());
       this.y = utilInterpolate(currentSegment.p1.world.y, currentSegment.p3.world.y, this.percent);
 
-      // ---------------------------------------------- JUMP!!!
-      // make the car jump if going fast..
-      // y is the y position of the segment
-
-      /*
-      // gravity
-
-      if(this.yOffset >= 0) {
-        this.ySpeed -= dt * 75000;
-      } else {
-        this.ySpeed -= dt * 430000;
-      }
-      if(this.ySpeed < -2500) {
-        this.ySpeed = -2500;
-      }
-      // get the dy for the y position of the track
-      var dy = 0;
-      if(this.lastY !== false) {
-        dy = this.y - this.lastY;
-        if(dy < -1000) {
-          dy = 0;
-        }
-
-      }
-      this.lastY = this.y;
-
-
-      if(this.yOffset <= 0) {
-        // was last on ground, so y speed is based on y position of segment
-
-        var ydistTravelled = this.ySpeed * dt;
-        // y offset is 
-        this.yOffset = this.ySpeed * dt - dy;
-        if(this.yOffset <= 0) {
-          // we're on the ground
-          this.ySpeed = dy / dt;
-          this.yOffset = 0;
-        }
-
-      } else {
-        // in air..
-        this.yOffset += this.ySpeed * dt;
-        if(this.yOffset < 0) {
-          // we've landed
-          this.yOffset = 0;
-        }
-      }
-
-
-*/
       this.yOffset = 0;
-
-      // -------------- END JUMP
 
       if (this.accelerate) {
         if (this.turbo) {

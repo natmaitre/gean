@@ -46,6 +46,21 @@ TitleScreen.prototype = {
     var t = getTimestamp();
     cntx.fillStyle = DARKGREY;
     cntx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    cntx.fillStyle = '#4576aa';
+    cntx.fillRect(0, 0, this.canvas.width, this.canvas.height / 2);
+    cntx.fillStyle = '#047804';
+    cntx.beginPath();
+    cntx.moveTo(0, this.canvas.height / 2);
+    cntx.lineTo(this.canvas.width / 2, this.canvas.height / 2);
+    cntx.lineTo(0, this.canvas.height / 2 + 210);
+    cntx.closePath();
+    cntx.fill();
+    cntx.beginPath();
+    cntx.moveTo(this.canvas.width, this.canvas.height / 2);
+    cntx.lineTo(this.canvas.width / 2, this.canvas.height / 2);
+    cntx.lineTo(this.canvas.width, this.canvas.height / 2 + 210);
+    cntx.closePath();
+    cntx.fill();
     for (var i = 0; i < 30; i++) {
       var fontSize = 100 + i * 10;
       context.font = 'italic ' + fontSize + 'px "Helvetica Neue", Helvetica, Arial, sans-serif';

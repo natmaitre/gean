@@ -13,8 +13,16 @@ function raceAudioSetTurboTime(t) {
   audioTurboSpeed = 1 + t / 10000;
 }
 
+function raceAudioEnd() {
+    audioCtx.suspend();
+}
+
+function raceAudioStart() {
+  audioCtx.resume();
+}
+
 function raceAudioInit() {
-  if(audioCtx == null) {
+  if (audioCtx === null) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     raceAudioCreateEngineBuffer();
     raceAudioCreateTurboBuffer();
@@ -28,7 +36,7 @@ function raceAudioInit() {
           audioEngineFrame += audioScriptSpeed+ Math.random();
           audioTurboFrame += audioTurboSpeed ;
             index = Math.floor(audioTurboFrame) % audioTurboData.length;
-          channel[i] = audioTurboData[index];// + Math.random() * 0.2;
+          channel[i] = audioTurboData[index];
           index = Math.floor(audioEngineFrame) % audioEngineData.length;
           channel[i] += audioEngineData[index] + Math.random() * 0.01;
         } else {
@@ -116,7 +124,7 @@ function raceAudioTone(freq, duration) {
   var osc = audioCtx.createOscillator();
   osc.connect(gain);
   gain.connect(audioCtx.destination);
-  osc.type = "triangle";//"sawtooth";
+  osc.type = "triangle";
   osc.frequency.value = freq;
   gain.gain.value = 0.1;
   osc.start(audioCtx.currentTime);

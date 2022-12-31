@@ -93,7 +93,7 @@ function raceAudioCreateEngineBuffer() {
   var nextValue, nextPosition;
   var index = 0;
   audioEngineData[index++] = 1;
-  for (var i = 0.05; i < 1; i += Math.random()/8+0.01) {
+  for (var i = 0.05; i < 1; i += Math.random()/8+0.01) {  
     nextPosition = Math.floor(i * bufferSize);
     nextValue = Math.random() * 2 - 1;
     var positionDiff = nextPosition - (index - 1);
@@ -108,6 +108,7 @@ function raceAudioCreateEngineBuffer() {
   for (var j = 0; j < positionDiff; j++) {
     audioEngineData[index++] = lastValue + step * j ;
   }
+  console.log("engine data: "+audioEngineData);
 }
 
 function raceAudioCreateNoiseBuffer() {

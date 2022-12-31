@@ -98,6 +98,15 @@ Race.prototype = {
       }
     }
   },
+  customCar: function(car) {
+    if (CARS && CARS[0] && 'settings' in CARS[0]) {
+      car.maxSpeed = CARS[0].settings.maxSpeed;
+      car.maxTurboSpeed = CARS[0].settings.maxTurboSpeed;
+      car.accel = CARS[0].settings.accel;
+      car.breaking = CARS[0].settings.breaking;
+      car.decel = CARS[0].settings.decel;
+    }
+  },
   resetCars: function () {
     cars = [];
     var n, car, segment, z;
@@ -107,13 +116,9 @@ Race.prototype = {
       var trackLeft = segment.p1.world.x;
       var trackRight = segment.p2.world.x;
       car = new Car(n);
-      
-      //surchargercar 
       if (n == 0) {
-        car.maxSpeed = 36000;
-      }
-      
-      
+        this.customCar(car)
+      } 
       var x = 0;
       if (n % 2) x = trackLeft / 2;
       else x = trackRight / 2 - car.width;

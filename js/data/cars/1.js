@@ -1,4 +1,11 @@
 CARS[0] = {
+    "settings":{
+        "maxSpeed": 30000,
+        "maxTurboSpeed": 34000,
+        "accel": 6800,
+        "breaking": -18000,
+        "decel": -9000
+    },
     "back": {
         "a": {
             "points": [5, 197, 143, 197, 141, 87, 1, 87, 4, 106, 1, 121, 1, 180],

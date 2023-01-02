@@ -1,4 +1,5 @@
 TRACK[1] = {
+  "lap": 2,
   "colors": {
     "road": "#3a3a3a",
     "landlight": "#047804",

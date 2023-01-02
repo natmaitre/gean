@@ -140,7 +140,6 @@ function raceAudioCrash() {
   var crashTime = getTimestamp();
   if(crashTime - lastCrashTime < 1000) {
     return;
-
   }
   lastCrashTime = crashTime;
   var noteLength = 1/2;

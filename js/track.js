@@ -10,6 +10,7 @@ var Track = function () {
   this.trackLength = 0;
   this.currentAngle = 0;
   this.segments = [];
+  this.lap = 0;
   this.map = null;
 }
 
@@ -101,6 +102,7 @@ Track.prototype = {
     COLORS_LANEMARKER = TRACK[trackID].colors.lanemarker;
     COLORS_FOG = TRACK[trackID].colors.fog;
     if (TRACK[trackID].cars === true) createCars(TRACK[trackID].carsType);
+    this.lap = TRACK[trackID].lap;
     for (let s in TRACK[trackID].side) {
       if (TRACK[trackID].side[s] === 'TURNARROWS') createTurnArrows();
       if (TRACK[trackID].side[s] === 'TREES') createTrees();

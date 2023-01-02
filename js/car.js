@@ -400,7 +400,7 @@ Car.prototype = {
         this.newPositionTime = 1;
       }
     }
-    if (this.index === 0 && this.lap === 3 && race.state != STATE_RACEOVER) {
+    if (this.index === 0 && this.lap > track.lap && race.state != STATE_RACEOVER) {
       this.finishPosition = this.getPosition();
       this.turbo = false;
       this.slipstream = 0;

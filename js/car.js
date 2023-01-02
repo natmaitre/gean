@@ -25,6 +25,7 @@ var Car = function () {
   t.driftAmount = 0;
   t.driftDirection = 0;
   t.turboAmount = 100;
+  t.healthAmount = 100;
   t.lapStarted = false;
   t.centrifugal = 0.3;
   t.maxSpeed = 26000;
@@ -161,6 +162,13 @@ Car.prototype = {
   setDrift: function (drift) {
     this.driftRequest = drift;
   },
+  setHealth: function(h) {
+    var crashTime = getTimestamp();
+    if(crashTime - lastCrashTime < 1000) {
+      return;
+    }
+    this.healthAmount = Math.max(0, this.healthAmount - h);
+  },
   getCurrentLapTime: function () {
     return this.currentLapTime;
   },
@@ -283,6 +291,7 @@ Car.prototype = {
         var carX = this.x;
         if (this.overlap(carX, this.width, spriteX, spriteW, 1)) {
           if (this.index == 0) {
+            this.setHealth(10);
             raceAudioCrash();
             this.slipstream = 0;
             this.slipstreamTime = 0;
@@ -339,6 +348,7 @@ Car.prototype = {
                 }
               } else {
                 if (this.index == 0) {
+                  this.setHealth(10);
                   raceAudioCrash();
                   this.slipstream = 0;
                   this.slipstreamTime = 0;

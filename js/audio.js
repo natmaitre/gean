@@ -108,7 +108,6 @@ function raceAudioCreateEngineBuffer() {
   for (var j = 0; j < positionDiff; j++) {
     audioEngineData[index++] = lastValue + step * j ;
   }
-  console.log("engine data: "+audioEngineData);
 }
 
 function raceAudioCreateNoiseBuffer() {

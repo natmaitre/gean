@@ -225,10 +225,13 @@ Race.prototype = {
       context.fillText(speed + "km/h", window.innerWidth * 4 / 5, 80);
       context.font = ' 40px "Helvetica Neue", Helvetica, Arial, sans-serif';
       context.fillText("Turbo ", window.innerWidth * 4 / 5 - 100, 136);
+      context.fillText("Health ", window.innerWidth * 4 / 5 - 100, 186);
       cntx.beginPath();
       context.rect(window.innerWidth * 4 / 5 - 4, 110, 208, 28);
+      context.rect(window.innerWidth * 4 / 5 - 4, 160, 208, 28);
       cntx.stroke();
       cntx.fillRect(window.innerWidth * 4 / 5, 114, player.turboAmount * 2, 20);
+      cntx.fillRect(window.innerWidth * 4 / 5, 164, player.healthAmount * 2, 20);
       if (cars[0].newPositionTime > 0) {
         context.font = ' 60px "Helvetica Neue", Helvetica, Arial, sans-serif';
         cntx.fillStyle = LIGHTGREY;

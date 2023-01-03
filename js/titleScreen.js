@@ -1,4 +1,5 @@
 var TitleScreen = function (canvas, context) {
+  this.button = -1
   this.canvas = canvas;
   this.context = context;
   this.context.textAlign = 'center';
@@ -42,6 +43,25 @@ TitleScreen.prototype = {
     }
   },
   render: function (dt) {
+    gamepads = navigator.getGamepads();
+    for (const gamepad of gamepads) {
+      if (!gamepad) {
+        continue;
+      }
+      if(!(this.button in gamepad.buttons) || gamepad.buttons[this.button].pressed === false) this.button = -1; 
+      if(gamepad.buttons[0].pressed === true) {
+        if (this.button !== 0) {
+          this.button = 0;
+          startGame(0);
+        }
+      }
+      if(gamepad.buttons[1].pressed === true) {
+        if (this.button !== 1) {
+          this.button = 1;
+          startGame(1);
+        }
+      }
+    }
     cntx = this.context;
     var t = getTimestamp();
     cntx.fillStyle = DARKGREY;
@@ -72,8 +92,9 @@ TitleScreen.prototype = {
       cntx.fillText("gean", this.canvas.width / 2, 300 - i);
     }
     context.font = '44px "Helvetica Neue", Helvetica, Arial, sans-serif';
-    cntx.fillText("Arrow keys to drive, x for Turbo, z for Handbrake", this.canvas.width / 2, 570);
-    cntx.fillText("1,2,3 or 4 To Start", this.canvas.width / 2, 460);
+    cntx.fillText("Key 1,2,3 or 4 To Start", this.canvas.width / 2, 460);
+    cntx.fillText("Pad A,X,Y or B To Start", this.canvas.width / 2, 540);
+    cntx.fillText("Arrow keys to drive, x for Turbo, z for Handbrake", this.canvas.width / 2, 620);
     camera.z = utilIncrease(camera.z, dt * 120, track.getLength());
     this.renderRoad();
   }

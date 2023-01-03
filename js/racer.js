@@ -9,6 +9,10 @@ var getTimestamp = function () {
   return performance.now();
 };
 
+window.addEventListener('gamepadconnected', (event) => {
+  console.log('✅ 🎮 A gamepad was connected:', event.gamepad);
+})
+
 document.addEventListener("keydown", function (e) {
   if (racing === 1) race.keyDown(e);
   if (racing === 0) titleScreen.keyDown(e);

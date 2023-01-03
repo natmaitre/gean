@@ -213,6 +213,30 @@ Race.prototype = {
       context.fillText(this.countdownNumber, window.innerWidth / 2, 250);
     }
     if (this.state == STATE_RACING) {
+
+      gamepads = navigator.getGamepads();
+      for (const gamepad of gamepads) {
+        if (!gamepad) {
+          continue;
+        }
+        if(gamepad.buttons[0].pressed === true) {
+          player.setAccelerate(true);
+        } else player.setAccelerate(false);
+        if(gamepad.buttons[1].pressed === true) {
+          player.setBrake(true);
+        } else player.setBrake(false);
+        if(gamepad.buttons[9].pressed === true) {
+          player.setTurbo(true);
+        } else player.setTurbo(false);
+        if (parseInt(gamepad.axes[6]) === 1) {
+          player.setTurnRight(true);
+        } else player.setTurnRight(false);
+        if (parseInt(gamepad.axes[6]) === -1) {
+          player.setTurnLeft(true);
+        } else player.setTurnLeft(false);
+      }
+
+
       cntx.fillStyle = LIGHTGREY;
       cntx.strokeStyle = LIGHTGREY;
       context.font = ' 80px "Helvetica Neue", Helvetica, Arial, sans-serif';
